@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forno Rustico - Girmi MP20</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --cream: #FDF5E6; --dark-wood: #4B3621; --flour: #FFFFFF; --crust: #C08552; --shadow: rgba(0,0,0,0.1); }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--cream); color: var(--dark-wood); margin: 0; padding-bottom: 20px; }
+        header { background: var(--dark-wood); color: var(--cream); padding: 25px; text-align: center; border-bottom: 5px solid var(--crust); box-shadow: 0 4px 10px var(--shadow); }
+        header h1 { font-family: 'Playfair Display', serif; margin: 0; font-size: 1.8rem; letter-spacing: 1px; }
+        .recipe-list { padding: 15px; display: grid; gap: 15px; }
+        .recipe-card { background: var(--flour); padding: 18px; border-radius: 12px; border-left: 8px solid var(--crust); box-shadow: 0 4px 6px var(--shadow); cursor: pointer; transition: 0.2s; }
+        .recipe-card:active { transform: scale(0.98); }
+        .recipe-card h3 { margin: 0; font-size: 1.2rem; }
+        .recipe-card p { margin: 5px 0 0; font-size: 0.85rem; color: #666; font-weight: 600; text-transform: uppercase; }
+        #recipe-detail { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--cream); z-index: 100; overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .btn-back { background: var(--dark-wood); color: white; padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; margin-bottom: 20px; }
+        .ingredients-box { background: white; padding: 20px; border-radius: 10px; border: 2px dashed var(--crust); margin: 15px 0; }
+        .ingredients-box p { margin: 8px 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>FORNO RUSTICO</h1>
+    <small>Girmi MP20 Digital Assistant</small>
+</header>
+
+<div id="home-view">
+    <div class="recipe-list" id="recipeList"></div>
+</div>
+
+<div id="recipe-detail">
+    <button class="btn-back" onclick="closeDetail()">← TORNA ALLA LISTA</button>
+    <h2 id="det-title" style="font-family: 'Playfair Display'; font-size: 2rem; margin-bottom: 5px;"></h2>
+    <div id="det-prog" style="color: var(--crust); font-weight: bold; margin-bottom: 20px; font-size: 1.1rem;"></div>
+    
+    <h3>Ingredienti (Dosi 750g)</h3>
+    <div class="ingredients-box" id="det-ingredients"></div>
+    
+    <h3>Segreto del Fornaio</h3>
+    <p id="det-desc" style="line-height: 1.6; font-style: italic; background: #fff; padding: 15px; border-radius: 8px;"></p>
+</div>
+
+<script>
+    // LE TUE 20 RICETTE GIÀ PRONTE
+    const ricette = [
+        { id: 1, nome: "Baguette Alveolata", prog: "2 - FRANCESE", desc: "Usa acqua freddissima e farina Manitoba. Non aprire mai il coperchio!", ing: ["Acqua: 320ml", "Farina Manitoba: 450g", "Lievito Secco: 4g", "Sale: 9g", "Miele: 1 cucchiaino"] },
+        { id: 2, nome: "Pane Bianco Classico", prog: "1 - NORMALE", desc: "Il pane morbido perfetto per la colazione o i sandwich.", ing: ["Acqua: 280ml", "Farina 0: 450g", "Burro: 15g", "Sale: 8g", "Lievito: 5g"] },
+        { id: 3, nome: "Pane Integrale Rustico", prog: "3 - INTEGRALE", desc: "Molto saziante. Aggiungi un cucchiaio di malto se lo vuoi più scuro.", ing: ["Acqua: 300ml", "Farina Integrale: 500g", "Olio EVO: 2 cucchiai", "Sale: 10g", "Lievito: 6g"] },
+        { id: 4, nome: "Pane Rapido", prog: "4 - VELOCE", desc: "Per quando hai fretta. Usa acqua tiepida (non calda!).", ing: ["Acqua: 330ml", "Farina 0: 500g", "Zucchero: 1 cucchiaio", "Sale: 8g", "Lievito: 9g"] },
+        { id: 5, nome: "Pan Brioche", prog: "5 - BRIOCHE", desc: "Dolce e profumato. Ottimo con la marmellata.", ing: ["Latte: 180ml", "Uova: 1 intero", "Farina 00: 500g", "Burro morbido: 60g", "Zucchero: 80g", "Lievito: 7g"] },
+        { id: 6, nome: "Impasto Pizza", prog: "10 - IMPASTO PIZZA", desc: "Falla lievitare ancora 30 min in teglia dopo che la macchina finisce.", ing: ["Acqua: 300ml", "Farina 0: 500g", "Olio EVO: 20g", "Sale: 10g", "Lievito: 5g"] },
+        { id: 7, nome: "Pane alle Olive", prog: "12 - MIX 2", desc: "Aggiungi le olive quando senti il 'BIP' della macchina.", ing: ["Acqua: 280ml", "Farina 0: 500g", "Olive Taggiasche: 80g", "Sale: 7g", "Lievito: 5g"] },
+        { id: 8, nome: "Yogurt Naturale", prog: "15 - YOGURT", desc: "Lascia riposare in frigo 4 ore dopo la fine del programma.", ing: ["Latte Intero: 1 Litro", "Yogurt Bianco: 1 vasetto"] },
+        { id: 9, nome: "Marmellata di Fragole", prog: "17 - MARMELLATA", desc: "Taglia la frutta a pezzi piccoli. Attenzione: scotta tantissimo!", ing: ["Fragole: 500g", "Zucchero: 300g", "Limone: succo di mezzo"] },
+        { id: 10, nome: "Pane alla Birra", prog: "2 - FRANCESE", desc: "Usa una birra chiara a temperatura ambiente.", ing: ["Birra: 330ml", "Farina 0: 500g", "Zucchero: 1 cucchiaino", "Sale: 9g", "Lievito: 5g"] }
+    ];
+
+    function render() {
+        const list = document.getElementById('recipeList');
+        ricette.forEach(r => {
+            const card = document.createElement('div');
+            card.className = 'recipe-card';
+            card.onclick = () => openDetail(r);
+            card.innerHTML = `<h3>${r.nome}</h3><p>Programma: ${r.prog}</p>`;
+            list.appendChild(card);
+        });
+    }
+
+    function openDetail(r) {
+        document.getElementById('det-title').innerText = r.nome;
+        document.getElementById('det-prog').innerText = "USA IL PROGRAMMA: " + r.prog;
+        document.getElementById('det-desc').innerText = r.desc;
+        const ingBox = document.getElementById('det-ingredients');
+        ingBox.innerHTML = r.ing.map(i => `<p><strong>• ${i}</strong></p>`).join('');
+        document.getElementById('recipe-detail').style.display = 'block';
+    }
+
+    function closeDetail() { document.getElementById('recipe-detail').style.display = 'none'; }
+
+    // Avvia l'app
+    render();
+</script>
+
+</body>
+</html>
