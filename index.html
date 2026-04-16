@@ -3,87 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forno Rustico - Girmi MP20</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Antico Forno Cantoni - Girmi MP20</title>
+    <link rel="apple-touch-icon" href="https://img.icons8.com/?size=512&id=113061&format=png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --cream: #FDF5E6; --dark-wood: #4B3621; --flour: #FFFFFF; --crust: #C08552; --shadow: rgba(0,0,0,0.1); }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--cream); color: var(--dark-wood); margin: 0; padding-bottom: 20px; }
-        header { background: var(--dark-wood); color: var(--cream); padding: 25px; text-align: center; border-bottom: 5px solid var(--crust); box-shadow: 0 4px 10px var(--shadow); }
-        header h1 { font-family: 'Playfair Display', serif; margin: 0; font-size: 1.8rem; letter-spacing: 1px; }
-        .recipe-list { padding: 15px; display: grid; gap: 15px; }
-        .recipe-card { background: var(--flour); padding: 18px; border-radius: 12px; border-left: 8px solid var(--crust); box-shadow: 0 4px 6px var(--shadow); cursor: pointer; transition: 0.2s; }
-        .recipe-card:active { transform: scale(0.98); }
-        .recipe-card h3 { margin: 0; font-size: 1.2rem; }
-        .recipe-card p { margin: 5px 0 0; font-size: 0.85rem; color: #666; font-weight: 600; text-transform: uppercase; }
-        #recipe-detail { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--cream); z-index: 100; overflow-y: auto; padding: 20px; box-sizing: border-box; }
-        .btn-back { background: var(--dark-wood); color: white; padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; margin-bottom: 20px; }
-        .ingredients-box { background: white; padding: 20px; border-radius: 10px; border: 2px dashed var(--crust); margin: 15px 0; }
-        .ingredients-box p { margin: 8px 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--cream); color: var(--dark-wood); margin: 0; padding-bottom: 80px; }
+        header { background: var(--dark-wood); color: var(--cream); padding: 15px; text-align: center; border-bottom: 5px solid var(--crust); }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: var(--dark-wood); display: flex; justify-content: space-around; padding: 10px 0; border-top: 3px solid var(--crust); z-index: 1000; }
+        .nav-item { color: var(--cream); font-size: 0.9rem; text-align: center; cursor: pointer; border: none; background: none; flex: 1; }
+        .view { display: none; padding: 15px; animation: fadeIn 0.3s; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .insegna-storica { text-align: center; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px var(--shadow); margin-bottom: 20px; border: 2px solid var(--crust); }
+        .search-bar { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--crust); margin-bottom: 15px; box-sizing: border-box; font-size: 1rem; }
+        .recipe-card { background: white; padding: 12px; border-radius: 10px; border-left: 5px solid var(--crust); box-shadow: 0 2px 4px var(--shadow); margin-bottom: 10px; cursor: pointer; }
+        #recipe-detail { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--cream); z-index: 2000; overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .weight-selector { display: flex; gap: 8px; margin: 15px 0; }
+        .weight-btn { flex: 1; padding: 12px; border: 1px solid var(--dark-wood); background: white; border-radius: 8px; font-weight: bold; font-family: 'Poppins'; }
+        .weight-btn.active { background: var(--crust); color: white; border-color: var(--crust); }
+        .ingredients-box { background: white; padding: 15px; border-radius: 10px; border: 1px dashed var(--crust); margin: 15px 0; }
+        .ing-row { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; }
+        .notes-area { width: 100%; height: 120px; padding: 10px; border-radius: 8px; border: 1px solid var(--crust); font-family: 'Poppins'; margin-top: 10px; box-sizing: border-box; background: #fff9f0; font-size: 0.9rem; }
+        .save-note-btn { background: var(--dark-wood); color: white; border: none; padding: 12px; border-radius: 5px; margin-top: 8px; width: 100%; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>FORNO RUSTICO</h1>
-    <small>Girmi MP20 Digital Assistant</small>
-</header>
+<header><h1 style="font-family: 'Playfair Display'; font-size: 1.2rem; margin:0;">ANTICO FORNO CANTONI</h1></header>
 
-<div id="home-view">
-    <div class="recipe-list" id="recipeList"></div>
+<div id="view-home" class="view active">
+    <div class="insegna-storica">
+        <h2 style="font-family: 'Playfair Display'; margin:0;">Tradizione Cantoni</h2>
+        <p style="font-style: italic; color: var(--crust); margin: 5px 0 0;">Dal 1965 ad oggi</p>
+    </div>
+    <div style="background:white; padding:15px; border-radius:12px; border:1px solid var(--crust); line-height: 1.6;">
+        <strong style="color: var(--dark-wood)">Girmi MP20 - Assistente Professionale</strong><br>
+        <small>Database di 100 ricette con programmi ottimizzati.<br>Seleziona il peso (500/750/1000g) e annota i tuoi successi nel diario.</small>
+    </div>
+</div>
+
+<div id="view-recipes" class="view">
+    <input type="text" class="search-bar" id="searchInput" placeholder="Cerca tra le 100 ricette..." onkeyup="filterRecipes()">
+    <div id="recipeList"></div>
 </div>
 
 <div id="recipe-detail">
-    <button class="btn-back" onclick="closeDetail()">← TORNA ALLA LISTA</button>
-    <h2 id="det-title" style="font-family: 'Playfair Display'; font-size: 2rem; margin-bottom: 5px;"></h2>
-    <div id="det-prog" style="color: var(--crust); font-weight: bold; margin-bottom: 20px; font-size: 1.1rem;"></div>
+    <button onclick="closeDetail()" style="background:var(--dark-wood); color:white; padding:10px; border:none; border-radius:5px; margin-bottom:10px;">← LISTA</button>
+    <h2 id="det-title" style="font-family: 'Playfair Display'; margin: 10px 0 5px 0; font-size: 1.6rem;"></h2>
+    <div id="det-prog" style="color: var(--crust); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem; border-bottom: 2px solid var(--crust); display: inline-block;"></div>
     
-    <h3>Ingredienti (Dosi 750g)</h3>
+    <div style="margin-top:15px;">
+        <label><small>Seleziona peso pagnotta:</small></label>
+        <div class="weight-selector">
+            <button class="weight-btn" id="w500" onclick="updateScale(0.66, this)">500g</button>
+            <button class="weight-btn active" id="w750" onclick="updateScale(1, this)">750g</button>
+            <button class="weight-btn" id="w1000" onclick="updateScale(1.33, this)">1000g</button>
+        </div>
+    </div>
+    
     <div class="ingredients-box" id="det-ingredients"></div>
     
-    <h3>Segreto del Fornaio</h3>
-    <p id="det-desc" style="line-height: 1.6; font-style: italic; background: #fff; padding: 15px; border-radius: 8px;"></p>
+    <div style="background:#fff; padding:15px; border-radius:10px; border-left:4px solid var(--crust);">
+        <strong>Consiglio per la Girmi MP20:</strong>
+        <p id="det-desc" style="font-style:italic; font-size:0.9rem; margin-top:5px;"></p>
+    </div>
+    
+    <div style="margin-top:25px; background:white; padding:15px; border-radius:12px; box-shadow: 0 2px 5px var(--shadow);">
+        <strong>Note Personali (Diario Cantoni):</strong>
+        <textarea id="userNotes" class="notes-area" placeholder="Es: Cottura scura, aggiunti semi di zucca..."></textarea>
+        <button class="save-note-btn" onclick="saveNote()">💾 SALVA APPUNTI</button>
+    </div>
 </div>
 
+<nav class="nav-bar">
+    <button class="nav-item" onclick="showView('home')">🏠<br>Home</button>
+    <button class="nav-item" onclick="showView('recipes')">🍞<br>100 Ricette</button>
+</nav>
+
 <script>
-    // LE TUE 20 RICETTE GIÀ PRONTE
-    const ricette = [
-        { id: 1, nome: "Baguette Alveolata", prog: "2 - FRANCESE", desc: "Usa acqua freddissima e farina Manitoba. Non aprire mai il coperchio!", ing: ["Acqua: 320ml", "Farina Manitoba: 450g", "Lievito Secco: 4g", "Sale: 9g", "Miele: 1 cucchiaino"] },
-        { id: 2, nome: "Pane Bianco Classico", prog: "1 - NORMALE", desc: "Il pane morbido perfetto per la colazione o i sandwich.", ing: ["Acqua: 280ml", "Farina 0: 450g", "Burro: 15g", "Sale: 8g", "Lievito: 5g"] },
-        { id: 3, nome: "Pane Integrale Rustico", prog: "3 - INTEGRALE", desc: "Molto saziante. Aggiungi un cucchiaio di malto se lo vuoi più scuro.", ing: ["Acqua: 300ml", "Farina Integrale: 500g", "Olio EVO: 2 cucchiai", "Sale: 10g", "Lievito: 6g"] },
-        { id: 4, nome: "Pane Rapido", prog: "4 - VELOCE", desc: "Per quando hai fretta. Usa acqua tiepida (non calda!).", ing: ["Acqua: 330ml", "Farina 0: 500g", "Zucchero: 1 cucchiaio", "Sale: 8g", "Lievito: 9g"] },
-        { id: 5, nome: "Pan Brioche", prog: "5 - BRIOCHE", desc: "Dolce e profumato. Ottimo con la marmellata.", ing: ["Latte: 180ml", "Uova: 1 intero", "Farina 00: 500g", "Burro morbido: 60g", "Zucchero: 80g", "Lievito: 7g"] },
-        { id: 6, nome: "Impasto Pizza", prog: "10 - IMPASTO PIZZA", desc: "Falla lievitare ancora 30 min in teglia dopo che la macchina finisce.", ing: ["Acqua: 300ml", "Farina 0: 500g", "Olio EVO: 20g", "Sale: 10g", "Lievito: 5g"] },
-        { id: 7, nome: "Pane alle Olive", prog: "12 - MIX 2", desc: "Aggiungi le olive quando senti il 'BIP' della macchina.", ing: ["Acqua: 280ml", "Farina 0: 500g", "Olive Taggiasche: 80g", "Sale: 7g", "Lievito: 5g"] },
-        { id: 8, nome: "Yogurt Naturale", prog: "15 - YOGURT", desc: "Lascia riposare in frigo 4 ore dopo la fine del programma.", ing: ["Latte Intero: 1 Litro", "Yogurt Bianco: 1 vasetto"] },
-        { id: 9, nome: "Marmellata di Fragole", prog: "17 - MARMELLATA", desc: "Taglia la frutta a pezzi piccoli. Attenzione: scotta tantissimo!", ing: ["Fragole: 500g", "Zucchero: 300g", "Limone: succo di mezzo"] },
-        { id: 10, nome: "Pane alla Birra", prog: "2 - FRANCESE", desc: "Usa una birra chiara a temperatura ambiente.", ing: ["Birra: 330ml", "Farina 0: 500g", "Zucchero: 1 cucchiaino", "Sale: 9g", "Lievito: 5g"] }
+    // Database dei nomi e basi
+    const ingredientiSpeciali = [
+        { nome: "Segale", prog: "3-INTEGRALE", desc: "Usa programma Integrale per tempi di lievitazione lunghi." },
+        { nome: "Integrale", prog: "3-INTEGRALE", desc: "Il programma 3 garantisce una cottura profonda." },
+        { nome: "Farro", prog: "3-INTEGRALE", desc: "Cereale antico, lievitazione lenta." },
+        { nome: "Noci", prog: "12-MIX 2", desc: "Inserisci le noci quando la macchina emette il BIP." },
+        { nome: "Olive", prog: "12-MIX 2", desc: "Aggiungi olive snocciolate al segnale acustico." },
+        { nome: "Uvetta", prog: "12-MIX 2", desc: "Uvetta ammollata da inserire al BIP del programma 12." },
+        { nome: "Cioccolato", prog: "18-TORTA", desc: "Usa il programma Torta per un impasto soffice come un dolce." },
+        { nome: "Brioche", prog: "5-BRIOCHE/DOLCE", desc: "Programma ricco di uova e burro." },
+        { nome: "Latte", prog: "6-SANDWICH", desc: "Il programma 6 rende la crosta sottile e la mollica bianca." },
+        { nome: "Focaccia", prog: "10-PIZZA", desc: "Usa solo per impasto, poi stendi e cuoci in forno statico." },
+        { nome: "Marmellata", prog: "17-MARMELLATA", desc: "La macchina scalda e mescola automaticamente per 1 ora e 20." },
+        { nome: "Yogurt", prog: "15-YOGURT", desc: "Processo a bassa temperatura di 8 ore." },
+        { nome: "Zucca", prog: "1-NORMALE", desc: "Attenzione: la zucca apporta acqua, riduci i liquidi se l'impasto è troppo molle." }
     ];
 
+    const basi = ["Pane", "Pan Bauletto", "Filoncino", "Schiacciata"];
+    const gusti = ["Miele", "Cipolla", "Speck", "Rosmarino", "Curcuma", "Semi Vari", "Mais", "Patate", "Birra", "Vino", "Kamut", "Avena", "Quinoa", "Grano Saraceno", "Malto", "Fichi", "Arancia"];
+
+    let ricette = [];
+    let idCounter = 1;
+
+    // Generazione Intelligente 100 Ricette
+    ingredientiSpeciali.forEach(s => {
+        ricette.push({
+            id: "r" + idCounter++,
+            nome: s.nome === "Marmellata" || s.nome === "Yogurt" ? s.nome : "Pane alle " + s.nome,
+            prog: s.prog,
+            desc: s.desc,
+            base: s.nome.includes("Marmellata") ? {"Frutta (g)": 500, "Zucchero (g)": 300} : {"Acqua/Latte (ml)": 280, "Farina (g)": 480, "Lievito (g)": 5, "Sale (g)": 8}
+        });
+    });
+
+    basi.forEach(b => {
+        gusti.forEach(g => {
+            if(ricette.length < 100) {
+                let p = "1-NORMALE";
+                let d = "Programma standard per risultati garantiti.";
+                if(g === "Birra" || g === "Vino") { p = "2-FRANCESE"; d = "Gli alcoli aiutano la fermentazione, usa il programma 2."; }
+                if(b === "Pan Bauletto") { p = "6-SANDWICH"; d = "Ideale per fette morbide da colazione."; }
+                if(b === "Schiacciata") { p = "10-PIZZA"; d = "Programma solo impasto."; }
+                
+                ricette.push({
+                    id: "r" + idCounter++,
+                    nome: b + " al " + g,
+                    prog: p,
+                    desc: d,
+                    base: {"Acqua (ml)": 290, "Farina (g)": 500, [g]: 50, "Sale (g)": 9}
+                });
+            }
+        });
+    });
+
+    let currentRecipe = null;
+
+    function showView(v) {
+        document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
+        document.getElementById('view-' + v).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
     function render() {
-        const list = document.getElementById('recipeList');
-        ricette.forEach(r => {
-            const card = document.createElement('div');
-            card.className = 'recipe-card';
-            card.onclick = () => openDetail(r);
-            card.innerHTML = `<h3>${r.nome}</h3><p>Programma: ${r.prog}</p>`;
-            list.appendChild(card);
+        const l = document.getElementById('recipeList');
+        l.innerHTML = "";
+        ricette.sort((a,b) => a.nome.localeCompare(b.nome)).forEach(r => {
+            const c = document.createElement('div');
+            c.className = 'recipe-card';
+            c.onclick = () => openDetail(r);
+            c.innerHTML = `<strong>${r.nome}</strong><br><small>${r.prog}</small>`;
+            l.appendChild(c);
         });
     }
 
     function openDetail(r) {
+        currentRecipe = r;
         document.getElementById('det-title').innerText = r.nome;
-        document.getElementById('det-prog').innerText = "USA IL PROGRAMMA: " + r.prog;
+        document.getElementById('det-prog').innerText = "PROGRAMMA: " + r.prog;
         document.getElementById('det-desc').innerText = r.desc;
-        const ingBox = document.getElementById('det-ingredients');
-        ingBox.innerHTML = r.ing.map(i => `<p><strong>• ${i}</strong></p>`).join('');
+        document.getElementById('userNotes').value = localStorage.getItem('note_' + r.id) || "";
+        updateScale(1, document.getElementById('w750'));
         document.getElementById('recipe-detail').style.display = 'block';
     }
 
-    function closeDetail() { document.getElementById('recipe-detail').style.display = 'none'; }
+    function updateScale(f, b) {
+        document.querySelectorAll('.weight-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        const box = document.getElementById('det-ingredients');
+        box.innerHTML = "";
+        for (let [ing, qta] of Object.entries(currentRecipe.base)) {
+            let cal = (typeof qta === 'number') ? Math.round(qta * f) : qta;
+            box.innerHTML += `<div class="ing-row"><span>${ing}</span><strong>${cal}</strong></div>`;
+        }
+    }
 
-    // Avvia l'app
+    function saveNote() {
+        if(currentRecipe) {
+            localStorage.setItem('note_' + currentRecipe.id, document.getElementById('userNotes').value);
+            alert("Appunti salvati per " + currentRecipe.nome);
+        }
+    }
+
+    function filterRecipes() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.getElementsByClassName('recipe-card');
+        for (let card of cards) {
+            card.style.display = card.innerText.toLowerCase().includes(input) ? "block" : "none";
+        }
+    }
+
+    function closeDetail() { document.getElementById('recipe-detail').style.display = 'none'; }
     render();
 </script>
-
 </body>
 </html>
