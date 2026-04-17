@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antico Forno Cantoni - Grande Archivio</title>
+    <title>Antico Forno Cantoni - Gold Edition</title>
     
     <link rel="apple-touch-icon" href="https://img.icons8.com/papercut/512/bread.png">
     <link rel="icon" type="image/png" href="https://img.icons8.com/papercut/512/bread.png">
@@ -11,7 +11,7 @@
     
     <style>
         :root {
-            --gold: #D4AF37; --dark: #2D1E12; --cream: #FFFDF5; --accent: #C08552;
+            --gold: #D4AF37; --dark: #2D1E12; --cream: #FFFDF5; --accent: #C08552; --white: #ffffff;
         }
 
         body { font-family: 'Poppins', sans-serif; background: var(--cream); color: var(--dark); margin: 0; padding-bottom: 90px; }
@@ -21,104 +21,114 @@
             color: var(--gold); padding: 20px 15px; text-align: center; border-bottom: 4px solid var(--gold);
         }
 
-        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin: 0; }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin: 0; letter-spacing: 1px; }
 
         /* Navigazione */
         .nav-bar { 
             position: fixed; bottom: 0; width: 100%; background: var(--dark); 
-            display: flex; justify-content: space-around; padding: 12px 0; border-top: 3px solid var(--gold); z-index: 1000; 
+            display: flex; justify-content: space-around; padding: 10px 0; border-top: 3px solid var(--gold); z-index: 1000; 
         }
-        .nav-item { color: white; font-size: 0.75rem; text-align: center; cursor: pointer; border: none; background: none; flex: 1; opacity: 0.6; }
+        .nav-item { color: white; font-size: 0.7rem; text-align: center; cursor: pointer; border: none; background: none; flex: 1; opacity: 0.5; }
         .nav-item.active { opacity: 1; color: var(--gold); font-weight: bold; }
 
-        .view { display: none; padding: 20px; animation: fadeIn 0.3s; }
+        .view { display: none; padding: 20px; animation: fadeIn 0.3s forwards; }
         .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Griglie e Card */
-        .prog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .prog-btn { background: white; padding: 12px; border-radius: 10px; border: 1px solid #ddd; border-bottom: 3px solid var(--gold); }
-        
-        .cat-card { 
-            background: white; border-radius: 12px; padding: 15px; margin-bottom: 10px;
-            display: flex; align-items: center; border-left: 8px solid var(--gold);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer;
+        /* Home Page - Bottoni Programmi */
+        .prog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .prog-card { 
+            background: var(--white); padding: 15px; border-radius: 12px; border: 1px solid #ddd;
+            border-bottom: 4px solid var(--gold); box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center;
         }
+        .prog-card strong { color: var(--gold); font-size: 1.2rem; display: block; }
 
+        /* Categorie */
+        .cat-card { 
+            background: var(--white); border-radius: 15px; padding: 15px; margin-bottom: 12px;
+            display: flex; align-items: center; border-left: 8px solid var(--gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer;
+        }
+        .cat-info h3 { margin: 0; font-family: 'Playfair Display'; font-size: 1.1rem; }
+        .cat-icon { font-size: 1.8rem; margin-right: 15px; }
+
+        /* Liste Ricette */
         .recipe-row { 
-            background: white; padding: 12px; border-radius: 8px; margin-bottom: 6px;
+            background: var(--white); padding: 15px; border-radius: 10px; margin-bottom: 8px;
             display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee;
         }
 
-        /* Modali */
+        /* Modali Overlay */
         .overlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; padding: 15px;
+            background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;
         }
         .modal { 
-            background: var(--cream); padding: 20px; border-radius: 15px; width: 100%; max-width: 450px; 
+            background: var(--cream); padding: 20px; border-radius: 20px; width: 100%; max-width: 480px; 
             max-height: 85vh; overflow-y: auto; border: 2px solid var(--gold); position: relative;
         }
 
+        /* Ingredienti */
         .ing-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-        .ing-row.liquid { color: #2980b9; font-weight: 500; }
-        .ing-row.lievito { color: #c0392b; font-weight: bold; }
-        
-        .btn-scale { flex: 1; padding: 8px; border: 1px solid var(--gold); background: white; font-size: 0.8rem; border-radius: 5px; }
+        .ing-row.liquid { color: #2980b9; font-weight: 600; }
+        .ing-row.lievito { color: #c0392b; font-weight: bold; border: 1px dashed #c0392b; padding: 5px; border-radius: 5px; margin: 5px 0; }
+
+        .btn-scale { flex: 1; padding: 8px; border: 1px solid var(--gold); background: white; font-weight: bold; border-radius: 8px; }
         .btn-scale.active { background: var(--gold); color: white; }
     </style>
 </head>
 <body>
 
 <header>
+    <p style="margin:0; font-size:0.6rem; letter-spacing:3px; color:white">FORNAI DAL 1965</p>
     <h1 class="logo-text">ANTICO FORNO CANTONI</h1>
 </header>
 
 <div id="view-home" class="view active">
-    <h3 style="font-family:'Playfair Display'">I Programmi Girmi</h3>
-    <div class="prog-grid" id="prog-container"></div>
+    <h3 style="font-family:'Playfair Display'; text-align: center;">La Tua Girmi MP20</h3>
+    <p style="font-size: 0.8rem; text-align: center; color: #666;">Seleziona un programma per info tecniche.</p>
+    <div class="prog-grid" id="prog-container">
+        </div>
 </div>
 
 <div id="view-categories" class="view">
-    <h3 style="font-family:'Playfair Display'">Sfoglia il Ricettario</h3>
-    <div class="cat-card" onclick="openCat('CLASSICI')"><span>🍞</span> <h3 style="margin-left:15px">I Grandi Classici</h3></div>
-    <div class="cat-card" onclick="openCat('EUROPEI')"><span>🌍</span> <h3 style="margin-left:15px">Europa e Mondo</h3></div>
-    <div class="cat-card" onclick="openCat('SFIZIOSI')"><span>🌶️</span> <h3 style="margin-left:15px">Sapori e Verdure</h3></div>
-    <div class="cat-card" onclick="openCat('DOLCI')"><span>🍩</span> <h3 style="margin-left:15px">Dolci e Brioche</h3></div>
-    <div class="cat-card" onclick="openCat('EXTRA')"><span>🍯</span> <h3 style="margin-left:15px">Marmellate e Yogurt</h3></div>
+    <h3 style="font-family:'Playfair Display'">Il Ricettario</h3>
+    <div id="cat-container">
+        </div>
 </div>
 
 <div id="view-list" class="view">
-    <button onclick="showView('categories')" style="background:none; border:none; color:var(--accent); font-weight:bold; margin-bottom:10px;">← Categorie</button>
+    <button onclick="showView('categories')" style="background:none; border:none; font-weight:bold; color:var(--accent); margin-bottom:15px;">← TORNA ALLE SEZIONI</button>
     <h2 id="list-title" style="font-family:'Playfair Display'"></h2>
     <div id="list-container"></div>
 </div>
 
 <div id="view-index" class="view">
-    <h3 style="font-family:'Playfair Display'">Archivio Completo</h3>
-    <input type="text" id="idxSearch" placeholder="Cerca tra tutte le ricette..." onkeyup="searchIndex()" style="width:100%; padding:12px; border-radius:10px; border:2px solid var(--gold); margin-bottom:15px;">
-    <div id="full-index"></div>
+    <h3 style="font-family:'Playfair Display'">Archivio Storico</h3>
+    <input type="text" id="idxSearch" placeholder="Cerca tra tutte le ricette..." onkeyup="searchIndex()" style="width:100%; padding:15px; border-radius:12px; border:2px solid var(--gold); margin-bottom:20px; font-size: 1rem;">
+    <div id="full-index">
+        </div>
 </div>
 
 <div id="modal-prog" class="overlay">
     <div class="modal">
-        <button onclick="closeModals()" style="float:right; border:none; background:none; font-size:1.5rem;">✕</button>
-        <h2 id="m-prog-name" style="color:var(--gold); font-family:'Playfair Display';"></h2>
-        <p id="m-prog-desc"></p>
-        <div style="background:#f0f0f0; padding:15px; border-radius:10px; font-size:0.9rem;">
+        <button onclick="closeModals()" style="float:right; border:none; background:none; font-size:1.8rem; cursor:pointer;">✕</button>
+        <h2 id="m-prog-name" style="color:var(--gold); font-family:'Playfair Display'; margin-top: 0;"></h2>
+        <p id="m-prog-desc" style="line-height: 1.5;"></p>
+        <div style="background:#f4f4f4; padding:15px; border-radius:12px; font-size:0.9rem; border-left: 5px solid var(--gold);">
             <strong>⏱️ Durata:</strong> <span id="m-prog-time"></span><br><br>
-            <strong>💡 Segreto del Maestro:</strong> <p id="m-prog-tip" style="margin:5px 0 0;"></p>
+            <strong>💡 Il Consiglio:</strong> <p id="m-prog-tip" style="margin:5px 0 0; font-style: italic;"></p>
         </div>
     </div>
 </div>
 
 <div id="modal-recipe" class="overlay">
     <div class="modal">
-        <button onclick="closeModals()" style="float:right; border:none; background:none; font-size:1.5rem;">✕</button>
-        <h2 id="r-name" style="font-family:'Playfair Display'; margin-bottom:5px;"></h2>
-        <div id="r-prog-badge" style="background:var(--dark); color:var(--gold); display:inline-block; padding:3px 8px; border-radius:4px; font-size:0.7rem; margin-bottom:15px;"></div>
+        <button onclick="closeModals()" style="float:right; border:none; background:none; font-size:1.8rem; cursor:pointer;">✕</button>
+        <h2 id="r-name" style="font-family:'Playfair Display'; margin:0 0 5px 0; color:var(--dark);"></h2>
+        <div id="r-prog-badge" style="background:var(--dark); color:var(--gold); display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; margin-bottom:15px; font-weight: bold;"></div>
         
-        <div style="display:flex; gap:5px; margin-bottom:15px;" id="scale-controls">
+        <div style="display:flex; gap:8px; margin-bottom:20px;" id="scale-controls">
             <button class="btn-scale" id="s500" onclick="scale(0.66, this)">500g</button>
             <button class="btn-scale active" id="s750" onclick="scale(1, this)">750g</button>
             <button class="btn-scale" id="s1000" onclick="scale(1.33, this)">1000g</button>
@@ -126,84 +136,111 @@
 
         <div id="r-ingredients"></div>
 
-        <div style="background:#fff4e6; padding:12px; border-radius:10px; font-size:0.75rem; margin-top:15px; border-left:4px solid var(--gold); line-height:1.4;">
-            <strong>PROCEDIMENTO:</strong><br>
-            1. Inserisci i liquidi.<br>
-            2. Sale e zucchero negli angoli.<br>
-            3. Copri tutto con la farina.<br>
-            4. Lievito al centro sopra la farina (non deve toccare i liquidi).
+        <div style="background:#fff4e6; padding:15px; border-radius:12px; font-size:0.8rem; margin-top:20px; border-left:4px solid var(--gold); line-height:1.4;">
+            <strong>MESSA IN TEGLIA (ORDINE):</strong><br>
+            1. Versa i <strong>liquidi</strong>.<br>
+            2. Metti <strong>sale/zucchero</strong> negli angoli.<br>
+            3. Versa le <strong>farine</strong> a coprire tutto.<br>
+            4. Crea un buchetto nella farina e metti il <strong>lievito</strong> (lontano dal sale).
         </div>
-        <p id="r-desc" style="font-size:0.8rem; font-style:italic; margin-top:10px; color:#666;"></p>
+        <p id="r-desc" style="font-size:0.85rem; font-style:italic; margin-top:15px; color:#555;"></p>
     </div>
 </div>
 
 <nav class="nav-bar">
     <button class="nav-item active" id="n-home" onclick="showView('home')">🏠<br>Girmi</button>
-    <button class="nav-item" id="n-categories" onclick="showView('categories')">📁<br>Sezioni</button>
+    <button class="nav-item" id="n-categories" onclick="showView('categories')">📖<br>Sezioni</button>
     <button class="nav-item" id="n-index" onclick="showView('index')">📜<br>Tutte</button>
 </nav>
 
 <script>
     const programmi = [
-        {n:1, t:"Normale", d:"Pane classico bianco o misto.", time:"3h 00m", tip:"Usa farina 0 o 00. È il programma più versatile."},
-        {n:2, t:"Francese", d:"Per croste croccanti e mollica leggera.", time:"3h 50m", tip:"Evita grassi come burro o latte per una crosta perfetta."},
-        {n:3, t:"Integrale", d:"Per farine pesanti (crusca, segale).", time:"3h 40m", tip:"Il preriscaldamento aiuta la farina ad assorbire l'acqua."},
-        {n:4, t:"Veloce", d:"Pane pronto in circa 2 ore.", time:"2h 10m", tip:"Usa acqua a 30-35°C e lievito istantaneo se possibile."},
-        {n:5, t:"Brioche", d:"Per impasti dolci, burrosi e con uova.", time:"2h 55m", tip:"Ideale per pan brioche e veneziane."},
-        {n:6, t:"Sandwich", d:"Pane morbidissimo con crosta sottile.", time:"3h 00m", tip:"Usa il burro al posto dell'olio per un risultato 'piuma'."},
-        {n:10, t:"Pizza", d:"Solo impasto e lievitazione.", time:"1h 30m", tip:"Ottimo anche per focacce da cuocere nel forno di casa."},
-        {n:12, t:"Mix 2 (BIP)", d:"Speciale per ingredienti extra.", time:"3h 00m", tip:"Aspetta il segnale sonoro per aggiungere noci o olive."},
-        {n:15, t:"Yogurt", d:"Mantiene i 40°C costanti.", time:"8h 00m", tip:"Usa latte intero per uno yogurt più cremoso."},
-        {n:17, t:"Marmellata", d:"Mescola e cuoce contemporaneamente.", time:"1h 20m", tip:"Taglia la frutta a cubetti minuscoli (1cm)."},
-        {n:18, t:"Torta", d:"Per dolci con lievito chimico.", time:"1h 50m", tip:"Ungi bene il fondo prima di versare i liquidi."}
+        {n:1, t:"Normale", d:"Il programma standard per pane bianco o misto.", time:"3h 00m", tip:"Perfetto per farine 0 e 00. È il ciclo più bilanciato."},
+        {n:2, t:"Francese", d:"Per una crosta croccante e mollica soffice.", time:"3h 50m", tip:"Lievitazione molto lunga. Non usare grassi (olio/burro)."},
+        {n:3, t:"Integrale", d:"Ciclo con riscaldamento per farine pesanti.", time:"3h 40m", tip:"Ideale per farina integrale, segale o farro."},
+        {n:4, t:"Veloce", d:"Pane pronto in tempi record.", time:"2h 10m", tip:"Usa acqua tiepida e un pizzico di zucchero in più."},
+        {n:5, t:"Brioche", d:"Per impasti dolci e ricchi (uova, burro).", time:"2h 55m", tip:"Tieni il burro a temperatura ambiente ma solido."},
+        {n:6, t:"Sandwich", d:"Morbidezza estrema, crosta sottile.", time:"3h 00m", tip:"Sostituisci l'olio con il burro per un sapore 'piuma'."},
+        {n:10, t:"Pizza", d:"Solo impasto e lievitazione.", time:"1h 30m", tip:"Al segnale, stendi la pasta in teglia e lascia riposare 20 min."},
+        {n:12, t:"Mix 2 (BIP)", d:"Programma speciale per aggiunte extra.", time:"3h 00m", tip:"Inserisci noci o olive solo quando senti il segnale acustico!"},
+        {n:15, t:"Yogurt", d:"Mantiene i 40°C costanti per la fermentazione.", time:"8h 00m", tip:"Usa 1 litro di latte intero e 1 yogurt bianco."},
+        {n:17, t:"Marmellata", d:"Mescola e cuoce frutta e zucchero.", time:"1h 20m", tip:"Taglia la frutta piccola. Non superare le dosi per evitare schizzi."},
+        {n:18, t:"Torta", d:"Per dolci con lievito chimico istantaneo.", time:"1h 50m", tip:"Ungi bene le pareti del cestello prima di caricare."}
     ];
 
     const database = [
         // CLASSICI
-        { cat: "CLASSICI", nome: "Pane Bianco Comune", prog: 1, base: {"Acqua (ml)": 280, "Farina 0 (g)": 450, "Olio (g)": 20, "Sale (g)": 8, "Zucchero (g)": 5, "Lievito Secco (g)": 5}, desc: "Il pane di tutti i giorni." },
-        { cat: "CLASSICI", nome: "Pane Integrale Rustico", prog: 3, base: {"Acqua (ml)": 300, "Farina Integrale (g)": 500, "Miele (g)": 10, "Sale (g)": 9, "Lievito Secco (g)": 7}, desc: "Ricco di fibre e sapore." },
-        { cat: "CLASSICI", nome: "Bauletto al Burro", prog: 6, base: {"Latte (ml)": 280, "Farina 0 (g)": 500, "Burro (g)": 50, "Sale (g)": 7, "Zucchero (g)": 15, "Lievito Secco (g)": 5}, desc: "Perfetto per i sandwich." },
-        { cat: "CLASSICI", nome: "Pane Senza Glutine", prog: 1, base: {"Acqua (ml)": 320, "Mix Farina SG (g)": 500, "Olio (g)": 30, "Sale (g)": 8, "Lievito Secco (g)": 6}, desc: "Specifico per celiaci." },
-
+        { cat: "CLASSICI", nome: "Pane Bianco Comune", prog: 1, base: {"Acqua (ml)": 280, "Farina 0 (g)": 450, "Olio (g)": 20, "Sale (g)": 8, "Zucchero (g)": 5, "Lievito Secco (g)": 5}, desc: "La pagnotta di tutti i giorni." },
+        { cat: "CLASSICI", nome: "Bauletto al Latte", prog: 6, base: {"Latte (ml)": 280, "Farina 0 (g)": 500, "Burro (g)": 40, "Sale (g)": 7, "Zucchero (g)": 10, "Lievito Secco (g)": 5}, desc: "Morbidezza infinita." },
+        { cat: "CLASSICI", nome: "Pane Integrale Miele", prog: 3, base: {"Acqua (ml)": 310, "Farina Integrale (g)": 500, "Miele (g)": 15, "Sale (g)": 9, "Lievito Secco (g)": 7}, desc: "Rustico e salutare." },
+        
         // EUROPEI
-        { cat: "EUROPEI", nome: "Baguette Parisienne", prog: 2, base: {"Acqua (ml)": 320, "Farina Manitoba (g)": 450, "Sale (g)": 10, "Lievito Secco (g)": 4}, desc: "Croccante fuori, alveolata dentro." },
-        { cat: "EUROPEI", nome: "Pane di Segale Tedesco", prog: 3, base: {"Acqua (ml)": 310, "Farina Segale (g)": 300, "Farina 0 (g)": 200, "Sale (g)": 10, "Lievito (g)": 7}, desc: "Denso e aromatico." },
-        { cat: "EUROPEI", nome: "Soda Bread Irlandese", prog: 18, base: {"Latticello (ml)": 350, "Farina 0 (g)": 450, "Bicarbonato (g)": 6, "Sale (g)": 5}, desc: "Senza lievito di birra, velocissimo." },
-        { cat: "EUROPEI", nome: "Naan al Coriandolo", prog: 10, base: {"Yogurt (g)": 120, "Acqua (ml)": 100, "Farina 0 (g)": 400, "Sale (g)": 5, "Lievito (g)": 5}, desc: "Solo impasto, poi cuoci in padella." },
+        { cat: "EUROPEI", nome: "Baguette Parisienne", prog: 2, base: {"Acqua (ml)": 320, "Farina Manitoba (g)": 450, "Sale (g)": 10, "Lievito Secco (g)": 4}, desc: "Il classico di Francia." },
+        { cat: "EUROPEI", nome: "Pumpernickel Segale", prog: 3, base: {"Acqua (ml)": 310, "Farina Segale (g)": 300, "Farina 0 (g)": 200, "Sale (g)": 10, "Lievito (g)": 7}, desc: "Pane nero tipico tedesco." },
+        { cat: "EUROPEI", nome: "Soda Bread", prog: 18, base: {"Latticello (ml)": 350, "Farina 0 (g)": 450, "Bicarbonato (g)": 6, "Sale (g)": 5}, desc: "Pane irlandese senza lievito di birra." },
 
         // SFIZIOSI
-        { cat: "SFIZIOSI", nome: "Pane Olive e Timo", prog: 12, base: {"Acqua (ml)": 280, "Farina 0 (g)": 500, "Olive snocciolate (g)": 100, "Sale (g)": 5, "Lievito (g)": 5}, desc: "Sapori mediterranei." },
-        { cat: "SFIZIOSI", nome: "Pane alle Noci Rustico", prog: 12, base: {"Acqua (ml)": 290, "Farina Integrale (g)": 450, "Noci (g)": 80, "Sale (g)": 8, "Lievito (g)": 5}, desc: "Ottimo con i formaggi." },
-        { cat: "SFIZIOSI", nome: "Pane Curcuma e Semi", prog: 1, base: {"Acqua (ml)": 280, "Farina 0 (g)": 480, "Curcuma (g)": 10, "Semi misti (g)": 30, "Lievito (g)": 5}, desc: "Colore oro e super salute." },
-        { cat: "SFIZIOSI", nome: "Pane allo Speck", prog: 12, base: {"Acqua (ml)": 270, "Farina 0 (g)": 500, "Speck a cubetti (g)": 70, "Pepe": "qb", "Lievito (g)": 5}, desc: "Saporito e montanaro." },
-        { cat: "SFIZIOSI", nome: "Pane alla Zucca", prog: 1, base: {"Purea Zucca (g)": 200, "Acqua (ml)": 80, "Farina 0 (g)": 450, "Miele (g)": 10, "Lievito (g)": 5}, desc: "Dolce e autunnale." },
+        { cat: "SFIZIOSI", nome: "Pane Olive e Rosmarino", prog: 12, base: {"Acqua (ml)": 280, "Farina 0 (g)": 500, "Olive (g)": 80, "Rosmarino": "qb", "Sale (g)": 5, "Lievito (g)": 5}, desc: "Aroma mediterraneo." },
+        { cat: "SFIZIOSI", nome: "Pane alle Noci", prog: 12, base: {"Acqua (ml)": 290, "Farina Integrale (g)": 450, "Noci (g)": 80, "Sale (g)": 8, "Lievito (g)": 5}, desc: "Perfetto con i formaggi." },
+        { cat: "SFIZIOSI", nome: "Pane allo Speck", prog: 12, base: {"Acqua (ml)": 270, "Farina 0 (g)": 500, "Speck (g)": 60, "Pepe": "qb", "Lievito (g)": 5}, desc: "Saporito e rustico." },
+        { cat: "SFIZIOSI", nome: "Pane alla Zucca", prog: 1, base: {"Purea Zucca (g)": 200, "Farina 0 (g)": 450, "Acqua (ml)": 80, "Lievito (g)": 5}, desc: "Colore oro e sapore dolce." },
 
         // DOLCI
-        { cat: "DOLCI", nome: "Pan Brioche Classico", prog: 5, base: {"Latte (ml)": 150, "Uova (n)": 2, "Burro (g)": 80, "Farina 00 (g)": 450, "Zucchero (g)": 80, "Lievito (g)": 7}, desc: "La regina della colazione." },
-        { cat: "DOLCI", nome: "Plumcake allo Yogurt", prog: 18, base: {"Uova (n)": 3, "Yogurt (g)": 125, "Zucchero (g)": 150, "Farina 00 (g)": 300, "Lievito Chimico (g)": 16}, desc: "Soffice e genuino." },
-        { cat: "DOLCI", nome: "Torta al Cioccolato", prog: 18, base: {"Uova (n)": 3, "Zucchero (g)": 150, "Farina 00 (g)": 250, "Cacao (g)": 50, "Burro fuso (g)": 100, "Lievito (g)": 16}, desc: "Per i più golosi." },
-        { cat: "DOLCI", nome: "Pan Dolce all'Uvetta", prog: 12, base: {"Latte (ml)": 200, "Farina 0 (g)": 500, "Uvetta (g)": 100, "Zucchero (g)": 50, "Lievito (g)": 7}, desc: "Tradizione antica." },
+        { cat: "DOLCI", nome: "Pan Brioche", prog: 5, base: {"Latte (ml)": 150, "Uova (n)": 2, "Burro (g)": 80, "Farina 00 (g)": 450, "Zucchero (g)": 80, "Lievito (g)": 7}, desc: "Nuvola per colazione." },
+        { cat: "DOLCI", nome: "Plumcake Yogurt", prog: 18, base: {"Uova (n)": 3, "Yogurt (g)": 125, "Farina 00 (g)": 300, "Zucchero (g)": 150, "Lievito Chimico (g)": 16}, desc: "Semplice e veloce." },
+        { cat: "DOLCI", nome: "Torta Cioccolato", prog: 18, base: {"Uova (n)": 3, "Farina (g)": 250, "Cacao (g)": 50, "Zucchero (g)": 150, "Burro (g)": 100, "Lievito (g)": 16}, desc: "Per i golosi." },
+        { cat: "DOLCI", nome: "Pane Dolce Uvetta", prog: 12, base: {"Latte (ml)": 200, "Farina (g)": 500, "Uvetta (g)": 100, "Zucchero (g)": 60, "Lievito (g)": 6}, desc: "Dolce della nonna." },
 
-        // EXTRA
-        { cat: "EXTRA", nome: "Marmellata di Fragole", prog: 17, base: {"Fragole a pezzi (g)": 500, "Zucchero (g)": 250, "Succo Limone": "1/2"}, desc: "Classica e intramontabile." },
-        { cat: "EXTRA", nome: "Marmellata di Pesche", prog: 17, base: {"Pesche a pezzi (g)": 500, "Zucchero (g)": 250, "Cannella": "pizzico"}, desc: "Profumata e dolce." },
-        { cat: "EXTRA", nome: "Confettura di Albicocche", prog: 17, base: {"Albicocche (g)": 500, "Zucchero (g)": 200, "Vanillina": "1 bust."}, desc: "Perfetta per le crostate." },
-        { cat: "EXTRA", nome: "Marmellata di Arance", prog: 17, base: {"Arance a vivo (g)": 500, "Zucchero (g)": 300, "Scorza gratt.": "qb"}, desc: "Nota amara ed elegante." },
-        { cat: "EXTRA", nome: "Yogurt Naturale", prog: 15, base: {"Latte Intero (ml)": 1000, "Yogurt Bianco (g)": 125}, desc: "Cremosità pura." },
-        { cat: "EXTRA", nome: "Yogurt Greco Style", prog: 15, base: {"Latte Intero (ml)": 1000, "Yogurt Greco (g)": 150}, desc: "Più denso e proteico." },
-        { cat: "EXTRA", nome: "Yogurt alla Vaniglia", prog: 15, base: {"Latte Intero (ml)": 1000, "Yogurt (g)": 125, "Estratto Vaniglia": "1 cucch."}, desc: "Delizioso per i bambini." }
+        // EXTRA (Marmellate & Yogurt)
+        { cat: "EXTRA", nome: "Marmellata Fragole", prog: 17, base: {"Fragole (g)": 500, "Zucchero (g)": 250, "Succo Limone": "qb"}, desc: "La regina delle marmellate." },
+        { cat: "EXTRA", nome: "Marmellata Arance", prog: 17, base: {"Arance (g)": 500, "Zucchero (g)": 300, "Scorzette": "qb"}, desc: "Agrumata e raffinata." },
+        { cat: "EXTRA", nome: "Confettura Pesche", prog: 17, base: {"Pesche (g)": 500, "Zucchero (g)": 250, "Cannella": "qb"}, desc: "Dolcezza estiva." },
+        { cat: "EXTRA", nome: "Marmellata di Fichi", prog: 17, base: {"Fichi (g)": 500, "Zucchero (g)": 200, "Mandorle (g)": 30}, desc: "Sapore antico." },
+        { cat: "EXTRA", nome: "Yogurt Naturale", prog: 15, base: {"Latte Intero (ml)": 1000, "Yogurt Bianco (g)": 125}, desc: "Solo ingredienti sani." },
+        { cat: "EXTRA", nome: "Yogurt Greco", prog: 15, base: {"Latte Intero (ml)": 1000, "Yogurt Greco (g)": 150}, desc: "Denso e proteico." },
+        { cat: "EXTRA", nome: "Yogurt Caffè", prog: 15, base: {"Latte (ml)": 900, "Caffè Ristretto (ml)": 100, "Zucchero (g)": 40, "Yogurt (g)": 125}, desc: "Sprint mattutino." }
     ];
 
-    function init() {
-        const pCont = document.getElementById('prog-container');
-        programmi.forEach(p => {
-            pCont.innerHTML += `<div class="prog-btn" onclick="openProg(${p.n})"><strong>${p.n}.</strong><br><small>${p.t}</small></div>`;
-        });
+    // INIZIALIZZAZIONE
+    window.onload = function() {
+        initHome();
+        initCategories();
         renderIndex();
+    };
+
+    function initHome() {
+        const cont = document.getElementById('prog-container');
+        cont.innerHTML = "";
+        programmi.forEach(p => {
+            cont.innerHTML += `
+                <div class="prog-card" onclick="openProg(${p.n})">
+                    <strong>${p.n}</strong>
+                    <small>${p.t}</small>
+                </div>`;
+        });
     }
 
-    function openProg(n) {
-        const p = programmi.find(x => x.n === n);
+    function initCategories() {
+        const cats = [
+            {id:"CLASSICI", n:"I Classici", i:"🍞"},
+            {id:"EUROPEI", n:"Europa & Mondo", i:"🌍"},
+            {id:"SFIZIOSI", n:"Sfiziosi & Verdure", i:"🌶️"},
+            {id:"DOLCI", n:"Dolci & Brioche", i:"🍩"},
+            {id:"EXTRA", n:"Marmellate & Yogurt", i:"🍯"}
+        ];
+        const cont = document.getElementById('cat-container');
+        cont.innerHTML = "";
+        cats.forEach(c => {
+            cont.innerHTML += `
+                <div class="cat-card" onclick="openCat('${c.id}')">
+                    <span class="cat-icon">${c.i}</span>
+                    <div class="cat-info"><h3>${c.n}</h3><small>Vedi ricette</small></div>
+                </div>`;
+        });
+    }
+
+    function openProg(id) {
+        const p = programmi.find(x => x.n === id);
         document.getElementById('m-prog-name').innerText = p.n + ". " + p.t;
         document.getElementById('m-prog-desc').innerText = p.d;
         document.getElementById('m-prog-time').innerText = p.time;
@@ -211,15 +248,77 @@
         document.getElementById('modal-prog').style.display = 'flex';
     }
 
-    function openCat(c) {
-        const title = {CLASSICI:"I Classici", EUROPEI:"Europa e Mondo", SFIZIOSI:"Sfiziosi", DOLCI:"Dolci", EXTRA:"Marmellate e Yogurt"};
-        document.getElementById('list-title').innerText = title[c];
+    function openCat(catId) {
+        const titles = {CLASSICI:"I Grandi Classici", EUROPEI:"Specialità dal Mondo", SFIZIOSI:"Pani Sfiziosi", DOLCI:"Torte e Brioche", EXTRA:"Dispensa Dolce"};
+        document.getElementById('list-title').innerText = titles[catId];
         const cont = document.getElementById('list-container');
         cont.innerHTML = "";
-        database.filter(r => r.cat === c).forEach(r => {
-            cont.innerHTML += `<div class="recipe-row" onclick="openRecipe('${r.nome}')"><strong>${r.nome}</strong> <span>➔</span></div>`;
+        database.filter(r => r.cat === catId).forEach(r => {
+            cont.innerHTML += `
+                <div class="recipe-row" onclick="openRecipe('${r.nome}')">
+                    <strong>${r.nome}</strong>
+                    <span>➔</span>
+                </div>`;
         });
         showView('list');
     }
 
-    let
+    let currentR = null;
+    function openRecipe(name) {
+        currentR = database.find(x => x.nome === name);
+        document.getElementById('r-name').innerText = currentR.nome;
+        document.getElementById('r-prog-badge').innerText = "PROGRAMMA: " + currentR.prog;
+        document.getElementById('r-desc').innerText = currentR.desc || "";
+        
+        // Disattiva scala per extra
+        document.getElementById('scale-controls').style.display = (currentR.cat === "EXTRA") ? "none" : "flex";
+        
+        scale(1, document.getElementById('s750'));
+        document.getElementById('modal-recipe').style.display = 'flex';
+    }
+
+    function scale(f, btn) {
+        document.querySelectorAll('.btn-scale').forEach(b => b.classList.remove('active'));
+        if(btn) btn.classList.add('active');
+        const cont = document.getElementById('r-ingredients');
+        cont.innerHTML = "";
+        for (let [i, q] of Object.entries(currentR.base)) {
+            let val = typeof q === 'number' ? Math.round(q * f) : q;
+            let cls = i.match(/Acqua|Latte|Succo|Yogurt/) ? 'liquid' : (i.includes('Lievito') ? 'lievito' : '');
+            cont.innerHTML += `<div class="ing-row ${cls}"><span>${i}</span><strong>${val}</strong></div>`;
+        }
+    }
+
+    function renderIndex() {
+        const cont = document.getElementById('full-index');
+        cont.innerHTML = "";
+        const sorted = [...database].sort((a,b) => a.nome.localeCompare(b.nome));
+        sorted.forEach(r => {
+            cont.innerHTML += `
+                <div class="recipe-row" onclick="openRecipe('${r.nome}')">
+                    <div><strong>${r.nome}</strong><br><small>${r.cat}</small></div>
+                    <span>➔</span>
+                </div>`;
+        });
+    }
+
+    function showView(v) {
+        document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
+        document.getElementById('view-' + v).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
+        document.getElementById('n-' + (v === 'list' ? 'categories' : v)).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function searchIndex() {
+        let s = document.getElementById('idxSearch').value.toLowerCase();
+        let rows = document.querySelectorAll('#full-index .recipe-row');
+        rows.forEach(r => r.style.display = r.innerText.toLowerCase().includes(s) ? 'flex' : 'none');
+    }
+
+    function closeModals() { 
+        document.querySelectorAll('.overlay').forEach(o => o.style.display = 'none'); 
+    }
+</script>
+</body>
+</html>
