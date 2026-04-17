@@ -3,202 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Archivio Panificazione MP20</title>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;1,400&family=Roboto+Mono:wght@400;500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Il Forno di Mauro e Francesca</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;1,400&family=Poppins:wght@200;300;400;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --gold: #A67C00; --dark: #1A1A1A; --cream: #FDFDFD; --grey: #F4F4F4; }
+        :root { --gold: #C5A059; --dark: #3E362E; --cream: #FAF7F2; --white: #ffffff; --accent: #8D775F; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Poppins', sans-serif; background: var(--cream); color: var(--dark); margin: 0; padding-bottom: 80px; }
         
-        header { background: var(--dark); color: white; padding: 20px; text-align: center; border-bottom: 3px solid var(--gold); }
-        .logo-text { font-family: 'Libre Baskerville', serif; font-size: 1.2rem; letter-spacing: 1px; }
+        body { font-family: 'Poppins', sans-serif; background: var(--cream); color: var(--dark); margin: 0; padding-bottom: 90px; font-weight: 300; }
 
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; border-top: 1px solid #ddd; height: 65px; z-index: 1000; }
-        .nav-item { flex: 1; border: none; background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--dark); opacity: 0.6; }
+        header { background: var(--white); padding: 40px 15px; text-align: center; border-bottom: 1px solid rgba(197, 160, 89, 0.3); }
+        .logo-subtitle { font-size: 0.6rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; color: var(--gold); }
+        .logo-text { font-family: 'Libre Baskerville', serif; font-size: 1.8rem; margin: 0; font-weight: 400; font-style: italic; line-height: 1.1; }
+        .vintage-line { width: 60px; height: 1px; background: var(--gold); margin: 20px auto 0; }
+
+        /* Navigazione */
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: var(--white); display: flex; border-top: 1px solid #eee; z-index: 1000; height: 75px; }
+        .nav-item { flex: 1; border: none; background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--dark); opacity: 0.4; letter-spacing: 1px; }
         .nav-item.active { opacity: 1; color: var(--gold); font-weight: 600; }
+        .nav-icon { font-size: 1.2rem; margin-bottom: 5px; }
 
-        .view { display: none; padding: 20px; animation: fadeIn 0.2s ease; }
+        .view { display: none; padding: 25px 20px; animation: fadeIn 0.4s ease-out; }
         .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .recipe-card { background: white; padding: 15px; margin-bottom: 10px; border: 1px solid #eee; border-radius: 4px; cursor: pointer; border-left: 3px solid #ccc; }
-        .recipe-card:active { background: var(--grey); }
-        .recipe-card b { display: block; font-family: 'Libre Baskerville', serif; font-size: 1rem; }
-        .recipe-card small { color: var(--gold); text-transform: uppercase; font-size: 0.65rem; font-weight: 600; }
+        /* Programmi Card */
+        .prog-card { background: var(--white); padding: 20px; margin-bottom: 15px; border: 1px solid #f0f0f0; border-radius: 2px; position: relative; }
+        .prog-n { font-family: 'Libre Baskerville', serif; font-size: 1.3rem; color: var(--gold); position: absolute; top: 15px; right: 20px; opacity: 0.3; }
+        .prog-t { font-family: 'Libre Baskerville', serif; font-size: 1.1rem; font-style: italic; display: block; margin-bottom: 10px; color: var(--gold); }
+        .prog-d { font-size: 0.8rem; line-height: 1.6; color: var(--accent); }
 
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; overflow-y: auto; }
-        .modal-body { padding: 25px; max-width: 600px; margin: 0 auto; }
+        /* Sezioni Ricettario */
+        .section-header { font-family: 'Libre Baskerville', serif; font-size: 1.4rem; border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin: 30px 0 20px 0; color: var(--gold); display: flex; justify-content: space-between; align-items: center; }
+        .recipe-row { background: var(--white); padding: 18px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #f5f5f5; cursor: pointer; border-left: 2px solid transparent; transition: 0.2s; }
+        .recipe-row:active { border-left-color: var(--gold); background: #fffcf8; }
+        .recipe-name { font-family: 'Libre Baskerville', serif; font-size: 1rem; }
+        .recipe-meta { font-size: 0.65rem; letter-spacing: 1px; color: var(--gold); text-transform: uppercase; }
+
+        /* Overlay Dettaglio */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--cream); z-index: 2000; overflow-y: auto; padding-bottom: 50px; }
+        .modal-content { padding: 30px 20px; max-width: 600px; margin: 0 auto; }
+        .close-btn { background: none; border: none; font-size: 1.5rem; color: var(--gold); cursor: pointer; margin-bottom: 20px; }
         
-        .prog-badge { background: var(--dark); color: white; padding: 4px 10px; font-family: 'Roboto Mono', monospace; font-size: 0.8rem; border-radius: 3px; }
-        .scale-box { display: flex; gap: 5px; margin: 20px 0; }
-        .scale-btn { flex: 1; padding: 10px; border: 1px solid #ddd; background: white; cursor: pointer; font-size: 0.8rem; }
-        .scale-btn.active { background: var(--gold); color: white; border-color: var(--gold); }
+        .scale-box { display: flex; gap: 10px; margin: 25px 0; }
+        .scale-btn { flex: 1; padding: 12px; border: 1px solid var(--gold); background: white; color: var(--gold); font-size: 0.75rem; letter-spacing: 1px; cursor: pointer; }
+        .scale-btn.active { background: var(--gold); color: white; }
 
-        .ing-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
-        .ing-table td { padding: 10px 0; border-bottom: 1px solid #eee; font-family: 'Roboto Mono', monospace; font-size: 0.9rem; }
-        .ing-table td:last-child { text-align: right; color: var(--gold); font-weight: bold; }
+        .ing-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .ing-table td { padding: 12px 0; border-bottom: 1px dotted #ccc; font-family: 'Roboto Mono', monospace; font-size: 0.9rem; }
+        .ing-table td:last-child { text-align: right; color: var(--gold); font-weight: 600; }
 
-        .step-box { background: var(--grey); padding: 15px; border-radius: 5px; margin-bottom: 10px; font-size: 0.85rem; }
-        .step-box strong { color: var(--gold); display: block; margin-bottom: 5px; }
+        .instruction-step { margin-bottom: 20px; padding-left: 15px; border-left: 1px solid var(--gold); }
+        .instruction-step label { font-size: 0.65rem; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: 600; }
+        .instruction-step p { font-size: 0.85rem; line-height: 1.7; margin: 0; color: #555; }
         
-        #searchInput { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 5px; margin-bottom: 20px; font-size: 1rem; }
+        #searchInput { width: 100%; padding: 15px; border: none; border-bottom: 1px solid var(--gold); background: transparent; margin-bottom: 20px; font-family: inherit; font-size: 1rem; outline: none; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-text">REGISTRO MP20: MAURO & FRANCESCA</div>
+    <div class="logo-subtitle">Archivio Panificazione Tecnica</div>
+    <h1 class="logo-text">Il Forno di<br>Mauro e Francesca</h1>
+    <div class="vintage-line"></div>
 </header>
 
 <div id="view-home" class="view active">
-    <h3 style="font-family:'Libre Baskerville'; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">Programmi Girmi MP20</h3>
-    <div id="manual-content"></div>
+    <h3 style="font-family:'Libre Baskerville'; text-align: center; margin-bottom: 30px;">Manuale Girmi MP20</h3>
+    <div id="manual-list"></div>
 </div>
 
 <div id="view-recipes" class="view">
-    <input type="text" id="searchInput" placeholder="Cerca tra 150+ ricette..." onkeyup="doSearch()">
-    <div id="full-list"></div>
+    <input type="text" id="searchInput" placeholder="Cerca ricetta o ingrediente..." onkeyup="doSearch()">
+    
+    <div id="sections-container">
+        </div>
 </div>
 
 <div id="recipe-modal" class="overlay">
-    <div class="modal-body">
-        <button onclick="closeModal()" style="float:right; border:none; background:none; font-size:1.5rem;">✕</button>
-        <div id="m-prog" class="prog-badge"></div>
-        <h2 id="m-title" style="font-family:'Libre Baskerville'; margin: 15px 0;"></h2>
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">✕</button>
+        <div id="m-prog-tag" style="font-size: 0.7rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 5px;"></div>
+        <h2 id="m-title" style="font-family:'Libre Baskerville'; font-weight: 400; font-size: 1.8rem; margin: 0 0 25px 0;"></h2>
         
         <div class="scale-box">
-            <button class="scale-btn" onclick="updateScale(0.66, this)">500g</button>
-            <button class="scale-btn active" onclick="updateScale(1, this)">750g</button>
-            <button class="scale-btn" onclick="updateScale(1.33, this)">1kg</button>
+            <button class="scale-btn" onclick="setScale(0.66, this)">500G</button>
+            <button class="scale-btn active" onclick="setScale(1, this)">750G</button>
+            <button class="scale-btn" onclick="setScale(1.33, this)">1KG</button>
         </div>
 
         <table class="ing-table" id="m-ingredients"></table>
 
-        <div class="step-box">
-            <strong>Fase 1: Inserimento</strong>
+        <div class="instruction-step">
+            <label>Fase 1: Inserimento</label>
             <p id="m-step1"></p>
         </div>
-        <div class="step-box" id="m-bip-box">
-            <strong>Fase 2: Segnale BIP (Aggiunte)</strong>
+        <div class="instruction-step" id="m-bip-container">
+            <label>Fase 2: Segnale BIP</label>
             <p id="m-step2"></p>
         </div>
-        <div class="step-box">
-            <strong>Fase 3: Fine Ciclo</strong>
+        <div class="instruction-step">
+            <label>Fase 3: Fine Ciclo</label>
             <p id="m-step3"></p>
         </div>
     </div>
 </div>
 
 <nav class="nav-bar">
-    <button class="nav-item active" id="nav-home" onclick="showView('home')">MANUALE</button>
-    <button class="nav-item" id="nav-recipes" onclick="showView('recipes')">RICETTARIO</button>
+    <button class="nav-item active" id="nav-home" onclick="showView('home')">
+        <span class="nav-icon">📖</span>MANUALE
+    </button>
+    <button class="nav-item" id="nav-recipes" onclick="showView('recipes')">
+        <span class="nav-icon">🥖</span>RICETTARIO
+    </button>
 </nav>
 
 <script>
-    const manuale = [
-        {id:1, t:"BASE", d:"Pani bianchi. Fasi: Impasto, Lievitazione (2h), Cottura (1h)."},
-        {id:2, t:"FRANCESE", d:"Lievitazione lunga per pane croccante e alveolato."},
-        {id:3, t:"INTEGRALE", d:"Riscaldamento 30m. Ottimo per Segale e Farro."},
-        {id:5, t:"DOLCE", d:"Cottura a temperatura inferiore per non bruciare lo zucchero."},
-        {id:12, t:"SPECIAL", d:"Ciclo base con allarme sonoro per ingredienti extra."},
-        {id:16, t:"DESSERT", d:"Solo cottura e mescolamento lento. Per Porridge e Budini."},
-        {id:17, t:"MARMELLATA", d:"Alta temperatura costante e rotazione continua."}
+    const programmi = [
+        {n:1, t:"Base", d:"Per pani bianchi e misti comuni. Ciclo standard con 2 ore di lievitazione."},
+        {n:2, t:"Francese", d:"Ciclo più lungo (quasi 4h). Lievitazione estesa per crosta croccante e alveolatura."},
+        {n:3, t:"Integrale", d:"Riscaldamento iniziale dei componenti. Ideale per crusca, segale e grani duri."},
+        {n:4, t:"Veloce", d:"Per pane pronto in 2 ore. Richiede acqua tiepida e più lievito."},
+        {n:5, t:"Dolce", d:"Temperature di cottura moderate per impasti ricchi di zucchero, uova e burro."},
+        {n:6, t:"Sandwich", d:"Mantiene una crosta sottile e mollica estremamente soffice."},
+        {n:7, t:"Senza Glutine", d:"Ciclo unico di impasto e lievitazione rapida per farine non proteiche."},
+        {n:8, t:"Ultra Rapido", d:"Il ciclo più veloce (1h 38m). Usa lievito chimico istantaneo."},
+        {n:9, t:"Impasto", d:"Solo lavorazione e lievitazione (1h 30m). Per pane da cuocere in forno statico."},
+        {n:10, t:"Pizza", d:"Impasto energico specifico per basi pizza, focacce e schiacciate."},
+        {n:11, t:"Pasta Fresca", d:"Lavorazione breve (15m) per pasta all'uovo o di semola."},
+        {n:12, t:"Special BIP", d:"Programma base che emette 10 segnali acustici per aggiunta di extra."},
+        {n:13, t:"Solo Cottura", d:"Ciclo di 1h di solo calore. Per dorare o cuocere impasti pronti."},
+        {n:14, t:"Scongelamento", d:"Mantiene 30°C costanti per scongelare o accelerare lievitazioni esterne."},
+        {n:15, t:"Yogurt", d:"Temperatura controllata di 40°C per 8 ore di fermentazione."},
+        {n:16, t:"Dessert", d:"Per budini, porridge e dolci al cucchiaio. Mescolamento costante."},
+        {n:17, t:"Marmellata", d:"Cuoce e mescola frutta e zucchero per confetture fatte in casa."},
+        {n:18, t:"Torta", d:"Ciclo completo per torte con lievito istantaneo (tipo Bertolini)."},
+        {n:19, t:"Manuale", d:"Programmazione libera dei tempi di ogni singola fase."}
     ];
 
-    const db = [
-        {
-            t: "Pane Bianco Classico", c: "PANI", p: 1, 
-            i: {"Acqua (ml)":280, "Olio EVO (g)":20, "Farina 0 (g)":480, "Sale (g)":9, "Lievito Secco (g)":5},
-            s1: "Versa prima i liquidi, poi la farina. Scava un buco per il lievito senza toccare il sale.",
-            s2: "Nessuna aggiunta richiesta.",
-            s3: "Sforma subito e lascia raffreddare su una gratella per far uscire l'umidità."
-        },
-        {
-            t: "Pumpernickel (Segale Tedesca)", c: "EUROPA", p: 3, 
-            i: {"Acqua tiepida (ml)":330, "Miele (g)":15, "Farina Segale (g)":300, "Farina Manitoba (g)":200, "Cacao amaro (g)":10, "Sale (g)":10, "Lievito (g)":7},
-            s1: "Il cacao serve per il colore tipico. Usa acqua a 30°C.",
-            s2: "Aggiungi semi di girasole o finocchio se desiderato al BIP.",
-            s3: "Pane molto denso. Lascia riposare 12 ore prima di affettare."
-        },
-        {
-            t: "Challah (Pane Ebraico)", c: "INTERNAZIONALE", p: 5, 
-            i: {"Acqua (ml)":160, "Uova medie (n)":2, "Olio semi (g)":50, "Farina Manitoba (g)":500, "Zucchero (g)":60, "Sale (g)":5, "Lievito (g)":7},
-            s1: "Sbatti leggermente le uova prima di versarle con l'acqua.",
-            s2: "Nessuna aggiunta.",
-            s3: "Pane soffice simile alla brioche. Ottimo per colazione."
-        },
-        {
-            t: "Porridge d'Avena Classico", c: "SPECIALI", p: 16, 
-            i: {"Latte Intero (ml)":600, "Fiocchi d'Avena (g)":150, "Miele (g)":30, "Cannella (g)":2},
-            s1: "Inserisci tutto nel cestello. Il programma mescolerà per te.",
-            s2: "Aggiungi mela a cubetti o uvetta al segnale sonoro.",
-            s3: "Servi caldo. La consistenza deve essere cremosa."
-        },
-        {
-            t: "Pan Brioche Francese", c: "DOLCI", p: 5, 
-            i: {"Latte (ml)":120, "Uova (n)":2, "Burro morbido (g)":100, "Farina 00 (g)":400, "Zucchero (g)":50, "Sale (g)":5, "Lievito (g)":6},
-            s1: "Il burro deve essere a pezzetti molto morbidi (non fuso).",
-            s2: "Puoi aggiungere gocce di cioccolato fredde di freezer.",
-            s3: "Profumo intenso. Non aprire l'oblò durante la cottura."
-        }
+    const ricette = [
+        // CLASSICI
+        { s: "CLASSICI", t: "Pane Bianco 0 di Mauro", p: 1, i: {"Acqua (ml)":280, "Olio EVO (g)":20, "Farina 0 (g)":480, "Sale (g)":9, "Lievito Secco (g)":5}, s1: "Liquidi sul fondo, farina sopra. Lievito in un buco asciutto.", s2: "Nessuna aggiunta.", s3: "Sforma subito dopo la fine per non rammollire la crosta." },
+        { s: "CLASSICI", t: "Semola Rimacinata", p: 3, i: {"Acqua (ml)":275, "Olio (g)":20, "Semola Rimacinata (g)":500, "Sale (g)":10, "Lievito (g)":5}, s1: "La semola richiede il programma 3 per idratarsi bene.", s2: "Nessuna aggiunta.", s3: "Crosta molto dorata e saporita." },
+        { s: "CLASSICI", t: "Pane ai 7 Cereali", p: 12, i: {"Acqua (ml)":300, "Miele (g)":10, "Mix Cereali (g)":500, "Olio (g)":15, "Sale (g)":9, "Lievito (g)":6}, s1: "Inserire il mix di farine scure.", s2: "Al BIP aggiungi semi di girasole o zucca tostati.", s3: "Pane nutriente e profumato." },
+        
+        // INTERNAZIONALI
+        { s: "INTERNAZIONALI", t: "Pumpernickel (Segale)", p: 3, i: {"Acqua tiepida (ml)":330, "Miele (g)":15, "Farina Segale (g)":300, "Farina Manitoba (g)":200, "Cacao Amaro (g)":10, "Sale (g)":10, "Lievito (g)":7}, s1: "Il cacao serve per il colore nero tipico tedesco.", s2: "Al BIP aggiungi semi di cumino se piacciono.", s3: "Pane denso. Lasciare raffreddare 12 ore prima di tagliare." },
+        { s: "INTERNAZIONALI", t: "Challah Ebraica", p: 5, i: {"Acqua (ml)":160, "Uova medie (n)":2, "Olio semi (g)":50, "Farina Manitoba (g)":500, "Zucchero (g)":60, "Sale (g)":5, "Lievito (g)":7}, s1: "Sbatti le uova con l'acqua prima di versarle.", s2: "Nessuna.", s3: "Risultato soffice e dorato." },
+        { s: "INTERNAZIONALI", t: "Hokkaido (Pane al latte)", p: 6, i: {"Latte (ml)":250, "Burro morbido (g)":40, "Farina Manitoba (g)":480, "Zucchero (g)":50, "Sale (g)":5, "Lievito (g)":6}, s1: "Latte a temperatura ambiente. Burro a pezzetti.", s2: "Nessuna.", s3: "La mollica si sfilaccia come zucchero filato." },
+
+        // DOLCI
+        { s: "DOLCI", t: "Pan Brioche Francesca", p: 5, i: {"Latte (ml)":150, "Uova (n)":2, "Burro morbido (g)":80, "Farina 00 (g)":450, "Zucchero (g)":80, "Sale (g)":2, "Lievito (g)":7}, s1: "Burro molto morbido inserito sopra la farina.", s2: "Al BIP aggiungi gocce di cioccolato fredde o uvetta.", s3: "Perfetto per la colazione." },
+        { s: "DOLCI", t: "Torta allo Yogurt", p: 18, i: {"Yogurt (g)":125, "Uova (n)":3, "Olio semi (ml)":100, "Farina 00 (g)":300, "Zucchero (g)":150, "Lievito per dolci (g)":16}, s1: "Usa yogurt a temperatura ambiente.", s2: "Nessuna.", s3: "Controlla la cottura con uno stecchino se necessario." },
+
+        // IMPASTI
+        { s: "IMPASTI", t: "Pizza 24h (Solo Impasto)", p: 10, i: {"Acqua (ml)":320, "Farina 0 (g)":500, "Olio (g)":20, "Sale (g)":12, "Lievito (g)":2}, s1: "Poco lievito per una maturazione lunga.", s2: "Nessuna.", s3: "Finita la macchina, metti in frigo per 24 ore." },
+        { s: "IMPASTI", t: "Pasta all'Uovo", p: 11, i: {"Farina 00 (g)":300, "Uova intere (n)":3}, s1: "Lavorazione rapida. Non serve sale nell'impasto.", s2: "Nessuna.", s3: "Avvolgi in pellicola e lascia riposare 30 minuti." },
+
+        // CONFETTURE & SPECIALI
+        { s: "CONF_SPEC", t: "Marmellata di Fichi", p: 17, i: {"Fichi puliti (g)":600, "Zucchero (g)":180, "Succo Limone (n)":1}, s1: "Taglia la frutta a pezzi piccoli.", s2: "Aggiungi noci tritate a metà ciclo (facoltativo).", s3: "Versa subito nei barattoli sterilizzati." },
+        { s: "CONF_SPEC", t: "Porridge d'Avena", p: 16, i: {"Latte (ml)":600, "Fiocchi Avena (g)":150, "Miele (g)":30, "Cannella (g)":2}, s1: "Inserisci tutto nel cestello.", s2: "Aggiungi mela a cubetti al BIP.", s3: "Servi caldo e cremoso." },
+        { s: "CONF_SPEC", t: "Yogurt Naturale", p: 15, i: {"Latte Intero (ml)":1000, "Yogurt Starter (g)":125}, s1: "Mescola latte e yogurt prima di inserire.", s2: "Nessuna.", s3: "Metti in frigo per almeno 4 ore dopo la fine." }
     ];
 
-    // Espansione Automatica Database (Simulazione 150 ricette)
-    const nazioni = ["Greco", "Spagnolo", "Turco", "Polacco", "Olandese", "Svedese", "Irlandese"];
-    nazioni.forEach((n, index) => {
-        db.push({
-            t: `Pane ${n} ai Cereali`, c: "EUROPA", p: 3, 
-            i: {"Acqua (ml)":300, "Mix Cereali (g)":500, "Olio (g)":20, "Sale (g)":10, "Lievito":6},
-            s1: `Tipico pane ${n}. Inserire farina ai cereali di forza media.`,
-            s2: "Aggiungi mix di semi al BIP.", s3: "Crostoso e scuro."
-        });
-        db.push({
-            t: `Dolce ${n} di Natale`, c: "DOLCI", p: 5, 
-            i: {"Latte (ml)":200, "Burro (g)":80, "Farina (g)":450, "Zucchero (g)":100, "Lievito":7},
-            s1: `Versione ${n} del lievitato dolce.`,
-            s2: "Aggiungi canditi o frutta secca.", s3: "Spolverare con zucchero a velo."
-        });
-    });
-
-    let activeR = null;
+    let currentR = null;
 
     function init() {
-        const mCont = document.getElementById('manual-content');
-        manuale.forEach(p => {
-            mCont.innerHTML += `<div class="recipe-card" style="border-left-color:var(--gold)">
-                <small>PROG. ${p.id}</small><b>${p.t}</b><p style="font-size:0.8rem; margin:5px 0;">${p.d}</p>
-            </div>`;
+        // Popola Manuale
+        const hCont = document.getElementById('manual-list');
+        programmi.forEach(p => {
+            hCont.innerHTML += `
+                <div class="prog-card">
+                    <span class="prog-n">${p.n}</span>
+                    <span class="prog-t">${p.t}</span>
+                    <p class="prog-d">${p.d}</p>
+                </div>`;
         });
-        renderList(db);
+        renderRecipes();
     }
 
-    function renderList(data) {
-        const cont = document.getElementById('full-list');
+    function renderRecipes() {
+        const sections = {
+            "CLASSICI": "I Classici di Mauro",
+            "INTERNAZIONALI": "Pani dal Mondo",
+            "DOLCI": "I Dolci di Francesca",
+            "IMPASTI": "Lavorazioni a Mano",
+            "CONF_SPEC": "Confetture & Speciali"
+        };
+        
+        const cont = document.getElementById('sections-container');
         cont.innerHTML = "";
-        data.sort((a,b) => a.t.localeCompare(b.t)).forEach(r => {
-            cont.innerHTML += `<div class="recipe-card" onclick="openRecipe('${r.t.replace(/'/g, "\\'")}')">
-                <small>${r.c}</small><b>${r.t}</b>
-            </div>`;
-        });
+
+        for (let [id, label] of Object.entries(sections)) {
+            const filtered = ricette.filter(r => r.s === id);
+            if(filtered.length > 0) {
+                cont.innerHTML += `<div class="section-header">${label} <span>${filtered.length}</span></div>`;
+                filtered.forEach(r => {
+                    cont.innerHTML += `
+                        <div class="recipe-row" onclick="openRecipe('${r.t.replace(/'/g, "\\'")}')">
+                            <span class="recipe-name">${r.t}</span>
+                            <span class="recipe-meta">Prog. ${r.p}</span>
+                        </div>`;
+                });
+            }
+        }
     }
 
-    function openRecipe(title) {
-        activeR = db.find(x => x.t === title);
-        document.getElementById('m-title').innerText = activeR.t;
-        document.getElementById('m-prog').innerText = "PROGRAMMA " + activeR.p;
-        document.getElementById('m-step1').innerText = activeR.s1;
-        document.getElementById('m-step2').innerText = activeR.s2;
-        document.getElementById('m-step3').innerText = activeR.s3;
-        updateScale(1, document.querySelector('.scale-btn.active'));
+    function openRecipe(name) {
+        currentR = ricette.find(x => x.t === name);
+        document.getElementById('m-title').innerText = currentR.t;
+        document.getElementById('m-prog-tag').innerText = "PROGRAMMA GIRMI MP20: " + currentR.p;
+        document.getElementById('m-step1').innerText = currentR.s1;
+        document.getElementById('m-step2').innerText = currentR.s2;
+        document.getElementById('m-step3').innerText = currentR.s3;
+        
+        document.getElementById('m-bip-container').style.display = (currentR.s2 === "Nessuna.") ? "none" : "block";
+
+        setScale(1, document.querySelector('.scale-btn.active'));
         document.getElementById('recipe-modal').style.display = 'block';
     }
 
-    function updateScale(f, btn) {
+    function setScale(f, btn) {
         document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const t = document.getElementById('m-ingredients');
         t.innerHTML = "";
-        for (let [ing, q] of Object.entries(activeR.i)) {
+        for (let [ing, q] of Object.entries(currentR.i)) {
             let val = typeof q === 'number' ? (Math.round(q * f * 10) / 10) : q;
             t.innerHTML += `<tr><td>${ing}</td><td>${val}</td></tr>`;
         }
@@ -206,20 +237,31 @@
 
     function doSearch() {
         const term = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = db.filter(r => r.t.toLowerCase().includes(term) || r.c.toLowerCase().includes(term));
-        renderList(filtered);
+        const rows = document.querySelectorAll('.recipe-row');
+        const headers = document.querySelectorAll('.section-header');
+        
+        rows.forEach(r => {
+            const visible = r.innerText.toLowerCase().includes(term);
+            r.style.display = visible ? 'flex' : 'none';
+        });
+
+        headers.forEach(h => {
+            // Nascondi header se non ci sono righe visibili sotto di esso (logica semplificata)
+            h.style.display = term === "" ? "flex" : "none";
+        });
     }
 
     function showView(v) {
         document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
-        document.getElementById('view-'+v).classList.add('active');
-        document.getElementById('nav-'+v).classList.add('active');
+        document.getElementById('view-' + v).classList.add('active');
+        document.getElementById('nav-' + v).classList.add('active');
+        window.scrollTo(0,0);
     }
 
     function closeModal() { document.getElementById('recipe-modal').style.display = 'none'; }
 
-    init();
+    window.onload = init;
 </script>
 </body>
 </html>
