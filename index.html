@@ -3,197 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antico Forno Cantoni - 100+ Ricette</title>
+    <title>Il Forno di Mauro e Francesca</title>
     
     <link rel="apple-touch-icon" href="https://img.icons8.com/papercut/512/bread.png">
     <link rel="icon" type="image/png" href="https://img.icons8.com/papercut/512/bread.png">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
-        :root { --gold: #D4AF37; --dark: #2D1E12; --cream: #FFFDF5; --accent: #C08552; --white: #ffffff; }
-        body { font-family: 'Poppins', sans-serif; background: var(--cream); color: var(--dark); margin: 0; padding-bottom: 90px; -webkit-tap-highlight-color: transparent; }
-        header { background: linear-gradient(135deg, #1a120b, var(--dark)); color: var(--gold); padding: 15px; text-align: center; border-bottom: 4px solid var(--gold); }
-        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin: 0; letter-spacing: 1px; }
+        :root { 
+            --gold: #C5A059; 
+            --dark: #3E362E; 
+            --cream: #FAF7F2; 
+            --accent: #8D775F; 
+            --white: #ffffff; 
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--cream); 
+            color: var(--dark); 
+            margin: 0; 
+            padding-bottom: 90px; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        header { 
+            background: var(--white);
+            color: var(--dark); 
+            padding: 30px 15px; 
+            text-align: center; 
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+        }
+
+        .logo-subtitle {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .logo-text { 
+            font-family: 'Libre Baskerville', serif; 
+            font-size: 1.6rem; 
+            margin: 0; 
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        .vintage-line {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin: 15px auto 0;
+        }
 
         /* Navigazione */
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: var(--dark); display: flex; justify-content: space-around; padding: 10px 0; border-top: 3px solid var(--gold); z-index: 1000; }
-        .nav-item { color: white; font-size: 0.65rem; text-align: center; cursor: pointer; border: none; background: none; flex: 1; opacity: 0.5; transition: 0.3s; }
-        .nav-item.active { opacity: 1; color: var(--gold); font-weight: bold; }
+        .nav-bar { 
+            position: fixed; bottom: 0; width: 100%; 
+            background: var(--white); 
+            display: flex; justify-content: space-around; 
+            padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; 
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.03);
+        }
+        .nav-item { color: var(--dark); font-size: 0.65rem; text-align: center; cursor: pointer; border: none; background: none; flex: 1; opacity: 0.4; transition: 0.3s; }
+        .nav-item.active { opacity: 1; color: var(--gold); }
 
-        .view { display: none; padding: 15px; animation: fadeIn 0.3s forwards; }
+        .view { display: none; padding: 20px; animation: fadeIn 0.5s ease-out forwards; }
         .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Cards */
-        .prog-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-        .prog-card { background: var(--white); padding: 10px; border-radius: 8px; border: 1px solid #ddd; border-bottom: 3px solid var(--gold); text-align: center; font-size: 0.8rem; }
+        /* Cards & List */
+        .prog-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .prog-card { 
+            background: var(--white); padding: 12px; border-radius: 4px; 
+            border: 1px solid #f0f0f0; border-top: 2px solid var(--gold);
+            text-align: center; font-size: 0.75rem; 
+        }
         
-        .cat-card { background: var(--white); border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; align-items: center; border-left: 6px solid var(--gold); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .recipe-row { background: var(--white); padding: 12px; border-radius: 8px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; font-size: 0.9rem; }
-        .recipe-row small { color: var(--accent); font-size: 0.7rem; }
+        .cat-card { 
+            background: var(--white); border-radius: 4px; padding: 18px; 
+            margin-bottom: 12px; display: flex; align-items: center; 
+            border: 1px solid #f0f0f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .recipe-row { 
+            background: var(--white); padding: 15px; border-radius: 4px; 
+            margin-bottom: 8px; display: flex; justify-content: space-between; 
+            align-items: center; border: 1px solid #f4f4f4; font-size: 0.9rem; 
+        }
+        .recipe-row strong { font-family: 'Libre Baskerville', serif; font-weight: 400; }
 
         /* Modali */
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; padding: 15px; box-sizing: border-box; }
-        .modal { background: var(--cream); padding: 20px; border-radius: 15px; width: 100%; max-width: 480px; max-height: 85vh; overflow-y: auto; border: 2px solid var(--gold); position: relative; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(62, 54, 46, 0.7); z-index: 3000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; backdrop-filter: blur(3px); }
+        .modal { background: var(--cream); padding: 25px; border-radius: 2px; width: 100%; max-width: 450px; max-height: 80vh; overflow-y: auto; position: relative; border-top: 4px solid var(--gold); }
 
-        .ing-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 0.85rem; }
-        .ing-row.liquid { color: #2980b9; font-weight: bold; }
-        .ing-row.lievito { color: #c0392b; font-weight: bold; }
-
-        .btn-scale { flex: 1; padding: 8px; border: 1px solid var(--gold); background: white; font-weight: bold; border-radius: 6px; font-size: 0.8rem; }
+        .ing-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dotted #ccc; font-size: 0.85rem; }
+        
+        .btn-scale { flex: 1; padding: 10px; border: 1px solid var(--gold); background: white; font-size: 0.75rem; color: var(--gold); letter-spacing: 1px; }
         .btn-scale.active { background: var(--gold); color: white; }
         
-        #idxSearch { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid var(--gold); margin-bottom: 15px; box-sizing: border-box; }
+        #idxSearch { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 0; background: var(--white); margin-bottom: 20px; font-family: inherit; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 class="logo-text">ANTICO FORNO CANTONI</h1>
+    <div class="logo-subtitle">Laboratorio Artigianale</div>
+    <h1 class="logo-text">Il Forno di<br>Mauro e Francesca</h1>
+    <div class="vintage-line"></div>
 </header>
 
 <div id="view-home" class="view active">
-    <h3 style="font-family:'Playfair Display'">Programmi MP20</h3>
+    <h3 style="font-family:'Libre Baskerville'; font-weight: 400; text-align: center; margin-bottom: 25px;">I Cicli della Girmi MP20</h3>
     <div class="prog-grid" id="prog-container"></div>
-    <div style="margin-top:20px; padding:15px; background:var(--white); border-radius:10px; border:1px solid var(--gold);">
-        <h4 style="margin:0 0 5px 0">💡 Benvenuto Maestro!</h4>
-        <p style="font-size:0.8rem; margin:0">Usa le sezioni in basso per esplorare l'archivio di oltre 100 ricette create apposta per te.</p>
-    </div>
 </div>
 
 <div id="view-categories" class="view">
-    <h3 style="font-family:'Playfair Display'">Sezioni Ricettario</h3>
+    <h3 style="font-family:'Libre Baskerville'; font-weight: 400;">Il Ricettario di Famiglia</h3>
     <div id="cat-container"></div>
 </div>
 
 <div id="view-list" class="view">
-    <button onclick="showView('categories')" style="background:none; border:none; font-weight:bold; color:var(--accent); margin-bottom:10px;">← INDIETRO</button>
-    <h2 id="list-title" style="font-family:'Playfair Display'; margin:0 0 15px 0;"></h2>
+    <button onclick="showView('categories')" style="background:none; border:none; color:var(--gold); margin-bottom:15px; letter-spacing:1px; font-size:0.7rem;">← TORNA ALLE SEZIONI</button>
+    <h2 id="list-title" style="font-family:'Libre Baskerville'; font-weight: 400; margin:0 0 20px 0;"></h2>
     <div id="list-container"></div>
 </div>
 
 <div id="view-index" class="view">
-    <h3 style="font-family:'Playfair Display'">Indice Completo (100+)</h3>
-    <input type="text" id="idxSearch" placeholder="Cerca tra tutte le ricette..." onkeyup="searchIndex()">
+    <h3 style="font-family:'Libre Baskerville'; font-weight: 400;">Archivio Storico</h3>
+    <input type="text" id="idxSearch" placeholder="Cerca una ricetta..." onkeyup="searchIndex()">
     <div id="full-index"></div>
 </div>
 
 <div id="modal-prog" class="overlay">
     <div class="modal">
-        <button onclick="closeModals()" style="float:right; border:none; background:none; font-size:1.5rem;">✕</button>
-        <h2 id="m-prog-name" style="color:var(--gold); font-family:'Playfair Display';"></h2>
-        <p id="m-prog-desc" style="font-size:0.9rem;"></p>
-        <div style="background:#f4f4f4; padding:12px; border-radius:10px; font-size:0.85rem;">
-            <strong>⏱️ Tempo:</strong> <span id="m-prog-time"></span><br><br>
-            <strong>💡 Consiglio:</strong> <p id="m-prog-tip" style="margin:5px 0 0; font-style:italic"></p>
+        <button onclick="closeModals()" style="float:right; border:none; background:none; font-size:1.2rem;">✕</button>
+        <h2 id="m-prog-name" style="font-family:'Libre Baskerville'; color:var(--gold); font-weight:400;"></h2>
+        <p id="m-prog-desc" style="font-size:0.85rem; line-height:1.6;"></p>
+        <div style="background:rgba(197, 160, 89, 0.05); padding:15px; font-size:0.8rem; border: 1px solid rgba(197, 160, 89, 0.2);">
+            <strong>Tempo di esecuzione:</strong> <span id="m-prog-time"></span><br><br>
+            <strong>Nota di Mauro:</strong> <p id="m-prog-tip" style="margin:5px 0 0; font-style:italic"></p>
         </div>
     </div>
 </div>
 
 <div id="modal-recipe" class="overlay">
     <div class="modal">
-        <button onclick="closeModals()" style="float:right; border:none; background:none; font-size:1.5rem;">✕</button>
-        <h2 id="r-name" style="font-family:'Playfair Display'; margin:0 0 5px 0;"></h2>
-        <div id="r-prog-badge" style="background:var(--dark); color:var(--gold); display:inline-block; padding:3px 8px; border-radius:4px; font-size:0.7rem; margin-bottom:15px;"></div>
+        <button onclick="closeModals()" style="float:right; border:none; background:none; font-size:1.2rem;">✕</button>
+        <h2 id="r-name" style="font-family:'Libre Baskerville'; font-weight:400; margin:0 0 10px 0;"></h2>
+        <div id="r-prog-badge" style="font-size:0.6rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:5px;"></div>
         
-        <div style="display:flex; gap:5px; margin-bottom:15px;" id="scale-controls">
-            <button class="btn-scale" id="s500" onclick="scale(0.66, this)">500g</button>
-            <button class="btn-scale active" id="s750" onclick="scale(1, this)">750g</button>
-            <button class="btn-scale" id="s1000" onclick="scale(1.33, this)">1000g</button>
+        <div style="display:flex; margin-bottom:20px;" id="scale-controls">
+            <button class="btn-scale" id="s500" onclick="scale(0.66, this)">500G</button>
+            <button class="btn-scale active" id="s750" onclick="scale(1, this)">750G</button>
+            <button class="btn-scale" id="s1000" onclick="scale(1.33, this)">1KG</button>
         </div>
 
         <div id="r-ingredients"></div>
 
-        <div style="background:#fff4e6; padding:12px; border-radius:10px; font-size:0.75rem; margin-top:15px; border-left:4px solid var(--gold);">
-            <strong>ORDINE CARICO:</strong> Liquidi → Sali/Zuccheri → Farine → Lievito in alto al centro.
+        <div style="font-size:0.75rem; margin-top:25px; color:var(--accent); line-height:1.6; font-style: italic;">
+            Il segreto di Francesca: Inserire prima l'acqua, poi il sale e lo zucchero ai lati, coprire con la farina e infine il lievito al centro in un piccolo incavo.
         </div>
-        <p id="r-desc" style="font-size:0.8rem; font-style:italic; margin-top:10px; color:#555;"></p>
     </div>
 </div>
 
 <nav class="nav-bar">
-    <button class="nav-item active" id="n-home" onclick="showView('home')">🏠<br>Girmi</button>
-    <button class="nav-item" id="n-categories" onclick="showView('categories')">📁<br>Sezioni</button>
-    <button class="nav-item" id="n-index" onclick="showView('index')">📜<br>Indice 100+</button>
+    <button class="nav-item active" id="n-home" onclick="showView('home')">🏠<br>MACCHINA</button>
+    <button class="nav-item" id="n-categories" onclick="showView('categories')">📖<br>SEZIONI</button>
+    <button class="nav-item" id="n-index" onclick="showView('index')">📜<br>INDICE 100+</button>
 </nav>
 
 <script>
     const programmi = [
-        {n:1, t:"Normale", d:"Per pane bianco o misto.", time:"3h 00m", tip:"Il programma jolly per quasi tutto."},
-        {n:2, t:"Francese", d:"Per croste croccanti.", time:"3h 50m", tip:"Evita i grassi (olio/burro)."},
-        {n:3, t:"Integrale", d:"Per farine grezze.", time:"3h 40m", tip:"Usa acqua a temperatura ambiente."},
-        {n:4, t:"Veloce", d:"Pane in 2 ore.", time:"2h 10m", tip:"Aumenta lievito del 20%."},
-        {n:5, t:"Brioche", d:"Per dolci lievitati.", time:"2h 55m", tip:"Usa burro a cubetti freddo."},
-        {n:6, t:"Sandwich", d:"Pane morbidissimo.", time:"3h 00m", tip:"Usa latte al posto dell'acqua."},
-        {n:10, t:"Pizza", d:"Solo impasto.", time:"1h 30m", tip:"Perfetto anche per focacce."},
-        {n:12, t:"Mix 2 (BIP)", d:"Per pani con semi/noci.", time:"3h 00m", tip:"Inserisci extra al suono BIP."},
-        {n:15, t:"Yogurt", d:"Fermentazione 40°C.", time:"8h 00m", tip:"Latte intero = più cremoso."},
-        {n:17, t:"Marmellata", d:"Cottura e mescolamento.", time:"1h 20m", tip:"Taglia la frutta a pezzetti."},
-        {n:18, t:"Torta", d:"Lievito chimico.", time:"1h 50m", tip:"Ideale per plumcake."}
+        {n:1, t:"Normale", d:"Ideale per pane bianco e misto, con cicli di lievitazione bilanciati.", time:"3h 00m", tip:"La farina 0 è quella che regala i risultati più costanti."},
+        {n:2, t:"Francese", d:"Prolunga la lievitazione per una crosta croccante e leggera.", time:"3h 50m", tip:"Evita i grassi per non ammorbidire la crosta."},
+        {n:3, t:"Integrale", d:"Riscalda delicatamente prima di impastare per far idratare le fibre.", time:"3h 40m", tip:"Usa un miele leggero invece dello zucchero."},
+        {n:5, t:"Brioche", d:"Per impasti ricchi di uova e burro. Ciclo delicato.", time:"2h 55m", tip:"Usa burro freddo tagliato a piccoli cubetti."},
+        {n:6, t:"Sandwich", d:"Mantiene l'umidità per un pane da affettare morbidissimo.", time:"3h 00m", tip:"Perfetto per la colazione dei nipoti!"},
+        {n:10, t:"Pizza", d:"Solo impasto e lievitazione. Non cuoce.", time:"1h 30m", tip:"Una volta finito, stendi la pasta in teglia unta."},
+        {n:12, t:"Mix 2 (BIP)", d:"Programma con segnale per inserire noci o semi.", time:"3h 00m", tip:"Aspetta sempre il segnale per non frantumare i semi."},
+        {n:15, t:"Yogurt", d:"Mantiene il calore costante per 8 ore.", time:"8h 00m", tip:"Usa latte intero a temperatura ambiente."},
+        {n:17, t:"Marmellata", d:"Cuoce e mescola evitando che si attacchi.", time:"1h 20m", tip:"Pulisci subito il cestello dopo l'uso per evitare incrostazioni."},
+        {n:18, t:"Torta", d:"Ciclo rapido per impasti con lievito istantaneo.", time:"1h 50m", tip:"Setaccia sempre la farina per evitare grumi."}
     ];
 
     const database = [];
     const categorie = [
-        {id:"CLASSICI", n:"Pani Classici", i:"🍞"},
-        {id:"EUROPEI", n:"Pani dal Mondo", i:"🌍"},
-        {id:"SFIZIOSI", n:"Sfiziosi & Verdure", i:"🌶️"},
-        {id:"DOLCI", n:"Torte & Brioche", i:"🍩"},
-        {id:"CONFETTURE", n:"Marmellate", i:"🍓"},
-        {id:"YOGURT", n:"Yogurt & Co", i:"🍯"}
+        {id:"PANI", n:"I Pani di Mauro", i:"🍞"},
+        {id:"DOLCI", n:"Le Torte di Francesca", i:"🧁"},
+        {id:"CONFETTURE", n:"Marmellate & Dispensa", i:"🍓"},
+        {id:"YOGURT", n:"Latteria Artigianale", i:"🍶"}
     ];
 
-    // GENERAZIONE DATABASE (100+ RICETTE)
     function buildDB() {
-        // Pani Classici (1-20)
-        database.push({cat:"CLASSICI", nome:"Pane Bianco Cantoni", prog:1, base:{"Acqua (ml)":280,"Farina 0 (g)":450,"Olio (g)":20,"Sale (g)":8,"Lievito (g)":5}});
-        database.push({cat:"CLASSICI", nome:"Bauletto Morbido", prog:6, base:{"Latte (ml)":290,"Farina 0 (g)":500,"Burro (g)":30,"Sale (g)":7,"Lievito (g)":5}});
-        database.push({cat:"CLASSICI", nome:"Pane Integrale", prog:3, base:{"Acqua (ml)":310,"Farina Integrale (g)":500,"Miele (g)":10,"Sale (g)":9,"Lievito (g)":7}});
-        database.push({cat:"CLASSICI", nome:"Pane ai 5 Cereali", prog:3, base:{"Acqua (ml)":300,"Farina Cereali (g)":500,"Olio (g)":20,"Sale (g)":8,"Lievito (g)":6}});
-        database.push({cat:"CLASSICI", nome:"Pane di Semola", prog:1, base:{"Acqua (ml)":280,"Semola Rimacinata (g)":450,"Olio (g)":15,"Sale (g)":8,"Lievito (g)":5}});
-        database.push({cat:"CLASSICI", nome:"Pane al Farro", prog:3, base:{"Acqua (ml)":290,"Farina Farro (g)":480,"Olio (g)":20,"Sale (g)":8,"Lievito (g)":5}});
-        database.push({cat:"CLASSICI", nome:"Pane al Kamut", prog:1, base:{"Acqua (ml)":280,"Farina Kamut (g)":450,"Olio (g)":20,"Sale (g)":8,"Lievito (g)":5}});
-        database.push({cat:"CLASSICI", nome:"Pane di Segale", prog:3, base:{"Acqua (ml)":320,"Farina Segale (g)":300,"Farina 0 (g)":200,"Sale (g)":10,"Lievito (g)":7}});
-        database.push({cat:"CLASSICI", nome:"Pane al Burro", prog:6, base:{"Latte (ml)":250,"Farina 0 (g)":450,"Burro (g)":60,"Zucchero (g)":10,"Lievito (g)":5}});
-        database.push({cat:"CLASSICI", nome:"Pane di Campagna", prog:2, base:{"Acqua (ml)":300,"Farina 0 (g)":500,"Sale (g)":10,"Lievito (g)":4}});
+        // Pani (1-40)
+        const pani = ["Bianco Classico", "Integrale Antico", "Sette Cereali", "Semola Pugliese", "Pane al Farro", "Segale e Cumino", "Kamut Delicato", "Bauletto al Latte", "Pane all'Olio", "Baguette", "Pane alle Noci", "Pane alle Olive", "Focaccia in teglia", "Pane al Rosmarino", "Pane alla Zucca", "Pane alle Patate", "Soda Bread", "Pane alla Birra", "Pane al Mais", "Challah Dolce", "Pane allo Speck", "Pane alla Curcuma", "Pane ai Semi di Girasole", "Pane ai Semi di Zucca", "Pane ai Pomodori Secchi", "Pane al Pesto", "Pane al Peperoncino", "Pane allo Zafferano", "Pane al Sesamo", "Pane al Finocchietto", "Pane alla Salvia", "Pane al Formaggio", "Pane alla Pancetta", "Pane alle Cipolle Caramellate", "Pane di Campagna", "Ciabatta", "Naan Indiano", "Muffins Inglesi", "Pane di Segale Nero", "Pane al Burro"];
+        pani.forEach(p => database.push({cat:"PANI", nome:p, prog:p.includes("Integrale")||p.includes("Segale")?3:1, base:{"Acqua/Latte (ml)":280,"Farina (g)":480,"Olio/Burro (g)":20,"Sale (g)":8,"Lievito (g)":5}}));
 
-        // Europei e Mondo (21-40)
-        database.push({cat:"EUROPEI", nome:"Baguette Paris", prog:2, base:{"Acqua (ml)":320,"Farina Manitoba (g)":450,"Sale (g)":9,"Lievito (g)":4}});
-        database.push({cat:"EUROPEI", nome:"Naan Indiano", prog:10, base:{"Yogurt (g)":120,"Acqua (ml)":100,"Farina 0 (g)":400,"Sale (g)":5,"Lievito (g)":5}});
-        database.push({cat:"EUROPEI", nome:"Ciabatta Veneta", prog:2, base:{"Acqua (ml)":350,"Farina 0 (g)":450,"Sale (g)":8,"Lievito (g)":3}});
-        database.push({cat:"EUROPEI", nome:"Soda Bread Irish", prog:18, base:{"Latticello (ml)":350,"Farina 0 (g)":450,"Bicarbonato (g)":6,"Sale (g)":5}});
-        database.push({cat:"EUROPEI", nome:"Challah Ebraica", prog:5, base:{"Acqua (ml)":150,"Uova (n)":2,"Olio (ml)":60,"Farina 0 (g)":500,"Miele (g)":50,"Lievito (g)":7}});
-        database.push({cat:"EUROPEI", nome:"Pane alla Birra", prog:1, base:{"Birra Chiara (ml)":330,"Farina 0 (g)":500,"Zucchero (g)":10,"Sale (g)":8,"Lievito (g)":5}});
-        database.push({cat:"EUROPEI", nome:"Focaccia Genovese", prog:10, base:{"Acqua (ml)":300,"Olio EVO (g)":40,"Farina 0 (g)":500,"Sale (g)":10,"Lievito (g)":7}});
-        database.push({cat:"EUROPEI", nome:"English Muffins", prog:10, base:{"Latte (ml)":250,"Burro (g)":30,"Farina 0 (g)":450,"Sale (g)":5,"Lievito (g)":7}});
+        // Dolci (41-75)
+        const dolci = ["Plumcake Classico", "Torta allo Yogurt", "Margherita", "Torta al Cioccolato", "Pan di Mela", "Brioche all'Uvetta", "Torta al Limone", "Torta alle Carote", "Pan Dolce ai Fichi", "Muffins ai Mirtilli", "Torta al Caffè", "Brioche al Cioccolato", "Veneziana", "Panettone Gastronomico", "Pandolce Genovese", "Torta di Noci", "Torta Sabbiosa", "Plumcake all'Arancia", "Torta Paradiso", "Brioche al Miele", "Torta Integrale al Miele", "Torta ai Frutti di Bosco", "Torta Cacao e Pere", "Torta allo Zenzero", "Pan Brioche Salato", "Cornetti (solo impasto)", "Krapfen (solo impasto)", "Donuts (solo impasto)", "Torta Mimosa base", "Pan di Spagna base", "Torta di Grano Saraceno", "Torta al Cocco", "Plumcake Banane", "Torta alle Mandorle", "Torta alle Castagne"];
+        dolci.forEach(d => database.push({cat:"DOLCI", nome:d, prog:d.includes("Brioche")?5:18, base:{"Uova (n)":2,"Latte (ml)":150,"Zucchero (g)":120,"Farina (g)":300,"Lievito (g)":16}}));
 
-        // Sfiziosi (41-65)
-        const gusti = ["Olive","Noci","Rosmarino","Speck","Cipolla","Zucca","Patate","Curcuma","Semi di Girasole","Semi di Zucca","Pomodori Secchi","Pesto","Peperoncino","Zafferano","Mais","Sesamo","Finocchietto","Salvia","Formaggio","Pancetta"];
-        gusti.forEach(g => {
-            database.push({cat:"SFIZIOSI", nome:"Pane al/alle "+g, prog:12, base:{"Acqua (ml)":280,"Farina 0 (g)":500,"Sale (g)":8,"Lievito (g)":5,[g]:"50g/qb"}});
-        });
+        // Marmellate (76-100)
+        const frutti = ["Fragole", "Pesche", "Albicocche", "Ciliegie", "Arance", "Fichi", "Prugne", "Pere", "Mirtilli", "Lamponi", "Kiwi", "Ananas", "Mele e Cannella", "Susine", "Limoni", "Arance Rosse", "Cedro", "Pompelmo", "Uva", "Cachi", "More", "Ribes", "Cotogne", "Melone", "Zenzero e Limone"];
+        frutti.forEach(f => database.push({cat:"CONFETTURE", nome:"Marmellata di "+f, prog:17, base:{"Frutta pulita (g)":500,"Zucchero (g)":250,"Limone (succo)":"qb"}}));
 
-        // Dolci (66-85)
-        database.push({cat:"DOLCI", nome:"Plumcake Yogurt", prog:18, base:{"Uova (n)":3,"Yogurt (g)":125,"Farina 00 (g)":300,"Zucchero (g)":150,"Lievito Chimico (g)":16}});
-        database.push({cat:"DOLCI", nome:"Torta Margherita", prog:18, base:{"Farina (g)":300,"Zucchero (g)":150,"Burro fuso (g)":80,"Uova (n)":3,"Lievito (g)":16}});
-        database.push({cat:"DOLCI", nome:"Torta al Cioccolato", prog:18, base:{"Uova (n)":3,"Farina (g)":250,"Cacao (g)":50,"Zucchero (g)":150,"Lievito (g)":16}});
-        database.push({cat:"DOLCI", nome:"Pan di Mela", prog:18, base:{"Mele a fette (n)":2,"Farina (g)":300,"Zucchero (g)":120,"Uova (n)":2,"Lievito (g)":16}});
-        database.push({cat:"DOLCI", nome:"Brioche Uvetta", prog:12, base:{"Latte (ml)":200,"Farina 0 (g)":500,"Uvetta (g)":100,"Zucchero (g)":60,"Lievito (g)":7}});
-        database.push({cat:"DOLCI", nome:"Pan Dolce Fichi", prog:12, base:{"Latte (ml)":200,"Farina (g)":500,"Fichi secchi (g)":80,"Miele (g)":20,"Lievito (g)":6}});
-        database.push({cat:"DOLCI", nome:"Torta Limone", prog:18, base:{"Farina (g)":300,"Zucchero (g)":150,"Succo Limone (n)":1,"Uova (n)":3,"Lievito (g)":16}});
-        database.push({cat:"DOLCI", nome:"Torta Carote", prog:18, base:{"Carote gratt. (g)":200,"Farina (g)":250,"Mandorle (g)":50,"Zucchero (g)":150,"Lievito (g)":16}});
-
-        // Marmellate (86-100)
-        const frutti = ["Fragole","Pesche","Albicocche","Ciliegie","Arance","Fichi","Prugne","Pere","Frutti di Bosco","Kiwi","Ananas","Mele e Cannella","Susine","Limoni","Mirtilli"];
-        frutti.forEach(f => {
-            database.push({cat:"CONFETTURE", nome:"Marmellata di "+f, prog:17, base:{"Frutta a pezzi (g)":500,"Zucchero (g)":250,"Limone (succo)":"qb"}});
-        });
-
-        // Yogurt (101-110)
-        database.push({cat:"YOGURT", nome:"Yogurt Naturale", prog:15, base:{"Latte Intero (ml)":1000,"Yogurt Bianco (g)":125}});
-        database.push({cat:"YOGURT", nome:"Yogurt Greco Style", prog:15, base:{"Latte Intero (ml)":1000,"Yogurt Greco (g)":150}});
-        database.push({cat:"YOGURT", nome:"Yogurt alla Vaniglia", prog:15, base:{"Latte (ml)":1000,"Yogurt (g)":125,"Estratto Vaniglia":"1 cucch."}});
-        database.push({cat:"YOGURT", nome:"Yogurt al Miele", prog:15, base:{"Latte (ml)":1000,"Yogurt (g)":125,"Miele (g)":50}});
-        database.push({cat:"YOGURT", nome:"Yogurt al Cocco", prog:15, base:{"Latte Cocco (ml)":200,"Latte Intero (ml)":800,"Yogurt (g)":125}});
+        // Yogurt (101-115)
+        const yogurt = ["Naturale", "Greco Style", "Vaniglia", "Miele", "Cocco", "Caffè", "Mirtillo", "Mandorla", "Soia", "Fragola", "Banana", "Ananas", "Nocciola", "Pistacchio", "Cioccolato"];
+        yogurt.forEach(y => database.push({cat:"YOGURT", nome:"Yogurt "+y, prog:15, base:{"Latte Intero (ml)":1000,"Yogurt/Sieroinnesto (g)":125,"Gusto desiderato":"qb"}}));
     }
 
     function init() {
@@ -204,7 +224,7 @@
         });
         const cCont = document.getElementById('cat-container');
         categorie.forEach(c => {
-            cCont.innerHTML += `<div class="cat-card" onclick="openCat('${c.id}')"><span style="font-size:1.5rem; margin-right:15px">${c.i}</span><h4 style="margin:0">${c.n}</h4></div>`;
+            cCont.innerHTML += `<div class="cat-card" onclick="openCat('${c.id}')"><span style="font-size:1.5rem; margin-right:20px">${c.i}</span><h4 style="margin:0; font-family:'Libre Baskerville'; font-weight:400;">${c.n}</h4></div>`;
         });
         renderFullIndex();
     }
@@ -233,7 +253,7 @@
     function openRecipe(name) {
         currentR = database.find(x => x.nome === name);
         document.getElementById('r-name').innerText = currentR.nome;
-        document.getElementById('r-prog-badge').innerText = "PROG: " + currentR.prog;
+        document.getElementById('r-prog-badge').innerText = "PROGRAMMA GIRMI: " + currentR.prog;
         document.getElementById('scale-controls').style.display = (currentR.prog === 17 || currentR.prog === 15) ? "none" : "flex";
         scale(1, document.getElementById('s750'));
         document.getElementById('modal-recipe').style.display = 'flex';
@@ -246,17 +266,15 @@
         cont.innerHTML = "";
         for (let [i, q] of Object.entries(currentR.base)) {
             let val = typeof q === 'number' ? Math.round(q * f) : q;
-            let cls = i.match(/Acqua|Latte|Birra|Succo/) ? 'liquid' : (i.includes('Lievito') ? 'lievito' : '');
-            cont.innerHTML += `<div class="ing-row ${cls}"><span>${i}</span><strong>${val}</strong></div>`;
+            cont.innerHTML += `<div class="ing-row"><span>${i}</span><strong>${val}</strong></div>`;
         }
     }
 
     function renderFullIndex() {
         const cont = document.getElementById('full-index');
         cont.innerHTML = "";
-        const sorted = [...database].sort((a,b) => a.nome.localeCompare(b.nome));
-        sorted.forEach(r => {
-            cont.innerHTML += `<div class="recipe-row" onclick="openRecipe('${r.nome}')"><div><strong>${r.nome}</strong><br><small>${r.cat}</small></div><span>➔</span></div>`;
+        database.sort((a,b) => a.nome.localeCompare(b.nome)).forEach(r => {
+            cont.innerHTML += `<div class="recipe-row" onclick="openRecipe('${r.nome}')"><div><strong>${r.nome}</strong><br><small style="color:var(--gold)">${r.cat}</small></div><span>➔</span></div>`;
         });
     }
 
@@ -276,7 +294,6 @@
 
     function closeModals() { document.querySelectorAll('.overlay').forEach(o => o.style.display='none'); }
 
-    // Start
     document.addEventListener("DOMContentLoaded", init);
 </script>
 </body>
