@@ -3,56 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Forno di Mauro e Francesca - Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Special+Elite&display=swap" rel="stylesheet">
+    <title>Il Forno di Mauro e Francesca</title>
     <style>
-        body { margin: 0; background: #2c1a0b; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Special Elite', serif; }
-        .phone { width: 360px; height: 640px; background: #fdf5e6; position: relative; display: flex; flex-direction: column; box-shadow: 0 0 40px black; border: 4px solid #5d4037; overflow: hidden; }
+        body { margin: 0; background: #1a0f00; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        .top-label { text-align: center; font-size: 9px; padding: 5px; color: #8b6b23; border-bottom: 1px solid #d3c4a0; }
+        .schermo-telefono {
+            width: 360px;
+            height: 640px;
+            background-image: url('sfondo_pag1.jpg'); /* Qui caricherà l'immagine che stai per caricare */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border: 4px solid #5d4037;
+            box-shadow: 0 0 50px black;
+        }
+
+        /* Zone invisibili per i bottoni */
+        .nav-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 120px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
         
-        /* Banner Titolo Disegnato */
-        .header { text-align: center; padding: 20px 10px; }
-        .banner { position: relative; display: inline-block; padding: 10px 30px; border: 2px solid #5d4037; border-radius: 15px 4px 15px 4px; background: #fffaf0; }
-        .banner::before, .banner::after { content: "~~~"; position: absolute; top: 35%; color: #8b6b23; font-weight: bold; font-size: 20px; }
-        .banner::before { left: -35px; } .banner::after { right: -35px; }
-        .banner h1 { margin: 0; font-size: 18px; color: #3e2723; text-transform: uppercase; line-height: 1.2; }
-
-        /* Disegno Macchina SVG */
-        .machine-draw { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .machine-draw svg { width: 220px; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); }
-
-        .quote { padding: 0 30px; text-align: center; font-family: 'Dancing Script', cursive; font-size: 18px; color: #4e342e; line-height: 1.4; }
-        .rif { text-align: right; font-size: 10px; padding: 10px 20px 80px; color: #8b6b23; }
-
-        /* Footer con tasti circolari */
-        .footer { position: absolute; bottom: 0; width: 100%; height: 90px; background: #4b2b11; border-top: 3px solid #8b6b23; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; }
-        .nav-item { text-align: center; text-decoration: none; color: #d2b48c; font-size: 9px; }
-        .circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #8b6b23; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; background: #3e2723; font-size: 20px; }
-        .active .circle { background: #8b6b23; color: #3e2723; box-shadow: 0 0 10px #daa520; }
+        .nav-link { text-decoration: none; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="phone">
-        <div class="top-label">BOZZETTI HOME PAGE - USO INTERNO - PAG. 1</div>
-        <div class="header">
-            <div class="banner"><h1>IL FORNO di<br>Mauro e Francesca</h1></div>
+
+    <div class="schermo-telefono">
+        <div class="nav-overlay">
+            <a href="programmi.html" class="nav-link"></a>
+            <a href="guida.html" class="nav-link"></a>
+            <a href="ricette.html" class="nav-link"></a>
         </div>
-        <div class="machine-draw">
-            <svg viewBox="0 0 200 180" fill="none" stroke="#5d4037" stroke-width="2" stroke-linecap="round">
-                <path d="M40 60 Q40 40 60 40 L140 40 Q160 40 160 60 L170 150 Q170 160 160 160 L40 160 Q30 160 30 150 Z" fill="#fff" />
-                <rect x="70" y="60" width="60" height="40" rx="5" fill="#f0f0d8" />
-                <circle cx="60" cy="120" r="8" /> <circle cx="85" cy="120" r="8" /> 
-                <circle cx="115" cy="120" r="8" /> <circle cx="140" cy="120" r="8" />
-            </svg>
-            <p class="quote">"Non v'è amore più puro del calore di una casa che profuma di pane appena sfornato."</p>
-        </div>
-        <div class="rif">RIF. LISTA 1</div>
-        <nav class="footer">
-            <a href="#" class="nav-item"><div class="circle">⚙</div>PROGRAMMI</a>
-            <a href="guida.html" class="nav-item"><div class="circle">🧭</div>GUIDA</a>
-            <a href="#" class="nav-item"><div class="circle">🌾</div>RICETTE</a>
-        </nav>
     </div>
+
 </body>
 </html>
