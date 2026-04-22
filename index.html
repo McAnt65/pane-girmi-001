@@ -2,288 +2,305 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Forno di Mauro e Francesca - App Ufficiale</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Dancing+Script:wght@400;700&family=Pinyon+Script&family=Alice&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Il Forno di Mauro e Francesca</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Dancing+Script:wght@600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --pergamena: #f4e4bc;
-            --cuoio: #5d3a1a;
+            --pergamena: #f1e6d0;
+            --cuoio: #4a2c11;
+            --cuoio-light: #6b421a;
             --ottone: #c5a059;
-            --inchiostro: #2b2b2b;
-            --sigillo: #8b0000;
+            --inchiostro: #2c1e16;
+            --sigillo: #8b1c1c;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: #1a1a1a;
+            margin: 0; padding: 0; height: 100%;
+            background-color: #111;
+            font-family: 'Lora', serif;
             color: var(--inchiostro);
-            font-family: 'Alice', serif;
-            display: flex;
-            justify-content: center;
+            display: flex; justify-content: center;
         }
 
-        #app-container {
-            width: 100%;
-            max-width: 500px;
-            height: 100vh;
-            background: var(--pergamena) url('https://www.transparenttextures.com/patterns/parchment.png');
+        /* CONTENITORE PRINCIPALE (Simula lo schermo dello smartphone) */
+        #app {
+            width: 100%; max-width: 480px; height: 100vh;
+            background-color: var(--pergamena);
+            background-image: 
+                radial-gradient(circle, rgba(0,0,0,0) 40%, rgba(139, 69, 19, 0.1) 100%),
+                url('https://www.transparenttextures.com/patterns/parchment.png');
             position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            display: flex;
-            flex-direction: column;
-            border-left: 2px solid var(--ottone);
-            border-right: 2px solid var(--ottone);
+            display: flex; flex-direction: column;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
             overflow: hidden;
         }
 
-        /* HEADER COMUNE */
+        /* HEADER / INSEGNA */
         header {
-            padding: 20px 10px;
-            text-align: center;
-            flex-shrink: 0;
+            padding: 15px; text-align: center; flex-shrink: 0;
+            border-bottom: 2px solid rgba(197, 160, 89, 0.5);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0));
         }
-
-        .cornice-header {
-            border: 2px solid var(--ottone);
-            padding: 10px;
-            display: inline-block;
+        .cornice-insegna {
+            border: 2px double var(--ottone);
+            padding: 8px; display: inline-block;
+            border-radius: 4px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
         }
-
-        .insegna {
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            font-weight: bold;
-            line-height: 1.2;
-        }
+        .insegna { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; color: var(--cuoio); line-height: 1.1; }
 
         /* GESTIONE PAGINE */
         .page {
-            display: none;
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            animation: fadeIn 0.4s ease-out;
+            display: none; flex: 1; padding: 20px; overflow-y: auto;
+            animation: fadeIn 0.3s ease-out forwards;
         }
-
         .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
+        /* TITOLI PAGINE */
+        .titolo-sezione {
+            font-family: 'Cinzel', serif; font-size: 1.5rem; text-align: center;
+            margin-top: 0; margin-bottom: 20px; color: var(--cuoio);
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
         }
 
-        /* BOTTONI STILE CUOIO */
+        /* BOTTONI IN CUOIO */
         .btn-cuoio {
-            background: var(--cuoio);
+            background: linear-gradient(to bottom, var(--cuoio-light), var(--cuoio));
             color: var(--ottone);
             border: 2px solid var(--ottone);
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Cinzel', serif;
-            text-align: center;
-            margin-bottom: 15px;
-            cursor: pointer;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
-            text-transform: uppercase;
-            font-weight: bold;
-            display: block;
+            padding: 15px; border-radius: 8px;
+            font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: bold;
+            text-align: center; margin-bottom: 15px; cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.2);
+            text-transform: uppercase; letter-spacing: 1px; transition: all 0.1s;
         }
+        .btn-cuoio:active { transform: translateY(2px); box-shadow: 0 1px 2px rgba(0,0,0,0.4); }
 
-        .btn-cuoio:active { transform: translateY(2px); box-shadow: 2px 2px 5px rgba(0,0,0,0.4); }
-
-        /* STILE PAGINA RICETTA (PAG. 6) */
-        .titolo-ricetta { font-family: 'Cinzel', serif; font-size: 1.5rem; text-align: center; margin-bottom: 15px; }
-        
-        .ing-lista { 
-            font-size: 0.85rem; 
-            margin-bottom: 15px; 
-            padding: 10px; 
-            border-top: 1px solid var(--ottone); 
-            border-bottom: 1px solid var(--ottone);
+        /* STILE RICETTA (PAG. 6) */
+        .lista-ingredienti {
+            font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px;
+            background: rgba(255,255,255,0.4); padding: 15px; border-radius: 5px;
+            border: 1px dashed rgba(197, 160, 89, 0.6);
         }
-        
-        .ing-lista ul { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+        .lista-ingredienti ul { list-style: none; padding: 0; margin: 0; }
+        .lista-ingredienti li { border-bottom: 1px solid rgba(0,0,0,0.05); padding: 4px 0; }
+        .lista-ingredienti li:last-child { border-bottom: none; }
+        .icona-ing { display: inline-block; width: 20px; text-align: center; margin-right: 5px; }
 
         .narrazione {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            text-align: justify;
-            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive; font-size: 1.3rem; line-height: 1.4;
+            color: #3e2723; text-align: justify; margin-bottom: 25px;
+            padding: 0 5px; text-shadow: 0px 0px 1px rgba(0,0,0,0.1);
         }
+        .val-dinamico { font-weight: bold; color: var(--sigillo); }
 
-        /* BILANCIA VINTAGE */
-        .bilancia-wrap { text-align: center; margin: 20px 0; }
-        .label-bilancia { font-family: 'Pinyon Script', cursive; font-size: 1.3rem; margin-bottom: -5px; }
+        /* CALCOLATORE AUTOMATICO (BILANCIA VINTAGE) */
+        .bilancia-container { margin: 20px auto; text-align: center; position: relative; width: 90%; max-width: 320px; }
+        .etichetta-bilancia { font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--cuoio); letter-spacing: 1px; margin-bottom: 5px; }
+        
         .quadrante {
-            background: #fff9eb;
-            border: 3px solid var(--ottone);
-            border-radius: 100px 100px 10px 10px;
-            padding: 15px;
-            position: relative;
-            margin: 0 auto;
-            width: 85%;
-        }
-        .scala { display: flex; justify-content: space-around; align-items: flex-end; height: 50px; }
-        .peso-btn { font-family: 'Cinzel', serif; cursor: pointer; transition: 0.3s; color: #888; position: relative; }
-        .peso-btn.selected { color: var(--inchiostro); transform: scale(1.3); font-weight: bold; }
-        .att-marker { font-size: 0.5rem; color: var(--sigillo); display: block; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); opacity: 0; }
-        .selected .att-marker { opacity: 1; }
-        .ago { width: 2px; height: 45px; background: var(--sigillo); position: absolute; bottom: 10px; left: 50%; transform-origin: bottom; transition: 0.6s; }
-
-        .sigillo-tecnico {
-            border: 1px dashed var(--inchiostro);
-            padding: 10px;
-            font-size: 0.7rem;
-            font-family: 'Cinzel', serif;
-            width: fit-content;
-            margin: 20px 0 20px auto;
-            transform: rotate(-3deg);
+            background: radial-gradient(circle at bottom, #fffdf7, #f4e8ce);
+            border: 4px solid var(--ottone); border-bottom: 8px solid var(--cuoio);
+            border-radius: 150px 150px 10px 10px; height: 100px;
+            position: relative; overflow: hidden; box-shadow: inset 0 5px 15px rgba(0,0,0,0.1), 0 10px 15px rgba(0,0,0,0.2);
+            display: flex; align-items: flex-end; justify-content: space-evenly; padding-bottom: 15px;
         }
 
-        /* NAVIGAZIONE FOOTER */
-        nav { background: var(--cuoio); display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 2px solid var(--ottone); }
-        .nav-btn { color: var(--ottone); text-align: center; font-size: 0.65rem; padding: 12px 5px; font-family: 'Cinzel', serif; cursor: pointer; }
-        .btn-home-footer { background: var(--ottone); color: var(--cuoio); text-align: center; padding: 10px; font-weight: bold; cursor: pointer; font-family: 'Cinzel', serif; }
+        .tasto-peso {
+            font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: bold; color: #888;
+            cursor: pointer; z-index: 10; position: relative; padding: 10px; line-height: 1;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tasto-peso.selezionato { color: var(--cuoio); transform: scale(1.3); text-shadow: 0 0 5px rgba(197, 160, 89, 0.8); }
+        
+        .marcatore-attuale {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            font-size: 0.5rem; color: var(--sigillo); opacity: 0; font-weight: bold;
+        }
+        .tasto-peso.selezionato .marcatore-attuale { opacity: 1; }
 
+        .ago {
+            position: absolute; bottom: -5px; left: 50%; width: 4px; height: 80px;
+            background: linear-gradient(to top, var(--cuoio), var(--sigillo));
+            transform-origin: bottom center; border-radius: 2px 2px 0 0; z-index: 5;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 2px 0 3px rgba(0,0,0,0.3);
+        }
+        .perno {
+            position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+            width: 16px; height: 16px; background: var(--ottone); border-radius: 50%; z-index: 15;
+            border: 2px solid var(--cuoio);
+        }
+
+        /* SIGILLO TECNICO */
+        .sigillo {
+            border: 2px dashed var(--cuoio); padding: 8px 12px; font-family: 'Cinzel', serif;
+            font-size: 0.75rem; color: var(--inchiostro); width: fit-content; margin: 15px 0 15px auto;
+            transform: rotate(-3deg); background: rgba(0,0,0,0.02); font-weight: bold;
+        }
+
+        /* NAVIGAZIONE INFERIORE */
+        nav {
+            background: var(--cuoio); border-top: 2px solid var(--ottone);
+            display: flex; box-shadow: 0 -2px 10px rgba(0,0,0,0.3); flex-shrink: 0;
+        }
+        .nav-btn {
+            flex: 1; padding: 12px 5px; text-align: center; color: var(--ottone);
+            font-family: 'Cinzel', serif; font-size: 0.7rem; cursor: pointer; text-transform: uppercase;
+        }
+        .nav-btn.attiva { background: rgba(255,255,255,0.1); font-weight: bold; }
+        .home-bar {
+            background: var(--ottone); color: var(--cuoio); text-align: center;
+            padding: 12px; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer; flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
 
-<div id="app-container">
+<div id="app">
     <header>
-        <div class="cornice-header">
+        <div class="cornice-insegna">
             <div class="insegna">IL FORNO DI<br>MAURO E FRANCESCA</div>
         </div>
     </header>
 
     <div id="pag1" class="page active">
-        <h2 style="text-align:center; font-family:'Dancing Script'; font-size: 2rem;">Benvenuti</h2>
-        <p style="text-align:center; font-style:italic;">"Il profumo del pane di casa, ogni giorno."</p>
-        <div class="btn-cuoio" onclick="showPage('pag5')">Le Nostre Ricette</div>
-        <div class="btn-cuoio" onclick="showPage('pag3')">Programmi Girmi</div>
-        <div class="btn-cuoio" onclick="showPage('pag2')">Guida Interfaccia</div>
-        <div class="btn-cuoio" onclick="showPage('pag4')">I Segreti del Fornaio</div>
+        <h2 class="titolo-sezione" style="font-family:'Dancing Script'; font-size: 2.2rem; text-transform: none; margin-top: 10px;">Benvenuti</h2>
+        <div class="btn-cuoio" onclick="naviga('pag5', 'nav-ricette')">Le Nostre Ricette</div>
+        <div class="btn-cuoio" onclick="naviga('pag3', 'nav-prog')">Programmi Girmi</div>
+        <div class="btn-cuoio" onclick="naviga('pag4', 'nav-guida')">I Segreti del Fornaio</div>
+        <div class="btn-cuoio" onclick="naviga('pag2', 'nav-guida')">Guida Interfaccia</div>
     </div>
 
     <div id="pag2" class="page">
-        <h2 class="titolo-ricetta">Guida Interfaccia</h2>
-        <p>Benvenuti nell'anima digitale del nostro forno. Qui troverete tutto ciò che serve per utilizzare al meglio la vostra Girmi MP20.</p>
-        <ul>
-            <li><strong>Ricette:</strong> Calcolo automatico delle dosi.</li>
-            <li><strong>Programmi:</strong> Guida ai 19 cicli della macchina.</li>
-            <li><strong>Segreti:</strong> Trucchi per una lievitazione perfetta.</li>
-        </ul>
+        <h2 class="titolo-sezione">Guida App</h2>
+        <p>Benvenuti nell'anima digitale del nostro forno. Questa interfaccia è stata creata per assistervi in ogni fase.</p>
+        <p><strong>Il Calcolatore Automatico:</strong> Nelle ricette, toccate i pesi (500, 750, 1000) scritti direttamente sulla bilancia per adattare immediatamente tutti gli ingredienti mostrati.</p>
     </div>
 
     <div id="pag3" class="page">
-        <h2 class="titolo-ricetta">I 19 Programmi</h2>
-        <div class="btn-cuoio" style="font-size: 0.8rem; padding: 10px;">1. Normale (3:00h)</div>
-        <div class="btn-cuoio" style="font-size: 0.8rem; padding: 10px;">2. Francese (3:50h)</div>
-        <div class="btn-cuoio" style="font-size: 0.8rem; padding: 10px;">3. Integrale (3:40h)</div>
-        <p style="text-align:center; font-size: 0.8rem;">...e molti altri cicli specializzati.</p>
+        <h2 class="titolo-sezione">I 19 Programmi</h2>
+        <div class="btn-cuoio" style="padding: 10px; font-size: 0.9rem;">1. Normale (3:00 ore)</div>
+        <div class="btn-cuoio" style="padding: 10px; font-size: 0.9rem;">2. Francese (3:50 ore)</div>
+        <div class="btn-cuoio" style="padding: 10px; font-size: 0.9rem;">3. Integrale (3:40 ore)</div>
+        <div class="btn-cuoio" style="padding: 10px; font-size: 0.9rem;">4. Veloce (2:10 ore)</div>
+        <p style="text-align: center; font-style: italic; opacity: 0.8;">Lista completa in aggiornamento...</p>
     </div>
 
     <div id="pag4" class="page">
-        <h2 class="titolo-ricetta">Segreti del Fornaio</h2>
-        <div class="narrazione" style="font-size: 1rem;">
-            "La stratificazione è il primo comandamento. Mai far toccare il lievito con il sale o lo zucchero prima che l'impasto abbia inizio. Create un nido di farina per proteggerlo..."
+        <h2 class="titolo-sezione">I Segreti</h2>
+        <div class="narrazione">
+            "La stratificazione è il primo comandamento. I liquidi accolgono la base, la farina fa da coltre. Mai far toccare il lievito con il sale o lo zucchero prima che l'impasto abbia inizio. Create un piccolo nido sulla sommità della montagna di farina per proteggerlo..."
         </div>
     </div>
 
     <div id="pag5" class="page">
-        <h2 class="titolo-ricetta">Menu Ricette</h2>
-        <div class="btn-cuoio" onclick="showPage('pag6')">Pani Classici</div>
-        <div class="btn-cuoio">Pani Speciali</div>
-        <div class="btn-cuoio">Dolci e Marmellate</div>
+        <h2 class="titolo-sezione">Il Ricettario</h2>
+        <div class="btn-cuoio" onclick="naviga('pag6', 'nav-ricette')">Pani Classici (Lista 1)</div>
+        <div class="btn-cuoio" style="opacity: 0.7;">Pani Speciali (Prossimamente)</div>
+        <div class="btn-cuoio" style="opacity: 0.7;">Dolci e Impasti (Prossimamente)</div>
+        <div class="btn-cuoio" style="opacity: 0.7;">Marmellate (Prossimamente)</div>
     </div>
 
     <div id="pag6" class="page">
-        <div class="titolo-ricetta">Il Pane Bianco Semplice</div>
+        <h2 class="titolo-sezione">Il Pane Bianco Semplice</h2>
         
-        <div class="ing-lista">
+        <div class="lista-ingredienti">
             <ul id="lista-ing">
                 </ul>
         </div>
 
         <div class="narrazione">
-            Si parta dalle fondamenta, versando con cura <span id="txt-acqua">320ml</span> d'acqua tiepida... 
-            Si aggiunga un filo d'olio dorato e lo zucchero. 
-            Si copra con <span id="txt-farina">500g</span> di farina bianca ed infine, 
-            lontano dal sale, si deponga il lievito nel suo cratere.
+            Si parta dalle fondamenta, versando con cura <span class="val-dinamico" id="testo-acqua">320ml</span> d'acqua tiepida sul fondo del cestello. 
+            S'aggiunga poi l'olio EVO dorato e lo zucchero, amico del sapore. 
+            Si copra il tutto con <span class="val-dinamico" id="testo-farina">500g</span> di farina bianca che formi la coltre protettiva, ed infine, in un piccolo cratere scavato al centro, si deponga il lievito, lontano dal sale che attende negli angoli.
         </div>
 
-        <div class="bilancia-wrap">
-            <div class="label-bilancia">Calcolatore Quantità</div>
+        <div class="bilancia-container">
+            <div class="etichetta-bilancia">Calcolatore Automatico Quantità</div>
             <div class="quadrante">
-                <div class="ago" id="ago"></div>
-                <div class="scala">
-                    <div class="peso-btn" onclick="updateRecipe(500)"><span class="att-marker">ATTUALE</span>500</div>
-                    <div class="peso-btn selected" onclick="updateRecipe(750)"><span class="att-marker">ATTUALE</span>750</div>
-                    <div class="peso-btn" onclick="updateRecipe(1000)"><span class="att-marker">ATTUALE</span>1000</div>
+                <div class="ago" id="ago-bilancia"></div>
+                <div class="perno"></div>
+                
+                <div class="tasto-peso" onclick="impostaRicetta(500)" id="btn-500">
+                    <span class="marcatore-attuale">ATTUALE</span>500
                 </div>
+                <div class="tasto-peso selezionato" onclick="impostaRicetta(750)" id="btn-750">
+                    <span class="marcatore-attuale">ATTUALE</span>750
+                </div>
+                <div class="tasto-peso" onclick="impostaRicetta(1000)" id="btn-1000">
+                    <span class="marcatore-attuale">ATTUALE</span>1000
+                </div>
+            </div>
+            <div style="font-size: 0.7rem; font-style: italic; margin-top: 8px; color: #555;">
+                * Tocca i numeri sul quadrante per variare la taglia
             </div>
         </div>
 
-        <div class="sigillo-tecnico">
-            GIRMI MP20<br>PROG. 1 | DOR. MEDIA<br>TEMPO: 3:00h
+        <div class="sigillo">
+            GIRMI MP20<br>PROG. 1 (NORMALE)<br>DORATURA: MEDIA<br>TEMPO: ~3:00 ORE
         </div>
     </div>
 
     <nav>
-        <div class="nav-btn" onclick="showPage('pag3')">⚙️<br>PROGRAMMI</div>
-        <div class="nav-btn" onclick="showPage('pag5')">🌾<br>RICETTE</div>
-        <div class="nav-btn" onclick="showPage('pag2')">📖<br>GUIDA</div>
+        <div class="nav-btn" id="nav-prog" onclick="naviga('pag3', 'nav-prog')">⚙️<br>Programmi</div>
+        <div class="nav-btn" id="nav-ricette" onclick="naviga('pag5', 'nav-ricette')">🌾<br>Ricette</div>
+        <div class="nav-btn" id="nav-guida" onclick="naviga('pag2', 'nav-guida')">📖<br>Guida</div>
     </nav>
-    <div class="btn-home-footer" onclick="showPage('pag1')">TORNA ALLA HOME</div>
+    <div class="home-bar" onclick="naviga('pag1', null)">TORNA ALLA HOME</div>
 </div>
 
 <script>
-    const dati = {
-        500: { acqua: 210, farina: 330, sale: 1, zucchero: 1, olio: 1 },
-        750: { acqua: 320, farina: 500, sale: 1.5, zucchero: 1.5, olio: 2 },
-        1000: { acqua: 420, farina: 660, sale: 2, zucchero: 2, olio: 3 }
+    // Dati precisi della ricetta per la Girmi MP20
+    const ricettario = {
+        500: { farina: 330, acqua: 210, olio: 1, sale: 1, zucchero: 1, lievito: "1 cucchiaino" },
+        750: { farina: 500, acqua: 320, olio: 2, sale: 1.5, zucchero: 1.5, lievito: "1 bustina (7g)" },
+        1000: { farina: 660, acqua: 420, olio: 3, sale: 2, zucchero: 2, lievito: "1 bustina (7g)" }
     };
 
-    function showPage(id) {
+    // Navigazione Menu
+    function naviga(idPagina, idNav) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
+        document.getElementById(idPagina).classList.add('active');
+        
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('attiva'));
+        if(idNav) document.getElementById(idNav).classList.add('attiva');
+        
+        document.getElementById('app').scrollTo(0,0);
     }
 
-    function updateRecipe(p) {
-        // Ago
-        const rot = { 500: -45, 750: 0, 1000: 45 };
-        document.getElementById('ago').style.transform = `translateX(-50%) rotate(${rot[p]}deg)`;
+    // Motore della Bilancia
+    function impostaRicetta(peso) {
+        // Movimento Ago Analogico
+        const angoli = { 500: -48, 750: 0, 1000: 48 };
+        document.getElementById('ago-bilancia').style.transform = `translateX(-50%) rotate(${angoli[peso]}deg)`;
         
-        // Bottoni
-        document.querySelectorAll('.peso-btn').forEach(b => {
-            b.classList.toggle('selected', b.innerText.includes(p));
-        });
+        // Evidenziazione Tasti Quadrante
+        document.querySelectorAll('.tasto-peso').forEach(btn => btn.classList.remove('selezionato'));
+        document.getElementById(`btn-${peso}`).classList.add('selezionato');
 
-        // Dati
-        const d = dati[p];
-        document.getElementById('txt-acqua').innerText = d.acqua + "ml";
-        document.getElementById('txt-farina').innerText = d.farina + "g";
+        // Aggiornamento Dati Testuali
+        const r = ricettario[peso];
+        document.getElementById('testo-acqua').innerText = r.acqua + "ml";
+        document.getElementById('testo-farina').innerText = r.farina + "g";
         
+        // Aggiornamento Lista Ingredienti Compatta
         document.getElementById('lista-ing').innerHTML = `
-            <li>• Farina: ${d.farina}g</li>
-            <li>• Acqua: ${d.acqua}ml</li>
-            <li>• Sale: ${d.sale} cucch.</li>
-            <li>• Zucchero: ${d.zucchero} cucch.</li>
-            <li>• Olio EVO: ${d.olio} cucch.</li>
-            <li>• Lievito: 1 bustina</li>
+            <li><span class="icona-ing">💧</span> <strong>Acqua Tiepida:</strong> ${r.acqua} ml</li>
+            <li><span class="icona-ing">🫒</span> <strong>Olio EVO:</strong> ${r.olio} cucchiai</li>
+            <li><span class="icona-ing">🧂</span> <strong>Sale:</strong> ${r.sale} cucchiaini <i style="font-size:0.75rem; color:#666;">(angolo)</i></li>
+            <li><span class="icona-ing">🥄</span> <strong>Zucchero:</strong> ${r.zucchero} cucchiaini <i style="font-size:0.75rem; color:#666;">(angolo opposto)</i></li>
+            <li><span class="icona-ing">🌾</span> <strong>Farina Tipo '0':</strong> ${r.farina} g</li>
+            <li><span class="icona-ing">🫧</span> <strong>Lievito Secco:</strong> ${r.lievito} <i style="font-size:0.75rem; color:#666;">(cratere al centro)</i></li>
         `;
     }
 
-    // Init
-    updateRecipe(750);
+    // Inizializza l'app avviando la ricetta sui 750g (peso medio)
+    impostaRicetta(750);
 </script>
 
 </body>
