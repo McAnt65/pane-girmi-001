@@ -2,259 +2,287 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Il Forno di Mauro e Francesca - Edizione Gold</title>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;1,400&family=Poppins:wght@300;400;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Forno di Mauro e Francesca</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Dancing+Script:wght@500&family=Pinyon+Script&family=Roboto+Condensed:wght@300;400&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --gold: #C5A059; --dark: #2C2621; --cream: #FAF7F2; --white: #ffffff; --text: #4A443F; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Poppins', sans-serif; background: var(--cream); color: var(--dark); margin: 0; padding-bottom: 90px; }
-        
-        header { background: var(--white); padding: 30px 15px; text-align: center; border-bottom: 3px solid var(--gold); }
-        .logo-text { font-family: 'Libre Baskerville', serif; font-size: 1.6rem; font-style: italic; margin: 0; }
-        .logo-tag { font-size: 0.65rem; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-top: 5px; font-weight: 600; }
+        :root {
+            --pergamena: #f4e4bc;
+            --cuoio: #5d3a1a;
+            --ottone: #c5a059;
+            --inchiostro: #2b2b2b;
+        }
 
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: var(--white); display: flex; border-top: 1px solid #eee; z-index: 1000; height: 75px; }
-        .nav-item { flex: 1; border: none; background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--dark); opacity: 0.4; }
-        .nav-item.active { opacity: 1; color: var(--gold); font-weight: 600; }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Roboto Condensed', sans-serif;
+            background-color: #1a1a1a;
+            color: var(--inchiostro);
+            overflow: hidden;
+        }
 
-        .view { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
-        .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Container App */
+        #app-container {
+            max-width: 500px;
+            height: 100vh;
+            margin: 0 auto;
+            background: var(--pergamena);
+            background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
 
-        .prog-card { background: var(--white); padding: 18px; border-radius: 8px; border-left: 5px solid var(--gold); position: relative; margin-bottom: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.05); }
-        .prog-title { font-family: 'Libre Baskerville', serif; font-weight: bold; font-size: 1.1rem; color: var(--dark); }
-        .prog-time { font-family: 'Roboto Mono', monospace; font-size: 0.8rem; background: var(--dark); color: white; padding: 2px 8px; border-radius: 4px; }
+        /* Header Comune */
+        header {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 2px double var(--ottone);
+        }
 
-        #searchBar { width: 100%; padding: 16px; border: 2px solid var(--gold); border-radius: 10px; margin-bottom: 25px; font-size: 1rem; outline: none; box-shadow: 0 4px 12px rgba(197,160,89,0.1); }
-        .section-title { font-family: 'Libre Baskerville', serif; font-size: 1.3rem; color: var(--gold); margin: 35px 0 15px; border-bottom: 2px solid rgba(197,160,89,0.2); padding-bottom: 8px; }
-        .recipe-entry { background: var(--white); padding: 18px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; border: 1px solid #eee; transition: 0.2s; }
-        .recipe-entry:active { transform: scale(0.98); background: #fffdf9; }
-        
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--white); z-index: 2000; overflow-y: auto; padding: 30px 20px; }
-        .close-modal { background: var(--cream); border: none; font-size: 1.5rem; position: absolute; top: 15px; right: 15px; width: 45px; height: 45px; border-radius: 50%; color: var(--gold); }
-        
-        .recipe-description { font-style: italic; font-size: 0.9rem; color: #666; margin-bottom: 20px; line-height: 1.5; border-left: 3px solid #eee; padding-left: 10px; }
-        .step-box { background: var(--cream); padding: 18px; border-radius: 10px; margin-bottom: 15px; border-left: 5px solid var(--gold); }
-        .step-label { font-weight: 800; font-size: 0.75rem; color: var(--gold); text-transform: uppercase; display: block; margin-bottom: 8px; letter-spacing: 1px; }
-        .step-text { font-size: 0.9rem; line-height: 1.6; color: var(--text); margin: 0; }
-        
-        .ing-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-family: 'Roboto Mono', monospace; font-size: 0.95rem; }
-        .ing-table td { padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
-        .ing-table td:last-child { text-align: right; color: var(--gold); font-weight: bold; }
-        
-        .scale-btn { flex: 1; padding: 12px; border: 1.5px solid var(--gold); background: white; color: var(--gold); font-weight: 600; border-radius: 6px; }
-        .scale-btn.active { background: var(--gold); color: white; }
+        .insegna {
+            border: 2px solid var(--ottone);
+            padding: 5px 15px;
+            display: inline-block;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Sistema a Pagine */
+        .page {
+            display: none;
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Bottoni in Cuoio */
+        .btn-cuoio {
+            background: var(--cuoio);
+            color: var(--ottone);
+            border: 2px solid var(--ottone);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Cinzel', serif;
+            text-align: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-cuoio:active { transform: scale(0.98); }
+
+        /* Stile Ricetta Penna d'Oca */
+        .titolo-ricetta {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .ingredienti-lista {
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .narrazione {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        /* Bilancia Vintage */
+        .bilancia-container {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .quadrante {
+            width: 200px;
+            height: 100px;
+            border: 4px solid var(--ottone);
+            border-bottom: none;
+            border-radius: 100px 100px 0 0;
+            margin: 0 auto;
+            position: relative;
+            background: #fff9eb;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding-bottom: 10px;
+        }
+
+        .peso-val {
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .peso-val.selected {
+            color: #d44;
+            text-shadow: 0 0 5px var(--ottone);
+            transform: scale(1.2);
+        }
+
+        .ago {
+            width: 2px;
+            height: 70px;
+            background: red;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform-origin: bottom center;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Footer Navigazione */
+        nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 5px;
+            padding: 10px;
+            background: var(--cuoio);
+        }
+
+        .nav-item {
+            font-size: 0.7rem;
+            color: var(--ottone);
+            text-align: center;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .home-bar {
+            background: var(--ottone);
+            color: var(--cuoio);
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo-text">Il Forno di Mauro & Francesca</div>
-    <div class="logo-tag">Edizione Gold: 105 Ricette Certificate</div>
-</header>
+<div id="app-container">
+    <header>
+        <div class="insegna">Il Forno di Mauro e Francesca</div>
+    </header>
 
-<div id="view-home" class="view active">
-    <h3 style="text-align:center; font-family:'Libre Baskerville'; color:var(--gold);">Guida Tecnica ai 19 Programmi</h3>
-    <div id="manual-list"></div>
-</div>
-
-<div id="view-recipes" class="view">
-    <input type="text" id="searchBar" placeholder="Cerca una ricetta o un tipo di farina..." onkeyup="filterRecipes()">
-    <div id="sections-container"></div>
-</div>
-
-<div id="recipe-modal" class="overlay">
-    <button class="close-modal" onclick="closeModal()">✕</button>
-    <h2 id="m-title" style="font-family:'Libre Baskerville'; margin-top: 35px; font-size: 1.8rem;"></h2>
-    <div id="m-prog" style="background:var(--dark); color:white; padding:5px 12px; display:inline-block; border-radius:5px; font-size:0.85rem; margin-bottom:15px; font-family:'Roboto Mono';"></div>
-    
-    <p id="m-desc" class="recipe-description"></p>
-
-    <div style="display:flex; gap:10px; margin-bottom:25px;">
-        <button class="scale-btn" id="s500" onclick="updateScale(0.66, this)">500g</button>
-        <button class="scale-btn active" id="s750" onclick="updateScale(1, this)">750g</button>
-        <button class="scale-btn" id="s1000" onclick="updateScale(1.33, this)">1kg</button>
+    <div id="home" class="page active">
+        <div style="text-align:center; margin: 20px 0;">
+            <img src="https://via.placeholder.com/200x150?text=Foto+Girmi+MP20" alt="Girmi MP20" style="border-radius: 10px; border: 3px solid var(--ottone);">
+        </div>
+        <h2 style="text-align:center; font-family:'Dancing Script';">Benvenuti nel nostro forno</h2>
+        <div class="btn-cuoio" onclick="showPage('categorie')">Le Nostre Ricette</div>
+        <div class="btn-cuoio" onclick="showPage('programmi')">Programmi Girmi</div>
+        <div class="btn-cuoio" onclick="showPage('guida')">Guida alla Macchina</div>
     </div>
 
-    <table class="ing-table" id="m-ingredients"></table>
-    
-    <div class="step-box"><span class="step-label">Fase 1: Caricamento e Avvio</span><p id="m-s1" class="step-text"></p></div>
-    <div class="step-box" id="bip-box"><span class="step-label">Fase 2: Segnale Acustico (BIP)</span><p id="m-s2" class="step-text"></p></div>
-    <div class="step-box"><span class="step-label">Fase 3: Estrazione e Raffreddamento</span><p id="m-s3" class="step-text"></p></div>
+    <div id="categorie" class="page">
+        <h3 style="text-align:center; font-family:'Cinzel';">Seleziona Categoria</h3>
+        <div class="btn-cuoio" onclick="showPage('ricetta1')">Pani Classici</div>
+        <div class="btn-cuoio">Pani Europei (Presto)</div>
+        <div class="btn-cuoio">Marmellate (Presto)</div>
+    </div>
+
+    <div id="ricetta1" class="page">
+        <div class="titolo-ricetta">Pane Bianco Semplice</div>
+        
+        <div class="ingredienti-lista" id="ingredienti-box">
+            </div>
+
+        <div class="narrazione">
+            Si parta dalle fondamenta, versando con cura <span id="acqua-txt">320ml</span> d'acqua tiepida... 
+            Si aggiunga poi un filo d'olio e un cucchiaio di zucchero. 
+            Si copra con <span id="farina-txt">500g</span> di farina bianca ed infine, 
+            lontano dal sale, si deponga il lievito.
+        </div>
+
+        <div class="bilancia-container">
+            <div style="font-family:'Pinyon Script'; margin-bottom: 10px;">Scegli la taglia toccando il peso...</div>
+            <div class="quadrante">
+                <div class="ago" id="ago"></div>
+                <div class="peso-val" onclick="updateWeight(500)">500</div>
+                <div class="peso-val selected" onclick="updateWeight(750)">750</div>
+                <div class="peso-val" onclick="updateWeight(1000)">1000</div>
+            </div>
+            <div style="font-family:'Cinzel'; font-size: 0.8rem; margin-top: 10px; border: 1px solid var(--ottone); padding: 5px;">
+                GIRMI MP20: PROGRAMMA 1 | MEDIA DORATURA
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav-item" onclick="showPage('programmi')">⚙️<br>Programmi</div>
+        <div class="nav-item" onclick="showPage('categorie')">🌾<br>Ricette</div>
+        <div class="nav-item" onclick="showPage('guida')">📖<br>Guida</div>
+    </nav>
+    <div class="home-bar" onclick="showPage('home')">TORNA ALLA HOME</div>
 </div>
 
-<nav class="nav-bar">
-    <button class="nav-item active" id="btn-home" onclick="showView('home')">📖 MANUALE</button>
-    <button class="nav-item" id="btn-recipes" onclick="showView('recipes')">🥐 RICETTE</button>
-</nav>
-
 <script>
-const programmi = [
-    {id:1, t:"Base", h:"3:00", d:"Ideale per pane bianco quotidiano. Gestisce due lievitazioni per una mollica regolare."},
-    {id:2, t:"Francese", h:"3:50", d:"Tempi lunghi di lievitazione. Perfetto per Baguette e pani croccanti."},
-    {id:3, t:"Integrale", h:"3:40", d:"Pre-riscalda gli ingredienti per 30 min per ammorbidire le farine grezze."},
-    {id:12, t:"Special BIP", h:"2:50", d:"Programma 'Base' con segnali acustici per l'aggiunta di semi o frutta."},
-    {id:18, t:"Torta", h:"1:50", d:"Impasto delicato e cottura lunga per dolci soffici con lievito chimico."},
-    {id:19, t:"Manuale", h:"Custom", d:"Il programma per esperti: Mauro può impostare ogni singola fase."}
-]; // (Altri programmi visualizzati via JS per brevità)
+    // Dati Ricetta: [Acqua, Farina, Sale, Zucchero]
+    const data = {
+        500: [210, 330, 1, 1],
+        750: [320, 500, 1.5, 1.5],
+        1000: [420, 660, 2, 2]
+    };
 
-const database = [
-    { 
-        c:"PANI ITALIANI", t:"Pane Bianco di Mauro (La Tradizione)", p:1, 
-        d:"Questa è la ricetta pilastro del vostro forno. Un pane croccante fuori e soffice dentro, pensato per accompagnare ogni pasto senza mai stancare.",
-        i:{"Acqua (temp. ambiente)":280, "Olio EVO":20, "Farina Tipo 0 (W240)":480, "Sale Fino":10, "Lievito di birra secco":5}, 
-        s1:"Iniziate versando l'acqua e l'olio sul fondo del cestello. Coprite completamente con la Farina Tipo 0, creando una barriera. Fate un piccolo incavo nella farina per il lievito, assicurandovi che non tocchi l'acqua o il sale finché la macchina non parte.", 
-        s2:"Non sono necessari interventi in questa fase. Lasciate che la macchina lavori per voi.", 
-        s3:"A fine cottura, estraete subito il pane. La crosta resterà croccante se lo lascerete raffreddare in verticale o su una gratella, permettendo all'umidità interna di uscire." 
-    },
-    { 
-        c:"DAL MONDO", t:"Baguette Tradizionale Parigina", p:2, 
-        d:"Il segreto della vera Baguette è la lievitazione lenta del programma 2. Otterrete un pane con alveoli grandi e una crosta sottile e sonora al tatto.",
-        i:{"Acqua fredda di frigo":270, "Farina Manitoba (o 0 con W280)":480, "Sale Marino":11, "Lievito di birra secco":4}, 
-        s1:"Usate acqua fredda: questo rallenta la lievitazione iniziale permettendo agli aromi di svilupparsi. Inserite prima l'acqua, poi la Farina Manitoba che ha la forza necessaria per reggere le lunghe ore di lievitazione.", 
-        s2:"In questa fase non dovete aggiungere nulla, ma osservate l'impasto: deve essere elastico e non troppo appiccicoso.", 
-        s3:"Per una crosta dorata da manuale, spruzzate un velo d'acqua sulla superficie del pane negli ultimi 10 minuti di cottura tramite il coperchio." 
-    },
-    { 
-        c:"PASTICCERIA", t:"Pan Brioche di Francesca", p:5, 
-        d:"Una nuvola di burro e zucchero. Francesca, questa ricetta è perfetta per le tue colazioni della domenica o per essere farcita con la vostra marmellata fatta in casa.",
-        i:{"Latte Intero":150, "Uova fresche medie":2, "Burro morbido a pezzi":100, "Farina Tipo 00 di forza":450, "Zucchero":80, "Lievito":7}, 
-        s1:"Sbattete leggermente uova e latte prima di versarli. Il burro deve essere 'a pomata' (molto morbido). Inserite la Farina 00 sopra i liquidi e il burro sopra la farina. Questo ordine garantisce una setosità incredibile.", 
-        s2:"Al segnale BIP, potete aggiungere gocce di cioccolato o uvetta per una variante ancora più golosa.", 
-        s3:"Sformate con estrema gentilezza perché il pane sarà molto soffice. Spennellate con latte e zucchero appena estratto per un finish lucido." 
-    },
-    { 
-        c:"PANI ITALIANI", t:"Pane di Semola Rimacinata", p:3, 
-        d:"Un pane dal cuore giallo e dal profumo di grano antico. La semola rimacinata regala una fragranza unica che dura per giorni.",
-        i:{"Acqua tiepida (25°C)":290, "Olio EVO":20, "Semola Rimacinata di Grano Duro":500, "Sale":10, "Lievito":6}, 
-        s1:"Il programma 3 è fondamentale qui: inizierà con 30 minuti di pre-riscaldamento statico. Questo tempo serve alla Semola per idratarsi e ammorbidirsi, garantendo che non restino grumi.", 
-        s2:"Nessuna aggiunta richiesta.", 
-        s3:"Questo pane è perfetto appena tiepido con un filo di olio a crudo. Conservatelo in un sacchetto di carta." 
-    },
-    { 
-        c:"MARMELLATE", t:"Confettura di Arance Rosse e Cannella", p:17, 
-        d:"Dimenticate le marmellate industriali. Questa composta ha il calore degli agrumi di Sicilia e un tocco speziato che scalda l'anima.",
-        i:{"Arance Rosse pelate a vivo":550, "Zucchero di canna":250, "Succo di 1 Limone":1, "Cannella in polvere":3}, 
-        s1:"Tagliate le arance a pezzetti piccoli eliminando i semi. Inserite frutta, zucchero, limone e cannella nel cestello. La rotazione continua della pala della Girmi farà il resto.", 
-        s2:"Nessuna.", 
-        s3:"Versate subito nei vasetti sterilizzati. Non preoccupatevi se sembra liquida: la pectina naturale delle arance la addenserà magicamente durante il raffreddamento." 
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
     }
-];
 
-// Generazione automatica per arrivare a 105 ricette con nomi reali e dettagli farine
-const tipiFarina = ["Grano Arso", "Farro Integrale", "Tumminia", "Kamut", "Castagne", "Riso", "Segale", "Enkir"];
-tipiFarina.forEach(f => {
-    database.push({
-        c:"PANI ITALIANI", t:`Pane Rustico al ${f}`, p:3,
-        d:`Un viaggio nei sapori perduti. La farina di ${f} dona una personalità forte e un indice glicemico più basso.`,
-        i:{"Acqua":300, "Olio":15, [`Farina di ${f}`]:200, "Farina Tipo 0 (W250)":300, "Sale":10, "Lievito":6},
-        s1:`Mescolate la farina di ${f} con la Tipo 0 per dare struttura. Inserite i liquidi tiepidi sul fondo del cestello.`,
-        s2:"Nessuna.",
-        s3:`Il pane al ${f} è denso e profumato. Ideale per colazioni salate o accompagnamento a zuppe.`
-    });
-});
+    function updateWeight(w) {
+        // Aggiorna Ago Bilancia
+        const angles = {500: -45, 750: 0, 1000: 45};
+        document.getElementById('ago').style.transform = `translateX(-50%) rotate(${angles[w]}deg)`;
 
-const cittaMondo = ["Londra", "Berlino", "Atene", "Madrid", "Lisbona", "Vienna", "Stoccolma", "Praga", "Oslo", "Varsavia"];
-cittaMondo.forEach(c => {
-    database.push({
-        c:"DAL MONDO", t:`Pane Bianco tipo ${c}`, p:1,
-        d:`Ispirato alle panetterie artigianali di ${c}. Una ricetta semplice che punta sulla qualità della farina.`,
-        i:{"Acqua":290, "Farina Tipo 00 (per pane)":500, "Sale":10, "Lievito":6},
-        s1:"Seguite l'ordine classico dei liquidi seguiti dalle polveri. Assicuratevi che il lievito sia attivo.",
-        s2:"Nessuna.",
-        s3:"Ottimo tostato per la colazione continentale."
-    });
-});
-
-// Aggiunta di altre 70 ricette (Dolci e Marmellate) per arrivare a 105 con nomi reali
-for(let i=1; i<=77; i++) {
-    const isDolce = i % 2 === 0;
-    database.push({
-        c: isDolce ? "PASTICCERIA" : "MARMELLATE",
-        t: isDolce ? `Plumcake Selezione ${i} (Soffice)` : `Marmellata di Frutta Mix ${i}`,
-        p: isDolce ? 18 : 17,
-        d: isDolce ? "Un dolce da forno dalla consistenza setosa, bilanciato per una cottura uniforme." : "Una composta artigianale che esalta la dolcezza naturale della frutta maturata al sole.",
-        i: isDolce ? {"Uova":3, "Zucchero":150, "Farina Tipo 00":300, "Olio semi":100, "Lievito":16} : {"Frutta pulita":600, "Zucchero":200, "Limone":1},
-        s1: isDolce ? "Setacciate la Farina 00 con il lievito per evitare grumi nell'impasto." : "Tagliate la frutta in cubetti da 1cm per una consistenza perfetta.",
-        s2: "Nessuna.",
-        s3: isDolce ? "Lasciate raffreddare 10 min prima di sformare." : "Invasate a caldo."
-    });
-}
-
-let activeRecipe = null;
-
-function init() {
-    const list = document.getElementById('manual-list');
-    programmi.forEach(p => {
-        list.innerHTML += `
-            <div class="prog-card">
-                <span class="prog-time">P.${p.id}</span>
-                <span class="prog-title">${p.t} - ${p.h}</span>
-                <p style="font-size:0.85rem; margin:8px 0 0 0; color:#666; line-height:1.4;">${p.d}</p>
-            </div>`;
-    });
-    renderRecipes();
-}
-
-function renderRecipes() {
-    const cont = document.getElementById('sections-container');
-    cont.innerHTML = "";
-    const cats = ["PANI ITALIANI", "DAL MONDO", "PASTICCERIA", "MARMELLATE"];
-    cats.forEach(c => {
-        const filt = database.filter(r => r.c === c);
-        cont.innerHTML += `<div class="section-title">${c} (${filt.length})</div>`;
-        filt.forEach(r => {
-            cont.innerHTML += `
-                <div class="recipe-entry" onclick="openRecipe('${r.t.replace(/'/g, "\\'")}')">
-                    <span style="font-weight:600;">${r.t}</span>
-                    <small style="color:var(--gold); font-family:'Roboto Mono';">P.${r.p}</small>
-                </div>`;
+        // Aggiorna evidenziazione numeri
+        document.querySelectorAll('.peso-val').forEach(el => {
+            el.classList.toggle('selected', el.innerText == w);
         });
-    });
-}
 
-function openRecipe(name) {
-    activeRecipe = database.find(x => x.t === name);
-    document.getElementById('m-title').innerText = activeRecipe.t;
-    document.getElementById('m-prog').innerText = "PROGRAMMA: " + activeRecipe.p;
-    document.getElementById('m-desc').innerText = activeRecipe.d;
-    document.getElementById('m-s1').innerText = activeRecipe.s1;
-    document.getElementById('m-s2').innerText = activeRecipe.s2;
-    document.getElementById('m-s3').innerText = activeRecipe.s3;
-    document.getElementById('bip-box').style.display = activeRecipe.s2 === "Nessuna." ? "none" : "block";
-    updateScale(1, document.getElementById('s750'));
-    document.getElementById('recipe-modal').style.display = 'block';
-}
+        // Aggiorna Testo e Lista
+        const vals = data[w];
+        document.getElementById('acqua-txt').innerText = vals[0] + "ml";
+        document.getElementById('farina-txt').innerText = vals[1] + "g";
 
-function updateScale(f, btn) {
-    document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const t = document.getElementById('m-ingredients');
-    t.innerHTML = "";
-    for (let [ing, q] of Object.entries(activeRecipe.i)) {
-        let val = typeof q === 'number' ? Math.round(q * f) : q;
-        t.innerHTML += `<tr><td>${ing}</td><td>${val}</td></tr>`;
+        document.getElementById('ingredienti-box').innerHTML = `
+            • Farina Bianca: ${vals[1]}g<br>
+            • Acqua Tiepida: ${vals[0]}ml<br>
+            • Sale: ${vals[2]} cucchiaini<br>
+            • Zucchero: ${vals[3]} cucchiaini<br>
+            • Lievito: 1 bustina (7g)
+        `;
     }
-}
 
-function filterRecipes() {
-    const term = document.getElementById('searchBar').value.toLowerCase();
-    document.querySelectorAll('.recipe-entry').forEach(e => {
-        e.style.display = e.innerText.toLowerCase().includes(term) ? 'flex' : 'none';
-    });
-}
-
-function showView(v) {
-    document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
-    document.getElementById('view-' + v).classList.add('active');
-    document.getElementById('btn-' + v).classList.add('active');
-}
-
-function closeModal() { document.getElementById('recipe-modal').style.display = 'none'; }
-
-init();
+    // Inizializza prima ricetta
+    updateWeight(750);
 </script>
+
 </body>
 </html>
