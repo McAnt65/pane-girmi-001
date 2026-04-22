@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Interfaccia - Girmi MP20</title>
+    <style>
+        :root {
+            --pergamena: #fdf5e6;
+            --ottone: #8b6b23;
+            --cuoio: #4b2b11;
+            --testo: #5c3c1b;
+            --evidenziatore: #daa520;
+        }
+
+        body {
+            margin: 0;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
+        }
+
+        .page-container {
+            width: 360px;
+            height: 640px;
+            background: var(--pergamena);
+            border: 10px solid var(--ottone);
+            border-image: linear-gradient(45deg, #4e3a10, #b8860b, #4e3a10) 1;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
+        }
+
+        .top-bar {
+            font-size: 9px;
+            text-align: center;
+            padding: 5px;
+            border-bottom: 1px solid var(--ottone);
+            letter-spacing: 1px;
+            color: var(--testo);
+        }
+
+        .header {
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            margin: 0;
+            text-transform: uppercase;
+            border: 1px solid var(--ottone);
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(255,255,255,0.5);
+        }
+
+        /* Diagramma Interfaccia */
+        .interface-diagram {
+            margin: 10px 20px;
+            height: 180px;
+            border: 2px solid var(--ottone);
+            background: #fffdfa;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lcd-screen {
+            width: 100px;
+            height: 60px;
+            border: 2px double var(--ottone);
+            background: #f0f0d8;
+        }
+
+        /* Numerini Callout */
+        .callout {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: var(--evidenziatore);
+            color: #000;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #000;
+        }
+
+        /* Posizionamento callout come nel bozzetto */
+        .c1 { top: 10px; left: 10px; }
+        .c2 { top: 10px; left: 50%; transform: translateX(-50%); }
+        .c3 { top: 10px; right: 10px; }
+        .c4 { bottom: 10px; left: 10px; }
+        .c5 { bottom: 10px; left: 50%; transform: translateX(-50%); }
+        .c6 { bottom: 10px; right: 10px; }
+
+        /* Lista Spiegazioni */
+        .guide-list {
+            flex-grow: 1;
+            padding: 0 20px;
+            font-size: 12px;
+            overflow-y: auto;
+        }
+
+        .guide-item {
+            display: flex;
+            margin-bottom: 8px;
+            align-items: flex-start;
+        }
+
+        .guide-num {
+            background: var(--evidenziatore);
+            min-width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            text-align: center;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 11px;
+            line-height: 18px;
+            border: 1px solid #000;
+        }
+
+        .guide-text b { color: #3e2723; text-transform: uppercase; font-size: 10px; }
+
+        /* Navigazione */
+        .leather-nav {
+            background-color: var(--cuoio);
+            border-top: 3px solid var(--ottone);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 10px 5px;
+        }
+
+        .nav-btn {
+            color: #d2b48c;
+            text-decoration: none;
+            font-size: 9px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--ottone);
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .active-btn { color: #fdf5e6; }
+        .active-btn .btn-circle { background: #5d4037; border-color: var(--evidenziatore); }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        <div class="top-bar">BOZZETTI - GUIDA INTERFACCIA - PAG. 2</div>
+
+        <header class="header">
+            <h1>Il Forno di M. & F.</h1>
+        </header>
+
+        <div class="interface-diagram">
+            <div class="lcd-screen"></div>
+            <div class="callout c1">1</div>
+            <div class="callout c2">2</div>
+            <div class="callout c3">3</div>
+            <div class="callout c4">4</div>
+            <div class="callout c5">5</div>
+            <div class="callout c6">6</div>
+        </div>
+
+        <div class="guide-list">
+            <div class="guide-item">
+                <div class="guide-num">1</div>
+                <div class="guide-text"><b>Menu:</b> Seleziona uno dei 12 programmi.</div>
+            </div>
+            <div class="guide-item">
+                <div class="guide-num">2</div>
+                <div class="guide-text"><b>Display:</b> Indica tempo e programma scelto.</div>
+            </div>
+            <div class="guide-item">
+                <div class="guide-num">3</div>
+                <div class="guide-text"><b>Doratura:</b> Scegli tra Chiara, Media o Scura.</div>
+            </div>
+            <div class="guide-item">
+                <div class="guide-num">4</div>
+                <div class="guide-text"><b>Peso:</b> Imposta 700g o 900g.</div>
+            </div>
+            <div class="guide-item">
+                <div class="guide-num">5</div>
+                <div class="guide-text"><b>Tempo + / -:</b> Regola il timer per l'avvio ritardato.</div>
+            </div>
+            <div class="guide-item">
+                <div class="guide-num">6</div>
+                <div class="guide-text"><b>Avvio/Stop:</b> Tieni premuto per far partire o fermare.</div>
+            </div>
+        </div>
+
+        <nav class="leather-nav">
+            <a href="index.html" class="nav-btn">
+                <div class="btn-circle">⚙</div>
+                PROGRAMMI
+            </a>
+            <a href="#" class="nav-btn active-btn">
+                <div class="btn-circle">🧭</div>
+                GUIDA
+            </a>
+            <a href="#" class="nav-btn">
+                <div class="btn-circle">🌾</div>
+                RICETTE
+            </a>
+        </nav>
+    </div>
+
+</body>
+</html>
