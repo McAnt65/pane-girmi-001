@@ -3,71 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programmi Girmi MP20</title>
+    <title>Il Forno di Mauro e Francesca - Home</title>
     <style>
-        /* Stessi stili della Home per coerenza grafica */
-        :root { --pergamena: #f4e4bc; --ottone: #8b6b23; --cuoio: #5d4037; --testo: #3e2723; }
-        body { margin: 0; background-color: #1a0f00; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Georgia', serif; }
-        .phone-container { width: 360px; height: 640px; background: var(--pergamena); border: 10px solid var(--ottone); border-radius: 25px; display: flex; flex-direction: column; overflow: hidden; background-image: radial-gradient(circle, #f4e4bc 50%, #d2b48c 100%); }
-        
-        .header { padding: 20px; text-align: center; border-bottom: 2px solid var(--ottone); background: rgba(0,0,0,0.03); }
-        .header h2 { font-size: 18px; margin: 0; color: var(--testo); text-transform: uppercase; }
-
-        .program-list {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 15px;
+        :root {
+            --pergamena: #fdf5e6;
+            --ottone: #8b6b23;
+            --cuoio: #4b2b11;
+            --testo: #5c3c1b;
         }
 
-        .program-item {
+        body {
+            margin: 0;
+            background-color: #000;
             display: flex;
+            justify-content: center;
             align-items: center;
-            background: rgba(255,255,255,0.3);
-            margin-bottom: 8px;
-            padding: 10px;
-            border-radius: 5px;
-            border-left: 4px solid var(--cuoio);
-            color: var(--testo);
-            font-size: 14px;
+            min-height: 100vh;
+            font-family: 'Georgia', serif;
         }
 
-        .num { font-weight: bold; margin-right: 15px; color: var(--ottone); font-size: 18px; }
+        .page-container {
+            width: 360px;
+            height: 640px;
+            background: var(--pergamena);
+            border: 10px solid var(--ottone);
+            border-image: linear-gradient(45deg, #4e3a10, #b8860b, #4e3a10) 1;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.2), 0 0 20px rgba(0,0,0,0.8);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
+        }
 
-        .home-link {
-            display: block;
+        .header-banner {
             text-align: center;
-            padding: 15px;
-            background: var(--cuoio);
-            color: var(--pergamena);
-            text-decoration: none;
-            font-weight: bold;
-            border-top: 2px solid var(--ottone);
+            padding: 30px 10px;
+            border-bottom: 2px double var(--ottone);
+            margin: 0 20px;
         }
+
+        .header-banner h1 {
+            font-size: 22px;
+            margin: 0;
+            letter-spacing: 2px;
+            color: var(--testo);
+            text-transform: uppercase;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .illustration {
+            width: 200px;
+            height: 200px;
+            background: url('https://img.icons8.com/plasticine/400/bread-machine.png') no-repeat center;
+            background-size: contain;
+            margin-bottom: 20px;
+            filter: sepia(0.4);
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--testo);
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .leather-nav {
+            background-color: var(--cuoio);
+            border-top: 3px solid var(--ottone);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 10px 5px;
+            gap: 5px;
+        }
+
+        .nav-btn {
+            color: #d2b48c;
+            text-decoration: none;
+            font-size: 9px;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--ottone);
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .active-btn { color: #daa520; }
     </style>
 </head>
 <body>
 
-    <div class="phone-container">
-        <header class="header">
-            <h2>I Programmi Girmi MP20</h2>
+    <div class="page-container">
+        <header class="header-banner">
+            <h1>IL FORNO DI<br>MAURO E FRANCESCA</h1>
         </header>
 
-        <div class="program-list">
-            <div class="program-item"><span class="num">1</span> BASE</div>
-            <div class="program-item"><span class="num">2</span> FRANCESE</div>
-            <div class="program-item"><span class="num">3</span> INTEGRALE</div>
-            <div class="program-item"><span class="num">4</span> VELOCE</div>
-            <div class="program-item"><span class="num">5</span> DOLCE</div>
-            <div class="program-item"><span class="num">6</span> ULTRA RAPIDO I</div>
-            <div class="program-item"><span class="num">7</span> ULTRA RAPIDO II</div>
-            <div class="program-item"><span class="num">8</span> IMPASTO</div>
-            <div class="program-item"><span class="num">9</span> MARMELLATA</div>
-            <div class="program-item"><span class="num">10</span> TORTA</div>
-            <div class="program-item"><span class="num">11</span> SANDWICH</div>
-            <div class="program-item"><span class="num">12</span> COTTURA</div>
-        </div>
+        <main class="main-content">
+            <div class="illustration"></div>
+            <p class="quote">"Non v'è amore più puro del calore di una casa che profuma di pane appena sfornato."</p>
+        </main>
 
-        <a href="index.html" class="home-link">TORNA ALLA HOME</a>
+        <nav class="leather-nav">
+            <a href="#" class="nav-btn">
+                <div class="btn-circle">⚙</div>
+                PROGRAMMI
+            </a>
+            <a href="guida.html" class="nav-btn active-btn">
+                <div class="btn-circle">🧭</div>
+                GUIDA MACCHINA
+            </a>
+            <a href="#" class="nav-btn">
+                <div class="btn-circle">🌾</div>
+                RICETTE
+            </a>
+        </nav>
     </div>
 
 </body>
