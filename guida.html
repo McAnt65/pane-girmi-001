@@ -3,64 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guida Interfaccia - Pag. 2</title>
-    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <title>Guida Macchina - Il Forno</title>
     <style>
-        body { margin: 0; background: #2c1a0b; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Special Elite', serif; }
-        .phone { width: 360px; height: 640px; background: #fdf5e6; position: relative; display: flex; flex-direction: column; box-shadow: 0 0 40px black; border: 4px solid #5d4037; overflow: hidden; }
+        /* Stile base coordinato con la Pagina 1 */
+        body { 
+            margin: 0; 
+            background: #1a0f00; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            font-family: 'Georgia', serif; 
+        }
         
-        .top-label { text-align: center; font-size: 9px; padding: 5px; color: #8b6b23; border-bottom: 1px solid #d3c4a0; }
-        .header h1 { text-align: center; font-size: 16px; margin: 15px 0; color: #3e2723; text-decoration: underline; }
+        .schermo-telefono {
+            width: 360px;
+            height: 640px;
+            background-image: url('sfondo_pag2.jpg'); /* Assicurati che il file si chiami così */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border: 4px solid #5d4037;
+            box-shadow: 0 0 50px black;
+        }
 
-        /* Diagramma Interfaccia */
-        .diagram { width: 280px; height: 160px; margin: 10px auto; border: 2px solid #5d4037; position: relative; background: #fffdfa; }
-        .lcd { width: 100px; height: 60px; border: 2px solid #8b6b23; margin: 20px auto; background: #f0f0d8; }
-        .girmi-label { position: absolute; top: 5px; left: 10px; font-weight: bold; font-size: 12px; color: #8b6b23; }
+        /* Stile della Legenda */
+        .legenda-container {
+            position: absolute;
+            top: 95px; /* Posizionata nello spazio tra il titolo e la macchina */
+            left: 30px;
+            right: 30px;
+            color: #3e2723;
+            font-size: 11px;
+            line-height: 1.4;
+        }
 
-        /* Numerini Gialli */
-        .num { position: absolute; width: 20px; height: 20px; background: #daa520; color: black; border-radius: 50%; font-size: 12px; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid black; }
-        .n1 { top: 5px; left: 40%; } .n2 { top: 5px; right: 10px; }
-        .n3 { bottom: 10px; left: 10px; } .n4 { bottom: 10px; left: 40%; }
-        .n5 { bottom: 10px; right: 40%; } .n6 { bottom: 10px; right: 10px; }
+        .legenda-item {
+            margin-bottom: 4px;
+            display: flex;
+        }
 
-        /* Lista Legenda */
-        .legend { padding: 15px; font-size: 12px; line-height: 1.4; color: #4e342e; overflow-y: auto; margin-bottom: 90px; }
-        .item { display: flex; margin-bottom: 8px; }
-        .item-n { background: #daa520; min-width: 18px; height: 18px; border-radius: 50%; text-align: center; margin-right: 10px; font-weight: bold; border: 1px solid #000; font-size: 11px; }
+        .numero {
+            font-weight: bold;
+            margin-right: 6px;
+            color: #8d6e63;
+        }
 
-        .footer { position: absolute; bottom: 0; width: 100%; height: 90px; background: #4b2b11; border-top: 3px solid #8b6b23; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; }
-        .nav-item { text-align: center; text-decoration: none; color: #d2b48c; font-size: 9px; }
-        .circle { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #8b6b23; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; background: #3e2723; font-size: 20px; }
-        .active .circle { background: #8b6b23; color: #3e2723; }
+        /* Overlay per i pulsanti di navigazione in fondo */
+        .nav-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 120px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+        .nav-link { 
+            text-decoration: none; 
+            cursor: pointer; 
+        }
+
     </style>
 </head>
 <body>
-    <div class="phone">
-        <div class="top-label">BOZZETTI - GUIDA INTERFACCIA - PAG. 2</div>
-        <div class="header"><h1>IL FORNO di Mauro e Francesca</h1></div>
+
+    <div class="schermo-telefono">
         
-        <div class="diagram">
-            <div class="girmi-label">GIRMI</div>
-            <div class="lcd"></div>
-            <div class="num n1">1</div> <div class="num n2">2</div>
-            <div class="num n3">3</div> <div class="num n4">4</div>
-            <div class="num n5">5</div> <div class="num n6">6</div>
+        <div class="legenda-container">
+            <div style="text-align: center; font-weight: bold; margin-bottom: 8px; text-transform: uppercase; font-size: 12px; border-bottom: 1px solid #d2b48c; padding-bottom: 4px;">
+                Istruzioni Pannello Comandi
+            </div>
+            <div class="legenda-item"><span class="numero">1.</span> <span><strong>DISPLAY:</strong> Mostra programma e tempo residuo.</span></div>
+            <div class="legenda-item"><span class="numero">2.</span> <span><strong>MENU:</strong> Seleziona uno dei 19 programmi.</span></div>
+            <div class="legenda-item"><span class="numero">3.</span> <span><strong>PESO:</strong> Imposta la taglia (500g, 750g, 1kg).</span></div>
+            <div class="legenda-item"><span class="numero">4.</span> <span><strong>STATO:</strong> Indicatori di fase (impasto, lievitazione).</span></div>
+            <div class="legenda-item"><span class="numero">5.</span> <span><strong>DORATURA:</strong> Scegli il colore della crosta.</span></div>
+            <div class="legenda-item"><span class="numero">6.</span> <span><strong>AVVIO/STOP:</strong> Fa partire o ferma la macchina.</span></div>
+            <div class="legenda-item"><span class="numero">7.</span> <span><strong>TIMER:</strong> Imposta la partenza ritardata.</span></div>
         </div>
 
-        <div class="legend">
-            <div class="item"><div class="item-n">1</div><span><b>Menu:</b> Selezione programmi (1-12)</span></div>
-            <div class="item"><div class="item-n">2</div><span><b>Doratura:</b> Crosta chiara/media/scura</span></div>
-            <div class="item"><div class="item-n">3</div><span><b>Peso:</b> Imposta 700g o 900g</span></div>
-            <div class="item"><div class="item-n">4</div><span><b>Timer +:</b> Aumenta tempo ritardato</span></div>
-            <div class="item"><div class="item-n">5</div><span><b>Timer -:</b> Diminuisce tempo ritardato</span></div>
-            <div class="item"><div class="item-n">6</div><span><b>Avvio/Stop:</b> Gestione ciclo</span></div>
+        <div class="nav-overlay">
+            <a href="programmi.html" class="nav-link" title="Programmi"></a>
+            <a href="index.html" class="nav-link" title="Home"></a> <a href="ricette.html" class="nav-link" title="Ricette"></a>
         </div>
-
-        <nav class="footer">
-            <a href="index.html" class="nav-item"><div class="circle">⚙</div>PROGRAMMI</a>
-            <a href="#" class="nav-item active"><div class="circle">🧭</div>GUIDA</a>
-            <a href="#" class="nav-item"><div class="circle">🌾</div>RICETTE</a>
-        </nav>
+        
     </div>
+
 </body>
 </html>
