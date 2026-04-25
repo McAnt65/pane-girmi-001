@@ -18,7 +18,7 @@
         .schermo-telefono {
             width: 360px;
             height: 640px;
-            background-image: url('sfondo_pag2.jpg'); /* Assicurati di rinominare l'ultima immagine così */
+            background-image: url('sfondo_pag2.jpg'); /* Ricorda di caricare l'ultima immagine con questo nome */
             background-size: cover;
             background-position: center;
             position: relative;
@@ -27,33 +27,68 @@
             overflow: hidden;
         }
 
-        /* Stile comune per le etichette dei comandi */
-        .etichetta {
+        /* Numeri all'interno delle palette del disegno */
+        .numero-paletta {
             position: absolute;
             color: #3e2723;
-            font-size: 10px;
+            font-size: 16px;
             font-weight: bold;
-            line-height: 1.1;
+            width: 65px;
             text-align: center;
-            width: 70px; /* Larghezza per adattarsi alle palette del disegno */
-            pointer-events: none; /* Non interferisce con i click */
+            pointer-events: none;
         }
 
-        /* Posizionamento preciso sulle palette del bozzetto */
-        /* Sinistra */
-        .pos-menu   { top: 268px; left: 45px; }
-        .pos-peso   { top: 325px; left: 45px; }
-        .pos-timer  { top: 382px; left: 45px; }
+        /* Posizioni calibrate sulle palette del bozzetto */
+        .n-1 { top: 268px; left: 48px; }  /* Menu */
+        .n-2 { top: 325px; left: 48px; }  /* Peso */
+        .n-3 { top: 382px; left: 48px; }  /* Timer */
+        .n-4 { top: 268px; right: 48px; } /* Display */
+        .n-5 { top: 325px; right: 48px; } /* Crosta */
+        .n-6 { top: 382px; right: 48px; } /* Avvio */
+        .n-7 { bottom: 205px; left: 147px; width: 75px; } /* Navigazione */
 
-        /* Destra */
-        .pos-display { top: 268px; right: 45px; }
-        .pos-crosta  { top: 325px; right: 45px; }
-        .pos-avvio   { top: 382px; right: 45px; }
-        
-        /* Centrale Basso */
-        .pos-nav     { bottom: 205px; left: 145px; width: 80px; }
+        /* Legenda sovrapposta agli ingranaggi */
+        .legenda-ingranaggi {
+            position: absolute;
+            bottom: 125px; /* Sopra i tastoni di navigazione */
+            left: 30px;
+            right: 30px;
+            background: rgba(245, 230, 200, 0.85); /* Effetto carta pergamena semi-trasparente */
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #d2b48c;
+            color: #3e2723;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
 
-        /* Navigazione inferiore */
+        .legenda-titolo {
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 13px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #8d6e63;
+            padding-bottom: 4px;
+        }
+
+        .legenda-lista {
+            font-size: 10.5px;
+            line-height: 1.4;
+        }
+
+        .legenda-item {
+            margin-bottom: 3px;
+            display: flex;
+        }
+
+        .bold-num {
+            font-weight: bold;
+            color: #8d6e63;
+            margin-right: 8px;
+            min-width: 15px;
+        }
+
+        /* Overlay Navigazione in fondo */
         .nav-overlay {
             position: absolute;
             bottom: 0;
@@ -63,10 +98,7 @@
             grid-template-columns: 1fr 1fr 1fr;
         }
         
-        .nav-link { 
-            text-decoration: none; 
-            cursor: pointer; 
-        }
+        .nav-link { cursor: pointer; }
 
     </style>
 </head>
@@ -74,19 +106,31 @@
 
     <div class="schermo-telefono">
         
-        <div class="etichetta pos-menu">SELEZIONE<br>MENU</div>
-        <div class="etichetta pos-peso">PESO<br>IMPASTO</div>
-        <div class="etichetta pos-timer">AVVIO<br>RITARDATO</div>
+        <div class="numero-paletta n-1">1</div>
+        <div class="numero-paletta n-2">2</div>
+        <div class="numero-paletta n-3">3</div>
+        <div class="numero-paletta n-4">4</div>
+        <div class="numero-paletta n-5">5</div>
+        <div class="numero-paletta n-6">6</div>
+        <div class="numero-paletta n-7">7</div>
 
-        <div class="etichetta pos-display">SCHERMO<br>VISIVO</div>
-        <div class="etichetta pos-crosta">COLORE<br>CROSTA</div>
-        <div class="etichetta pos-avvio">AVVIO<br>ARRESTO</div>
-        
-        <div class="etichetta pos-nav">NAVIGAZIONE<br>MENU</div>
+        <div class="legenda-ingranaggi">
+            <div class="legenda-titolo">Legenda Pannello</div>
+            <div class="legenda-lista">
+                <div class="legenda-item"><span class="bold-num">1.</span> <strong>MENU:</strong> Selezione dei 19 programmi.</div>
+                <div class="legenda-item"><span class="bold-num">2.</span> <strong>PESO:</strong> Imposta taglia (500g/750g/1kg).</div>
+                <div class="legenda-item"><span class="bold-num">3.</span> <strong>TIMER:</strong> Programma l'avvio ritardato.</div>
+                <div class="legenda-item"><span class="bold-num">4.</span> <strong>DISPLAY:</strong> Monitora tempi e fasi.</div>
+                <div class="legenda-item"><span class="bold-num">5.</span> <strong>CROSTA:</strong> Sceglie il livello di doratura.</div>
+                <div class="legenda-item"><span class="bold-num">6.</span> <strong>AVVIO:</strong> Tasto Start e Arresto ciclo.</div>
+                <div class="legenda-item"><span class="bold-num">7.</span> <strong>NAV:</strong> Tasti freccia per scorrere i menu.</div>
+            </div>
+        </div>
 
         <div class="nav-overlay">
             <a href="programmi.html" class="nav-link"></a>
-            <a href="index.html" class="nav-link"></a> <a href="ricette.html" class="nav-link"></a>
+            <a href="index.html" class="nav-link"></a>
+            <a href="ricette.html" class="nav-link"></a>
         </div>
         
     </div>
