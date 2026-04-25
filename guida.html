@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guida Macchina - Il Forno</title>
+    <title>Guida Comandi - Il Forno</title>
     <style>
         body { 
             margin: 0; 
@@ -18,55 +18,47 @@
         .schermo-telefono {
             width: 360px;
             height: 640px;
-            background-image: url('sfondo_pag2.jpg');
+            background-image: url('sfondo_pag2.jpg'); /* Assicurati di rinominare l'ultima immagine così */
             background-size: cover;
             background-position: center;
             position: relative;
             border: 4px solid #5d4037;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
             overflow: hidden;
         }
 
-        /* Legenda ottimizzata per non coprire i marcatori */
-        .legenda-container {
+        /* Stile comune per le etichette dei comandi */
+        .etichetta {
             position: absolute;
-            top: 92px; 
-            left: 35px;
-            right: 35px;
             color: #3e2723;
-            font-size: 10.5px; /* Leggermente più piccolo per sicurezza */
-            line-height: 1.35;
-        }
-
-        .titolo-sezione {
-            text-align: center; 
-            font-weight: bold; 
-            margin-bottom: 6px; 
-            text-transform: uppercase; 
-            font-size: 11px; 
-            letter-spacing: 1px;
-            border-bottom: 1px solid rgba(62, 39, 35, 0.2);
-            padding-bottom: 3px;
-        }
-
-        .legenda-item {
-            margin-bottom: 3px;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .numero {
+            font-size: 10px;
             font-weight: bold;
-            min-width: 18px;
-            color: #5d4037;
+            line-height: 1.1;
+            text-align: center;
+            width: 70px; /* Larghezza per adattarsi alle palette del disegno */
+            pointer-events: none; /* Non interferisce con i click */
         }
 
-        /* Navigazione identica alla Pagina 1 */
+        /* Posizionamento preciso sulle palette del bozzetto */
+        /* Sinistra */
+        .pos-menu   { top: 268px; left: 45px; }
+        .pos-peso   { top: 325px; left: 45px; }
+        .pos-timer  { top: 382px; left: 45px; }
+
+        /* Destra */
+        .pos-display { top: 268px; right: 45px; }
+        .pos-crosta  { top: 325px; right: 45px; }
+        .pos-avvio   { top: 382px; right: 45px; }
+        
+        /* Centrale Basso */
+        .pos-nav     { bottom: 205px; left: 145px; width: 80px; }
+
+        /* Navigazione inferiore */
         .nav-overlay {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 120px;
+            height: 110px;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
         }
@@ -75,28 +67,26 @@
             text-decoration: none; 
             cursor: pointer; 
         }
+
     </style>
 </head>
 <body>
 
     <div class="schermo-telefono">
         
-        <div class="legenda-container">
-            <div class="titolo-sezione">Legenda Pannello</div>
-            
-            <div class="legenda-item"><span class="numero">1.</span> <span><strong>Display:</strong> Programma, tempo e peso.</span></div>
-            <div class="legenda-item"><span class="numero">2.</span> <span><strong>Menu:</strong> Selezione dei 19 programmi.</span></div>
-            <div class="legenda-item"><span class="numero">3.</span> <span><strong>Peso:</strong> Selezione 500g, 750g o 1kg.</span></div>
-            <div class="legenda-item"><span class="numero">4.</span> <span><strong>Fasi:</strong> Indicatori di lavorazione.</span></div>
-            <div class="legenda-item"><span class="numero">5.</span> <span><strong>Crosta:</strong> Colore crosta (Chiara, Media, Scura).</span></div>
-            <div class="legenda-item"><span class="numero">6.</span> <span><strong>Avvio:</strong> Premere per iniziare o fermare.</span></div>
-            <div class="legenda-item"><span class="numero">7.</span> <span><strong>Timer:</strong> Imposta avvio ritardato (+ / -).</span></div>
-        </div>
+        <div class="etichetta pos-menu">SELEZIONE<br>MENU</div>
+        <div class="etichetta pos-peso">PESO<br>IMPASTO</div>
+        <div class="etichetta pos-timer">AVVIO<br>RITARDATO</div>
+
+        <div class="etichetta pos-display">SCHERMO<br>VISIVO</div>
+        <div class="etichetta pos-crosta">COLORE<br>CROSTA</div>
+        <div class="etichetta pos-avvio">AVVIO<br>ARRESTO</div>
+        
+        <div class="etichetta pos-nav">NAVIGAZIONE<br>MENU</div>
 
         <div class="nav-overlay">
             <a href="programmi.html" class="nav-link"></a>
-            <a href="index.html" class="nav-link"></a>
-            <a href="ricette.html" class="nav-link"></a>
+            <a href="index.html" class="nav-link"></a> <a href="ricette.html" class="nav-link"></a>
         </div>
         
     </div>
