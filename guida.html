@@ -18,7 +18,7 @@
         .schermo-telefono {
             width: 360px;
             height: 640px;
-            background-image: url('sfondo_pag2.jpg'); /* Carica l'ultimo bozzetto con questo nome */
+            background-image: url('sfondo_pag2.jpg'); /* Ricorda di caricare l'ultima immagine con questo nome */
             background-size: cover;
             background-position: center;
             position: relative;
@@ -27,70 +27,68 @@
             overflow: hidden;
         }
 
-        /* Numeri posizionati nelle palette del disegno */
-        .numero-identificativo {
+        /* Numeri all'interno delle palette del disegno */
+        .numero-paletta {
             position: absolute;
             color: #3e2723;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            width: 60px;
+            width: 65px;
             text-align: center;
             pointer-events: none;
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.3);
         }
 
-        /* Coordinate calibrate sulle palette del bozzetto */
-        .n-1 { top: 265px; left: 52px; }  /* Menu */
-        .n-2 { top: 322px; left: 52px; }  /* Peso */
-        .n-3 { top: 380px; left: 52px; }  /* Timer */
-        .n-4 { top: 265px; right: 52px; } /* Display */
-        .n-5 { top: 322px; right: 52px; } /* Crosta */
-        .n-6 { top: 380px; right: 52px; } /* Avvio */
-        .n-7 { bottom: 202px; left: 142px; width: 85px; } /* Navigazione */
+        /* Posizioni calibrate sulle palette del bozzetto */
+        .n-1 { top: 268px; left: 48px; }  /* Menu */
+        .n-2 { top: 325px; left: 48px; }  /* Peso */
+        .n-3 { top: 382px; left: 48px; }  /* Timer */
+        .n-4 { top: 268px; right: 48px; } /* Display */
+        .n-5 { top: 325px; right: 48px; } /* Crosta */
+        .n-6 { top: 382px; right: 48px; } /* Avvio */
+        .n-7 { bottom: 205px; left: 147px; width: 75px; } /* Navigazione */
 
-        /* Scatola della Legenda sopra gli ingranaggi */
-        .box-legenda {
+        /* Legenda sovrapposta agli ingranaggi */
+        .legenda-ingranaggi {
             position: absolute;
-            bottom: 125px; /* Posizionata sopra i tasti di navigazione */
-            left: 25px;
-            right: 25px;
-            background: rgba(240, 220, 180, 0.88); /* Effetto carta antica semitrasparente */
+            bottom: 125px; /* Sopra i tastoni di navigazione */
+            left: 30px;
+            right: 30px;
+            background: rgba(245, 230, 200, 0.85); /* Effetto carta pergamena semi-trasparente */
             padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #8d6e63;
-            color: #2e1a12;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-radius: 8px;
+            border: 1px solid #d2b48c;
+            color: #3e2723;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .titolo-legenda {
+        .legenda-titolo {
             text-align: center;
             font-weight: bold;
             text-transform: uppercase;
             font-size: 13px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             border-bottom: 1px solid #8d6e63;
-            padding-bottom: 3px;
-            letter-spacing: 1px;
+            padding-bottom: 4px;
         }
 
-        .lista-legenda {
-            font-size: 10px;
-            line-height: 1.35;
+        .legenda-lista {
+            font-size: 10.5px;
+            line-height: 1.4;
         }
 
-        .voce-legenda {
-            margin-bottom: 2px;
+        .legenda-item {
+            margin-bottom: 3px;
             display: flex;
         }
 
-        .marker {
+        .bold-num {
             font-weight: bold;
-            color: #5d4037;
-            margin-right: 6px;
-            min-width: 14px;
+            color: #8d6e63;
+            margin-right: 8px;
+            min-width: 15px;
         }
 
-        /* Overlay pulsanti invisibili per navigazione */
+        /* Overlay Navigazione in fondo */
         .nav-overlay {
             position: absolute;
             bottom: 0;
@@ -108,30 +106,31 @@
 
     <div class="schermo-telefono">
         
-        <div class="numero-identificativo n-1">1</div>
-        <div class="numero-identificativo n-2">2</div>
-        <div class="numero-identificativo n-3">3</div>
-        <div class="numero-identificativo n-4">4</div>
-        <div class="numero-identificativo n-5">5</div>
-        <div class="numero-identificativo n-6">6</div>
-        <div class="numero-identificativo n-7">7</div>
+        <div class="numero-paletta n-1">1</div>
+        <div class="numero-paletta n-2">2</div>
+        <div class="numero-paletta n-3">3</div>
+        <div class="numero-paletta n-4">4</div>
+        <div class="numero-paletta n-5">5</div>
+        <div class="numero-paletta n-6">6</div>
+        <div class="numero-paletta n-7">7</div>
 
-        <div class="box-legenda">
-            <div class="titolo-legenda">Legenda Comandi</div>
-            <div class="lista-legenda">
-                <div class="voce-legenda"><span class="marker">1.</span> <span><strong>MENU:</strong> Selezione dei 19 programmi disponibili.</span></div>
-                <div class="voce-legenda"><span class="marker">2.</span> <span><strong>PESO:</strong> Scelta taglia pane (500g, 750g, 1kg).</span></div>
-                <div class="voce-legenda"><span class="marker">3.</span> <span><strong>TIMER:</strong> Imposta la partenza ritardata.</span></div>
-                <div class="voce-legenda"><span class="marker">4.</span> <span><strong>DISPLAY:</strong> Visualizza tempi, fasi e programmi.</span></div>
-                <div class="voce-legenda"><span class="marker">5.</span> <span><strong>CROSTA:</strong> Regola il livello di doratura desiderato.</span></div>
-                <div class="voce-legenda"><span class="marker">6.</span> <span><strong>AVVIO:</strong> Tasto per avviare o arrestare la cottura.</span></div>
-                <div class="voce-legenda"><span class="marker">7.</span> <span><strong>FRECCE:</strong> Pulsanti per scorrere i menu e i tempi.</span></div>
+        <div class="legenda-ingranaggi">
+            <div class="legenda-titolo">Legenda Pannello</div>
+            <div class="legenda-lista">
+                <div class="legenda-item"><span class="bold-num">1.</span> <strong>MENU:</strong> Selezione dei 19 programmi.</div>
+                <div class="legenda-item"><span class="bold-num">2.</span> <strong>PESO:</strong> Imposta taglia (500g/750g/1kg).</div>
+                <div class="legenda-item"><span class="bold-num">3.</span> <strong>TIMER:</strong> Programma l'avvio ritardato.</div>
+                <div class="legenda-item"><span class="bold-num">4.</span> <strong>DISPLAY:</strong> Monitora tempi e fasi.</div>
+                <div class="legenda-item"><span class="bold-num">5.</span> <strong>CROSTA:</strong> Sceglie il livello di doratura.</div>
+                <div class="legenda-item"><span class="bold-num">6.</span> <strong>AVVIO:</strong> Tasto Start e Arresto ciclo.</div>
+                <div class="legenda-item"><span class="bold-num">7.</span> <strong>NAV:</strong> Tasti freccia per scorrere i menu.</div>
             </div>
         </div>
 
         <div class="nav-overlay">
             <a href="programmi.html" class="nav-link"></a>
-            <a href="index.html" class="nav-link"></a> <a href="ricette.html" class="nav-link"></a>
+            <a href="index.html" class="nav-link"></a>
+            <a href="ricette.html" class="nav-link"></a>
         </div>
         
     </div>
