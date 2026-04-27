@@ -5,125 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guida Macchina - Il Forno</title>
     <style>
-        /* Reset e Base */
         body { 
             margin: 0; 
-            padding: 0;
             background: #1a0f00; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            font-family: 'Georgia', serif; 
         }
         
         .schermo-telefono {
             width: 360px;
             height: 640px;
-            /* Usa l'immagine originale che contiene già i testi */
+            /* Assicurati che l'immagine caricata si chiami sfondo_pag2.jpg */
             background-image: url('sfondo_pag2.jpg'); 
-            background-size: cover;
-            background-position: center;
+            background-size: 100% 100%;
             position: relative;
             border: 4px solid #5d4037;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        /* Navigazione Inferiore (Tasti Attivi) */
-        .footer-nav {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 130px; /* Spazio per tastoni + tasto home */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            padding-bottom: 12px;
-            background: linear-gradient(to top, rgba(0,0,0,0.6) 20%, transparent);
-        }
-
-        .tastoni-wrap {
-            display: flex;
-            justify-content: space-around;
-            width: 92%;
-            margin-bottom: 10px;
-        }
-
-        .tasto-pelle {
-            width: 95px;
-            height: 65px;
-            background: #5d4037;
-            border: 2px solid #3e2723;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 4px 6px rgba(0,0,0,0.4);
-            transition: all 0.2s ease;
-        }
-
-        /* Effetto per il tasto della pagina corrente (GUIDA) */
-        .tasto-pelle.active {
-            background: #8d6e63;
-            border-color: #d4af37;
-            box-shadow: inset 0 0 15px rgba(255,255,255,0.2), 0 0 15px rgba(212,175,55,0.4);
-            transform: translateY(-2px);
-        }
-
-        .tasto-pelle span { 
-            font-size: 10px; 
-            font-weight: bold; 
-            text-align: center; 
-            text-transform: uppercase;
-            color: #f4e4bc; /* Colore crema vintage */
-            letter-spacing: 0.5px;
-        }
-
-        /* Tasto Home in fondo */
-        .btn-home {
-            background: rgba(46, 26, 18, 0.9);
-            color: #d4af37;
-            padding: 5px 25px;
             border-radius: 15px;
-            text-decoration: none;
-            font-size: 11px;
-            border: 1px solid #d4af37;
-            text-transform: uppercase;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
 
-        .btn-home:active {
-            transform: scale(0.95);
+        /* Area dei tasti invisibili sovrapposti al disegno */
+        .area-link {
+            position: absolute;
+            cursor: pointer;
+            /* debug: background: rgba(255,0,0,0.3); <- Togli il commento per vedere dove sono le aree */
+        }
+
+        /* Posizionamento basato sull'immagine della Pagina 1/2 */
+        .link-programmi {
+            width: 30%;
+            height: 12%;
+            bottom: 12%;
+            left: 3%;
+        }
+
+        .link-guida {
+            width: 30%;
+            height: 12%;
+            bottom: 12%;
+            left: 35%;
+        }
+
+        .link-ricette {
+            width: 30%;
+            height: 12%;
+            bottom: 12%;
+            right: 3%;
+        }
+
+        .link-home {
+            width: 60%;
+            height: 6%;
+            bottom: 3%;
+            left: 20%;
         }
     </style>
 </head>
 <body>
 
     <div class="schermo-telefono">
-        
-        <div class="footer-nav">
-            <div class="tastoni-wrap">
-                <a href="programmi.html" class="tasto-pelle">
-                    <span>Programmi</span>
-                </a>
-                
-                <a href="guida.html" class="tasto-pelle active">
-                    <span>Guida Macchina</span>
-                </a>
-                
-                <a href="ricette.html" class="tasto-pelle">
-                    <span>Ricette</span>
-                </a>
-            </div>
-
-            <a href="index.html" class="btn-home">Torna alla Home</a>
-        </div>
-        
+        <a href="programmi.html" class="area-link link-programmi"></a>
+        <a href="guida.html" class="area-link link-guida"></a>
+        <a href="ricette.html" class="area-link link-ricette"></a>
+        <a href="index.html" class="area-link link-home"></a>
     </div>
 
 </body>
