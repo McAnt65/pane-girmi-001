@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guida Comandi - Il Forno</title>
+    <title>Guida Macchina - Il Forno</title>
     <style>
+        :root {
+            --color-vintage: #2e1a12;
+            --bg-pergamena: #f4e4bc;
+        }
+
         body { 
             margin: 0; 
             background: #1a0f00; 
@@ -18,87 +23,78 @@
         .schermo-telefono {
             width: 360px;
             height: 640px;
-            background-image: url('sfondo_pag2.jpg'); /* Ricorda di caricare l'ultima immagine con questo nome */
+            /* Inserisci qui il nome esatto dell'immagine di sfondo della Pag. 2 */
+            background-image: url('sfondo_pag2.jpg'); 
             background-size: cover;
             background-position: center;
             position: relative;
             border: 4px solid #5d4037;
-            box-shadow: 0 0 50px rgba(0,0,0,0.9);
             overflow: hidden;
-        }
-
-        /* Numeri all'interno delle palette del disegno */
-        .numero-paletta {
-            position: absolute;
-            color: #3e2723;
-            font-size: 16px;
-            font-weight: bold;
-            width: 65px;
-            text-align: center;
-            pointer-events: none;
-        }
-
-        /* Posizioni calibrate sulle palette del bozzetto */
-        .n-1 { top: 268px; left: 48px; }  /* Menu */
-        .n-2 { top: 325px; left: 48px; }  /* Peso */
-        .n-3 { top: 382px; left: 48px; }  /* Timer */
-        .n-4 { top: 268px; right: 48px; } /* Display */
-        .n-5 { top: 325px; right: 48px; } /* Crosta */
-        .n-6 { top: 382px; right: 48px; } /* Avvio */
-        .n-7 { bottom: 205px; left: 147px; width: 75px; } /* Navigazione */
-
-        /* Legenda sovrapposta agli ingranaggi */
-        .legenda-ingranaggi {
-            position: absolute;
-            bottom: 125px; /* Sopra i tastoni di navigazione */
-            left: 30px;
-            right: 30px;
-            background: rgba(245, 230, 200, 0.85); /* Effetto carta pergamena semi-trasparente */
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #d2b48c;
-            color: #3e2723;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .legenda-titolo {
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 13px;
-            margin-bottom: 8px;
-            border-bottom: 1px solid #8d6e63;
-            padding-bottom: 4px;
-        }
-
-        .legenda-lista {
-            font-size: 10.5px;
-            line-height: 1.4;
-        }
-
-        .legenda-item {
-            margin-bottom: 3px;
             display: flex;
+            flex-direction: column;
         }
 
-        .bold-num {
-            font-weight: bold;
-            color: #8d6e63;
-            margin-right: 8px;
-            min-width: 15px;
-        }
-
-        /* Overlay Navigazione in fondo */
-        .nav-overlay {
+        /* Navigazione Inferiore (Tastoni Luminosi) */
+        .footer-nav {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 110px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            height: 120px;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 10px;
         }
-        
-        .nav-link { cursor: pointer; }
+
+        .tastoni-wrap {
+            display: flex;
+            justify-content: space-around;
+            width: 95%;
+            margin-bottom: 10px;
+        }
+
+        .tasto-pelle {
+            width: 100px;
+            height: 70px;
+            background: #6d4c41;
+            border: 2px solid #3e2723;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.4);
+            transition: 0.3s;
+        }
+
+        /* Effetto Luminoso per pagina Attuale (Pag. 2 = Guida) */
+        .tasto-pelle.active {
+            background: #8d6e63;
+            box-shadow: inset 0 0 15px rgba(255,255,255,0.2), 0 0 15px rgba(212,175,55,0.4);
+            border-color: #d4af37;
+        }
+
+        .tasto-pelle span { 
+            font-size: 9px; 
+            font-weight: bold; 
+            text-align: center; 
+            text-transform: uppercase; 
+        }
+
+        .btn-home {
+            background: rgba(62, 39, 35, 0.8);
+            color: #d4af37;
+            padding: 5px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 11px;
+            border: 1px solid #d4af37;
+            text-transform: uppercase;
+        }
 
     </style>
 </head>
@@ -106,31 +102,21 @@
 
     <div class="schermo-telefono">
         
-        <div class="numero-paletta n-1">1</div>
-        <div class="numero-paletta n-2">2</div>
-        <div class="numero-paletta n-3">3</div>
-        <div class="numero-paletta n-4">4</div>
-        <div class="numero-paletta n-5">5</div>
-        <div class="numero-paletta n-6">6</div>
-        <div class="numero-paletta n-7">7</div>
-
-        <div class="legenda-ingranaggi">
-            <div class="legenda-titolo">Legenda Pannello</div>
-            <div class="legenda-lista">
-                <div class="legenda-item"><span class="bold-num">1.</span> <strong>MENU:</strong> Selezione dei 19 programmi.</div>
-                <div class="legenda-item"><span class="bold-num">2.</span> <strong>PESO:</strong> Imposta taglia (500g/750g/1kg).</div>
-                <div class="legenda-item"><span class="bold-num">3.</span> <strong>TIMER:</strong> Programma l'avvio ritardato.</div>
-                <div class="legenda-item"><span class="bold-num">4.</span> <strong>DISPLAY:</strong> Monitora tempi e fasi.</div>
-                <div class="legenda-item"><span class="bold-num">5.</span> <strong>CROSTA:</strong> Sceglie il livello di doratura.</div>
-                <div class="legenda-item"><span class="bold-num">6.</span> <strong>AVVIO:</strong> Tasto Start e Arresto ciclo.</div>
-                <div class="legenda-item"><span class="bold-num">7.</span> <strong>NAV:</strong> Tasti freccia per scorrere i menu.</div>
+        <div class="footer-nav">
+            <div class="tastoni-wrap">
+                <a href="programmi.html" class="tasto-pelle">
+                    <span>Programmi</span>
+                </a>
+                
+                <a href="guida.html" class="tasto-pelle active">
+                    <span>Guida Macchina</span>
+                </a>
+                
+                <a href="ricette.html" class="tasto-pelle">
+                    <span>Ricette</span>
+                </a>
             </div>
-        </div>
-
-        <div class="nav-overlay">
-            <a href="programmi.html" class="nav-link"></a>
-            <a href="index.html" class="nav-link"></a>
-            <a href="ricette.html" class="nav-link"></a>
+            <a href="index.html" class="btn-home">Torna alla Home</a>
         </div>
         
     </div>
