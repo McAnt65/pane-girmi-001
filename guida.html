@@ -5,71 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guida Macchina - Il Forno</title>
     <style>
+        * { box-sizing: border-box; }
+        
         body { 
             margin: 0; 
+            padding: 0;
             background: #1a0f00; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            min-height: 100vh; 
+            min-height: 100vh;
+            overflow: hidden;
         }
         
         .schermo-telefono {
             width: 360px;
             height: 640px;
-            /* Assicurati che l'immagine caricata si chiami sfondo_pag2.jpg */
+            /* L'immagine deve chiamarsi sfondo_pag2.jpg */
             background-image: url('sfondo_pag2.jpg'); 
             background-size: 100% 100%;
+            background-position: center;
             position: relative;
             border: 4px solid #5d4037;
             border-radius: 15px;
-            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
 
-        /* Area dei tasti invisibili sovrapposti al disegno */
-        .area-link {
+        /* Area generica per i link trasparenti */
+        .mappa-tasti a {
             position: absolute;
-            cursor: pointer;
-            /* debug: background: rgba(255,0,0,0.3); <- Togli il commento per vedere dove sono le aree */
+            display: block;
+            text-decoration: none;
+            /* debug: background: rgba(255, 0, 0, 0.4); <- Attiva per vedere le aree rosse */
         }
 
-        /* Posizionamento basato sull'immagine della Pagina 1/2 */
-        .link-programmi {
-            width: 30%;
-            height: 12%;
-            bottom: 12%;
-            left: 3%;
+        /* Tasto PROGRAMMI (Sinistra) */
+        .btn-programmi {
+            width: 105px;
+            height: 75px;
+            bottom: 68px;
+            left: 10px;
         }
 
-        .link-guida {
-            width: 30%;
-            height: 12%;
-            bottom: 12%;
-            left: 35%;
+        /* Tasto GUIDA MACCHINA (Centro - Già luminoso nel disegno) */
+        .btn-guida {
+            width: 110px;
+            height: 80px;
+            bottom: 72px;
+            left: 125px;
         }
 
-        .link-ricette {
-            width: 30%;
-            height: 12%;
-            bottom: 12%;
-            right: 3%;
+        /* Tasto RICETTE (Destra) */
+        .btn-ricette {
+            width: 105px;
+            height: 75px;
+            bottom: 68px;
+            right: 10px;
         }
 
-        .link-home {
-            width: 60%;
-            height: 6%;
-            bottom: 3%;
-            left: 20%;
+        /* Targa TORNA ALLA HOME (In fondo) */
+        .btn-home {
+            width: 220px;
+            height: 45px;
+            bottom: 12px;
+            left: 70px;
         }
+
+        /* Effetto feedback visivo al tocco */
+        .mappa-tasti a:active {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
     </style>
 </head>
 <body>
 
     <div class="schermo-telefono">
-        <a href="programmi.html" class="area-link link-programmi"></a>
-        <a href="guida.html" class="area-link link-guida"></a>
-        <a href="ricette.html" class="area-link link-ricette"></a>
-        <a href="index.html" class="area-link link-home"></a>
+        <nav class="mappa-tasti">
+            <a href="programmi.html" class="btn-programmi" title="Vai ai Programmi"></a>
+            <a href="guida.html" class="btn-guida" title="Pagina Corrente"></a>
+            <a href="ricette.html" class="btn-ricette" title="Vai alle Ricette"></a>
+            <a href="index.html" class="btn-home" title="Torna alla Home"></a>
+        </nav>
     </div>
 
 </body>
