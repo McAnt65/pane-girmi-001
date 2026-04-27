@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmi - Il Forno di Mauro e Francesca</title>
+    <style>
+        * { box-sizing: border-box; }
+        
+        body { 
+            margin: 0; 
+            padding: 0;
+            background: #1a0f00; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        
+        .schermo-telefono {
+            width: 360px;
+            height: 640px;
+            /* Usa l'immagine con il Porridge salvata come sfondo_pag3.jpg */
+            background-image: url('sfondo_pag3.jpg'); 
+            background-size: 100% 100%;
+            background-position: center;
+            position: relative;
+            border: 4px solid #5d4037;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+        }
 
+        /* Area dei link invisibili sopra i tasti disegnati */
+        .mappa-tasti a {
+            position: absolute;
+            display: block;
+            text-decoration: none;
+            /* debug: background: rgba(255, 0, 0, 0.3); <- Attiva per vedere i rettangoli di clic */
+        }
+
+        /* Tasto PROGRAMMI (Sinistra - Attivo nel disegno) */
+        .btn-programmi {
+            width: 95px;
+            height: 75px;
+            bottom: 60px;
+            left: 12px;
+        }
+
+        /* Tasto GUIDA MACCHINA (Centro) */
+        .btn-guida {
+            width: 105px;
+            height: 80px;
+            bottom: 62px;
+            left: 128px;
+        }
+
+        /* Tasto RICETTE (Destra) */
+        .btn-ricette {
+            width: 95px;
+            height: 75px;
+            bottom: 60px;
+            right: 12px;
+        }
+
+        /* Targa TORNA ALLA HOME (In fondo) */
+        .btn-home {
+            width: 240px;
+            height: 40px;
+            bottom: 10px;
+            left: 60px;
+        }
+
+        /* Feedback al tocco */
+        .mappa-tasti a:active {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="schermo-telefono">
+        <nav class="mappa-tasti">
+            <a href="programmi.html" class="btn-programmi" title="Programmi"></a>
+            <a href="guida.html" class="btn-guida" title="Guida Macchina"></a>
+            <a href="ricette.html" class="btn-ricette" title="Ricette"></a>
+            <a href="index.html" class="btn-home" title="Home"></a>
+        </nav>
+    </div>
+
+</body>
+</html>
